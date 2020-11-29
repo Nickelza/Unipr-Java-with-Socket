@@ -4,4 +4,4 @@
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  * @version 1.0
  */
-package it.unipr.ingegneria.util;
+package it.unipr.ingegneria.utils;

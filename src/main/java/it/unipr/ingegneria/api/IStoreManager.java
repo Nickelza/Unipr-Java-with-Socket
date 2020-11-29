@@ -1,5 +1,7 @@
 package it.unipr.ingegneria.api;
 
+import it.unipr.ingegneria.entities.Order;
+import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.exception.AvailabilityException;
 import it.unipr.ingegneria.utils.Params;
 
@@ -11,10 +13,10 @@ import java.util.Map;
  *
  * @param <T> Generic Parameter
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
- * @see it.unipr.ingegneria.api.IWarehouseManager
+ * @see IWarehouseManager
  * @see it.unipr.ingegneria.exception.AvailabilityException
  */
-public interface IStoreManager<T> extends IWarehouseManager<T> {
+public interface IStoreManager<T> {
     /**
      * Method that sell the wine
      *
@@ -22,7 +24,7 @@ public interface IStoreManager<T> extends IWarehouseManager<T> {
      * @return a generic list
      * @throws AvailabilityException
      */
-    List<T> sellWine(Map<Params, Object> elements) throws AvailabilityException;
+    Order sellWine(User to, Map<Params, Object> elements) throws AvailabilityException;
 
 
     /**

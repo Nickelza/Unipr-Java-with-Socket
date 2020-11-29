@@ -2,6 +2,8 @@ package it.unipr.ingegneria.api;
 
 import it.unipr.ingegneria.entities.user.User;
 
+import java.util.List;
+
 /**
  * The {@code IUserManager} interface contain the method to manage a user.
  *
@@ -25,8 +27,11 @@ public interface IUserManager {
     /**
      * Method to control if is user.
      *
-     * @param item User to check existence
-     * @return
+     * @param email    User email
+     * @param password User password
+     * @return User if exisist
      */
-    Boolean hasUser(User item);
+    User findByMailAndPassword(String email, String password);
+
+
 }

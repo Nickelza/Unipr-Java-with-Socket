@@ -18,27 +18,45 @@ import java.util.Map;
  * Extends the class {@code User} and implements {@code IObserver} interface
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
- * @see it.unipr.ingegneria.entities.user.User
- * @see it.unipr.ingegneria.api.IObserver
+ * @see User
+ * @see IObserver
  */
 public class Employee extends User implements IObserver {
 
     private Boolean isWorking;
-    private static final Logger logger = Logger.getLogger(Employee.class);
+
 
     /**
-     * Default class constructor
+     * Constructor used when instantiate the object without knowing any data. Will be enriched later
+     */
+    public Employee() {
+        super();
+    }
+
+    /**
+     * Constructor used when instantiate the object without knowing the id, obtained after it persisted
      *
-     * @param name     Name
-     * @param surname  Surname
-     * @param email    Email
-     * @param password Password
-     * @param wineShop WineShop for handling Warehouse
+     * @param name     Admin name
+     * @param surname  Admin surname
+     * @param email    Admin Email
+     * @param password Admin Password
+     * @param wineShop Wine Shop Object
      */
     public Employee(String name, String surname, String email, String password, WineShop wineShop) {
         super(name, surname, email, password, Type.EMPLOYEE, wineShop);
-        // We pass inside the constructor the WineShop instance where the Employee will go to work, so we add the employee itself without adding it in second time
-        wineShop.addUser(this);
+    }
+
+    /**
+     * Constructor used when instantiate the object  knowing the id, obtained when read the Object from a ResultSet
+     *
+     * @param id       Employee id
+     * @param name     Employee name
+     * @param surname  Employee surname
+     * @param email    Employee Email
+     * @param password Employee Password
+     */
+    public Employee(int id, String name, String surname, String email, String password) {
+        super(id, name, surname, email, password, Type.ADMIN);
     }
 
     /**

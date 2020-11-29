@@ -1,30 +1,27 @@
 package it.unipr.ingegneria.entities.user;
 
 import it.unipr.ingegneria.api.IUserManager;
-import it.unipr.ingegneria.entities.WineShop;
-import it.unipr.ingegneria.repo.RelUserWineshop;
-import it.unipr.ingegneria.repo.UserRepo;
-import it.unipr.ingegneria.utils.Type;
+import it.unipr.ingegneria.api.Persistable;
+import it.unipr.ingegneria.db.persistance.relations.RelUserWineshop;
+import it.unipr.ingegneria.db.persistance.UserDAO;
 
-public class Admin extends User implements IUserManager {
+public class Admin extends User implements IUserManager, Persistable<Admin> {
 
-    UserRepo userRepo = UserRepo.getInstance();
-    RelUserWineshop relUserWineshop = RelUserWineshop.getInstance();
+    private transient UserDAO userDAO = UserDAO.getInstance();
+    private transient RelUserWineshop relUserWineshop = RelUserWineshop.getInstance();
 
 
-    public Admin(String name, String surname, String email, String password) {
-        super(name, surname, email, password, Type.ADMIN);
-        userRepo.add(this);
+    /**
+     * Constructor used when instantiate the object without knowing any data. Will be enriched later
+     */
+    public Admin() {
+        super();
     }
+
 
     @Override
     public void addUser(User user) {
-        userRepo.add(user);
-        if (user instanceof Employee) {
-            Employee employee = (Employee) user;
-            WineShop wineShop = employee.getWineshop();
-            relUserWineshop.add(user, wineShop);
-        }
+        wineshop.addUser(user);
     }
 
     @Override
@@ -33,9 +30,15 @@ public class Admin extends User implements IUserManager {
     }
 
     @Override
-    public Boolean hasUser(User item) {
-        return null;
+    public User findByMailAndPassword(String email, String password) {
+        return wineshop.findByMailAndPassword(email, password);
     }
 
 
+    @Override
+    public Admin persist() {
+        userDAO.add(this);
+        relUserWineshop.add(this, this.wineshop);
+        return this;
+    }
 }

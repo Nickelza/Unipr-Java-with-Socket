@@ -1,6 +1,7 @@
-package it.unipr.ingegneria.request;
+package it.unipr.ingegneria.request.search;
 
 
+import it.unipr.ingegneria.request.ModelRequest;
 import it.unipr.ingegneria.utils.ModelRequestType;
 
 public class SearchRequest<MODEL> extends ModelRequest {

@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.db.persistance;
+package it.unipr.ingegneria.db.persistance.relations;
 
 import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.entities.Warehouse;
@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class RelWineWarehouse {
+
     private Connection conn;
     private static RelWineWarehouse INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(RelWineshopWarehouse.class);
@@ -38,7 +39,7 @@ public class RelWineWarehouse {
             }
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 
@@ -56,7 +57,7 @@ public class RelWineWarehouse {
             }
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.info(e);
         }
     }
 }

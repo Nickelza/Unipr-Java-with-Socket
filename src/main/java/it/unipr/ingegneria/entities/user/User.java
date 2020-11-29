@@ -4,6 +4,7 @@ package it.unipr.ingegneria.entities.user;
 import it.unipr.ingegneria.entities.WineShop;
 import it.unipr.ingegneria.utils.Type;
 
+import java.io.Serializable;
 import java.util.Observer;
 
 /**
@@ -14,21 +15,58 @@ import java.util.Observer;
  * @see Customer
  * @see Employee
  */
-public abstract class User {
+public abstract class User implements Serializable {
 
-    private long id;
+    private int id;
     private String name;
     private String surname;
     private String email;
-    private String password;
-    private Type userType;
-    protected WineShop wineshop;
+    private transient String password;
+    private String userType;
+    protected transient WineShop wineshop;
 
-    public long getId() {
+    public User setWineshop(WineShop wineshop) {
+        this.wineshop = wineshop;
+        return this;
+    }
+
+
+    public User(){}
+
+    public User(String name, String surname, String email, String password, Type type) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.userType = type.toString();
+    }
+
+
+    public User(int id, String name, String surname, String email, String password, Type type) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.userType = type.toString();
+    }
+
+
+    public User(String name, String surname, String email, String password, Type type, WineShop wineShop) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.userType = type.toString();
+        this.wineshop = wineShop;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public User setId(long id) {
+    public User setId(int id) {
         this.id = id;
         return this;
     }
@@ -69,39 +107,16 @@ public abstract class User {
         return this;
     }
 
-    public Type getUserType() {
+    public String getUserType() {
         return userType;
     }
 
     public User setUserType(Type userType) {
-        this.userType = userType;
+        this.userType = userType.toString();
         return this;
     }
 
     public WineShop getWineshop() {
         return wineshop;
     }
-
-    public User setWineshop(WineShop wineshop) {
-        this.wineshop = wineshop;
-        return this;
-    }
-
-    public User(String name, String surname, String email, String password, Type type) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-        this.userType = type;
-    }
-
-    public User(String name, String surname, String email, String password, Type type, WineShop wineShop) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-        this.userType = type;
-        this.wineshop = wineShop;
-    }
-
 }

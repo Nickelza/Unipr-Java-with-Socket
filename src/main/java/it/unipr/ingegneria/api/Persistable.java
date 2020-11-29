@@ -1,5 +1,5 @@
 package it.unipr.ingegneria.api;
 
-public interface Persitable<T> {
+public interface Persistable<T> {
     T persist();
 }

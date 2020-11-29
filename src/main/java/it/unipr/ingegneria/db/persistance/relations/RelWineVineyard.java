@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.db.persistance;
+package it.unipr.ingegneria.db.persistance.relations;
 
 import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.entities.Vineyard;
@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class RelWineVineyard {
+
     private Connection conn;
     private static RelWineVineyard INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(RelWineshopWarehouse.class);
@@ -47,7 +48,7 @@ public class RelWineVineyard {
                 preparedStatement.executeBatch();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 }

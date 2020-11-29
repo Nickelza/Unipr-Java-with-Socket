@@ -1,5 +1,6 @@
-package it.unipr.ingegneria.request;
+package it.unipr.ingegneria.request.create;
 
+import it.unipr.ingegneria.request.ModelRequest;
 import it.unipr.ingegneria.utils.ModelRequestType;
 
 public class CreateRequest<MODEL> extends ModelRequest {

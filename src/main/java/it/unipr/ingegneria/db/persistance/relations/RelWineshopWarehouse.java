@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.db.persistance;
+package it.unipr.ingegneria.db.persistance.relations;
 
 import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.entities.Warehouse;

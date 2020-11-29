@@ -3,9 +3,10 @@ package it.unipr.ingegneria.request.create;
 import it.unipr.ingegneria.entities.Vineyard;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProvisioningCriteria implements Serializable {
+public class CreateProvisioningCriteria implements Serializable {
     private String name;
     private int year;
     private String producer;
@@ -13,11 +14,16 @@ public class ProvisioningCriteria implements Serializable {
     private List<Vineyard> vineyards;
     private int inQuantity;
 
+
+    public CreateProvisioningCriteria() {
+        this.vineyards = new ArrayList<>();
+    }
+
     public String getName() {
         return name;
     }
 
-    public ProvisioningCriteria setName(String name) {
+    public CreateProvisioningCriteria setName(String name) {
         this.name = name;
         return this;
     }
@@ -26,7 +32,7 @@ public class ProvisioningCriteria implements Serializable {
         return year;
     }
 
-    public ProvisioningCriteria setYear(int year) {
+    public CreateProvisioningCriteria setYear(int year) {
         this.year = year;
         return this;
     }
@@ -35,7 +41,7 @@ public class ProvisioningCriteria implements Serializable {
         return producer;
     }
 
-    public ProvisioningCriteria setProducer(String producer) {
+    public CreateProvisioningCriteria setProducer(String producer) {
         this.producer = producer;
         return this;
     }
@@ -44,7 +50,7 @@ public class ProvisioningCriteria implements Serializable {
         return techNotes;
     }
 
-    public ProvisioningCriteria setTechNotes(String techNotes) {
+    public CreateProvisioningCriteria setTechNotes(String techNotes) {
         this.techNotes = techNotes;
         return this;
     }
@@ -53,8 +59,13 @@ public class ProvisioningCriteria implements Serializable {
         return vineyards;
     }
 
-    public ProvisioningCriteria setVineyards(List<Vineyard> vineyards) {
+    public CreateProvisioningCriteria setVineyards(List<Vineyard> vineyards) {
         this.vineyards = vineyards;
+        return this;
+    }
+
+    public CreateProvisioningCriteria setVineyard(Vineyard vineyard) {
+        this.vineyards.add(vineyard);
         return this;
     }
 
@@ -62,7 +73,7 @@ public class ProvisioningCriteria implements Serializable {
         return inQuantity;
     }
 
-    public ProvisioningCriteria setInQuantity(int inQuantity) {
+    public CreateProvisioningCriteria setInQuantity(int inQuantity) {
         this.inQuantity = inQuantity;
         return this;
     }

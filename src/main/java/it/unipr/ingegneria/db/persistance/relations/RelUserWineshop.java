@@ -1,6 +1,7 @@
-package it.unipr.ingegneria.db.persistance;
+package it.unipr.ingegneria.db.persistance.relations;
 
 import it.unipr.ingegneria.db.DBContext;
+import it.unipr.ingegneria.db.persistance.WineDAO;
 import it.unipr.ingegneria.entities.WineShop;
 import it.unipr.ingegneria.entities.user.User;
 import org.antlr.stringtemplate.StringTemplate;
@@ -9,6 +10,7 @@ import org.apache.log4j.Logger;
 import java.sql.*;
 
 public class RelUserWineshop {
+
     private Connection conn;
     private static RelUserWineshop INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(WineDAO.class);
