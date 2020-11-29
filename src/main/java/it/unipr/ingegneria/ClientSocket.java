@@ -4,7 +4,6 @@ import it.unipr.ingegneria.db.DTO.OrderDTO;
 import it.unipr.ingegneria.entities.Order;
 import it.unipr.ingegneria.entities.Vineyard;
 import it.unipr.ingegneria.entities.Wine;
-import it.unipr.ingegneria.entities.user.Customer;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.request.UserLoginRequest;
 import it.unipr.ingegneria.request.UserLogoutRequest;
@@ -13,8 +12,8 @@ import it.unipr.ingegneria.request.search.*;
 import it.unipr.ingegneria.response.ModelListResponse;
 import it.unipr.ingegneria.response.ModelResponse;
 import it.unipr.ingegneria.utils.ModelRequestType;
-import it.unipr.ingegneria.utils.Type;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -32,7 +31,7 @@ public class ClientSocket {
         try {
             this.client = new Socket(SHOST, SPORT);
             this.os = new ObjectOutputStream(client.getOutputStream());
-            this.is = new ObjectInputStream(client.getInputStream());
+            this.is = null;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,7 +51,11 @@ public class ClientSocket {
 
             os.writeObject(createUserRequest);
             os.flush();
-
+            if (is == null)
+            {
+                is = new ObjectInputStream(new BufferedInputStream(
+                        client.getInputStream()));
+            }
             // Object o = null;
             Object o = is.readObject();
 

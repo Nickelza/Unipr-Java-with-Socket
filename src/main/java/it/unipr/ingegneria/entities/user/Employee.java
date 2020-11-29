@@ -1,16 +1,10 @@
 package it.unipr.ingegneria.entities.user;
 
 import it.unipr.ingegneria.api.IObserver;
-import it.unipr.ingegneria.api.IStoreManager;
-import it.unipr.ingegneria.entities.Wine;
-import it.unipr.ingegneria.entities.WineShop;
 import it.unipr.ingegneria.utils.LogMessages;
 import it.unipr.ingegneria.utils.Params;
-import it.unipr.ingegneria.utils.Type;
 import org.apache.log4j.Logger;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,6 +18,7 @@ import java.util.Map;
 public class Employee extends User implements IObserver {
 
     private Boolean isWorking;
+    private transient static final Logger LOGGER = Logger.getLogger(Employee.class);
 
 
     /**
@@ -33,31 +28,6 @@ public class Employee extends User implements IObserver {
         super();
     }
 
-    /**
-     * Constructor used when instantiate the object without knowing the id, obtained after it persisted
-     *
-     * @param name     Admin name
-     * @param surname  Admin surname
-     * @param email    Admin Email
-     * @param password Admin Password
-     * @param wineShop Wine Shop Object
-     */
-    public Employee(String name, String surname, String email, String password, WineShop wineShop) {
-        super(name, surname, email, password, Type.EMPLOYEE, wineShop);
-    }
-
-    /**
-     * Constructor used when instantiate the object  knowing the id, obtained when read the Object from a ResultSet
-     *
-     * @param id       Employee id
-     * @param name     Employee name
-     * @param surname  Employee surname
-     * @param email    Employee Email
-     * @param password Employee Password
-     */
-    public Employee(int id, String name, String surname, String email, String password) {
-        super(id, name, surname, email, password, Type.ADMIN);
-    }
 
     /**
      * Method to restock / execute provision  {@code Wine} in {@code Warehouse}
@@ -65,7 +35,7 @@ public class Employee extends User implements IObserver {
      * @param elements Map with params info
      */
     public void provisionWine(Map<Params, Object> elements) {
-
+        LOGGER.info(LogMessages.employeeProvisiongWine(this, ((String) elements.get(Params.NAME))));
         this.wineshop.provisionWine(elements);
         this.isWorking = false;
     }

@@ -17,7 +17,9 @@ public class DBContext {
     static final String USER = "root";
     static final String PASS = "helloworld";
 
-
+    /**
+     * Private constructor for Singleton instance
+     */
     private DBContext() {
         try {
             Class.forName(JDBC_DRIVER);

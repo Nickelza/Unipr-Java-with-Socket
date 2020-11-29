@@ -13,7 +13,7 @@ public class UserFactory {
                 user = new Customer().setUserType(Type.CLIENT);
                 break;
             case EMPLOYEE:
-                user = new Employee().setUserType(Type.EMPLOYEE);
+                user = new Employee().setWorking(false).setUserType(Type.EMPLOYEE);
                 break;
             default:
                 user = null;

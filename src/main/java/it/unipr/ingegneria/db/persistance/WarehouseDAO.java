@@ -79,15 +79,32 @@ public class WarehouseDAO implements IOperations<Warehouse> {
         return this.buildWines(SQL_FIND_BY_NAME);
     }
 
-    public List<Wine> findByYear(int year) {
-        StringTemplate FIND_STATMENT =
-                new StringTemplate("SELECT * FROM  REL_WINE_WAREHOUSE_EXTENDED WHERE WINE_YEAR = $PARAM$ ORDER BY WINE_ID");
 
-        FIND_STATMENT.setAttribute("PARAM", year);
-        String SQL_FIND_BY_YEAR = FIND_STATMENT.toString();
+    public List<String> findWineNotInWarehouse() {
+        String sql = "SELECT DISTINCT(NAME) AS NAME FROM WINE t1 LEFT JOIN REL_WINE_WAREHOUSE_EXTENDED t2 ON t2.WINE_NAME = t1.NAME WHERE t2.WINE_NAME IS NULL";
+        List<String> results = new ArrayList<>();
+        Statement statement = null;
+        try {
+            statement = conn.createStatement();
 
-        return this.buildWines(SQL_FIND_BY_YEAR);
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                String WINE_NAME = rs.getString("NAME");
+                results.add(WINE_NAME);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                LOGGER.error(e);
+            }
+        }
+        return results;
+
     }
+
 
     public Boolean checkAvailability(String wineName, Integer requiredQuantity) {
         Boolean hasEnoughWines = Boolean.FALSE;

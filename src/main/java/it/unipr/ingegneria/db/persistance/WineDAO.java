@@ -65,41 +65,38 @@ public class WineDAO implements IOperations<Wine> {
         }
     }
 
-
-    /*
-
-    public void delete(Wine wine) {
-        Statement statement = null;
-        try {
-            statement = conn.createStatement();
-
-            StringTemplate DELETE_STATMENT =
-                    new StringTemplate("DELETE FROM WINE WHERE ID = $ID_WINE$");
-
-            DELETE_STATMENT.setAttribute("$ID_WINE$", wine.getId());
-            String SQL_DELETE = DELETE_STATMENT.toString();
-
-            statement.executeUpdate(SQL_DELETE);
-
-        } catch (SQLException e) {
-            LOGGER.error(e);
-        } finally {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                LOGGER.error(e);
-            }
-        }
-    }
-*/
-
     public List<Wine> findAll() {
+        String SQL_FIND_BY_NAME = "SELECT * FROM REL_WINE_VINEYARD_EXTENDED";
+        return this.buildWines(SQL_FIND_BY_NAME);
+    }
+
+    public List<Wine> findByName(String name) {
+        StringTemplate FIND_STATMENT =
+                new StringTemplate("SELECT * FROM REL_WINE_VINEYARD_EXTENDED WHERE WINE_NAME LIKE '%$PARAM$%' ORDER BY WINE_ID");
+
+        FIND_STATMENT.setAttribute("PARAM", name);
+        String SQL_FIND_BY_NAME = FIND_STATMENT.toString();
+
+        return this.buildWines(SQL_FIND_BY_NAME);
+    }
+
+    public List<Wine> findByYear(int year) {
+        StringTemplate FIND_STATMENT =
+                new StringTemplate("SELECT * FROM  REL_WINE_VINEYARD_EXTENDED WHERE WINE_YEAR = $PARAM$ ORDER BY WINE_ID");
+
+        FIND_STATMENT.setAttribute("PARAM", year);
+        String SQL_FIND_BY_YEAR = FIND_STATMENT.toString();
+
+        return this.buildWines(SQL_FIND_BY_YEAR);
+    }
+
+    private List<Wine> buildWines(String sql) {
         List<Wine> items = new ArrayList<>();
         Statement statement = null;
         try {
             statement = conn.createStatement();
-            String SQL_FIND_ALL = "SELECT * FROM REL_WINE_VINEYARD_EXTENDED ORDER BY WINE_ID";
-            ResultSet rs = statement.executeQuery(SQL_FIND_ALL);
+
+            ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Wine wine = Wine.valueOf(rs);
                 // Check if there is element with same WINE_ID, if present add object update only Vineyards Array
@@ -126,6 +123,4 @@ public class WineDAO implements IOperations<Wine> {
         }
         return items;
     }
-
-
 }

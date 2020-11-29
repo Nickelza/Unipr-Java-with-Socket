@@ -2,16 +2,19 @@ package it.unipr.ingegneria.entities;
 
 import it.unipr.ingegneria.api.IObservable;
 import it.unipr.ingegneria.api.IWarehouseManager;
-import it.unipr.ingegneria.exception.AvailabilityException;
-import it.unipr.ingegneria.exception.RequiredValueException;
+import it.unipr.ingegneria.api.Persistable;
+import it.unipr.ingegneria.db.persistance.WarehouseDAO;
+import it.unipr.ingegneria.db.persistance.WineDAO;
 import it.unipr.ingegneria.db.persistance.relations.RelWineVineyard;
 import it.unipr.ingegneria.db.persistance.relations.RelWineWarehouse;
-import it.unipr.ingegneria.db.persistance.WarehouseDAO;
+import it.unipr.ingegneria.exception.AvailabilityException;
+import it.unipr.ingegneria.exception.RequiredValueException;
 import it.unipr.ingegneria.utils.Params;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,12 +25,12 @@ import java.util.stream.IntStream;
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
-public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>, Serializable {
+public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>, Serializable, Persistable<Warehouse> {
 
-    private transient WarehouseDAO warehouseDAO = WarehouseDAO.getInstance();
     private transient RelWineWarehouse wineWarehouse = RelWineWarehouse.getInstance();
     private transient RelWineVineyard relWineVineyard = RelWineVineyard.getInstance();
-
+    private transient WarehouseDAO warehouseDAO = WarehouseDAO.getInstance();
+    private transient WineDAO wineDAO = WineDAO.getInstance();
 
     private Integer id;
     private String name;
@@ -35,7 +38,6 @@ public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>
 
 
     private List<WineShop> observers = new ArrayList<>();
-
     private ProvisioningManager provisioningManager;
     private static final Logger LOGGER = Logger.getLogger(Warehouse.class);
 
@@ -44,8 +46,6 @@ public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>
         this.name = name;
         this.items = new ArrayList<>();
         this.provisioningManager = new ProvisioningManager();
-        warehouseDAO.add(this);
-        LOGGER.info("Inserted Warehouse with ID: " + this.id + " in WAREHOUSE Table");
     }
 
 
@@ -60,10 +60,10 @@ public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>
 
 
         Integer NUMBER = (Integer) elements.get(Params.QTY);
-        Integer WINE_YEAR = (Integer) elements.get(Params.YEAR);
-        String WINE_NAME = (String) elements.get(Params.NAME);
-        String WINE_PRODUCER = (String) elements.get(Params.PRODUCER);
-        String TECH_NOTES = (String) elements.get(Params.TECH_NOTES);
+        Integer WINE_YEAR = elements.containsKey(Params.YEAR) ? (Integer) elements.get(Params.YEAR) : 2020;
+        String WINE_NAME = elements.containsKey(Params.NAME) ? (String) elements.get(Params.NAME) : "Lambrusco";
+        String WINE_PRODUCER = elements.containsKey(Params.PRODUCER) ? (String) elements.get(Params.PRODUCER) : "Unknown";
+        String TECH_NOTES = elements.containsKey(Params.TECH_NOTES) ? (String) elements.get(Params.TECH_NOTES) : "";
 
         List<Vineyard> VINEYEARDS = (List) elements.get(Params.VINEYARDS);
 
@@ -125,7 +125,7 @@ public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>
 
 
     /**
-     * Return all the wine available
+     * Return all the wine available in Warehouse
      *
      * @return List of Wine
      */
@@ -134,28 +134,32 @@ public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>
     }
 
     /**
-     * Research a wine by name inside the warehouse
+     * Research a wine by name in Wine Table
      *
      * @param name name
      * @return List of Wine
      */
     public List<Wine> findByName(String name) {
-        return warehouseDAO.findByName(name);
+        return wineDAO.findByName(name);
     }
 
     /**
-     * Research a wine by year inside the warehouse
+     * Research a wine by year in Wine Table
      *
      * @param year year
      * @return List of Wine
      */
     public List<Wine> findByYear(int year) {
-        return warehouseDAO.findByYear(year);
+        return wineDAO.findByYear(year);
     }
 
+
+    /**
+     * Research all wines  in Wine Table
+     */
     @Override
     public List<Wine> findAll() {
-        return warehouseDAO.findAll();
+        return wineDAO.findAll();
     }
 
     /**
@@ -204,20 +208,16 @@ public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>
      */
     public void checkAvaibility() {
 
-       /* Map<Params, Object> elements = new HashMap<>();
-        Iterator<Map.Entry<String, List<Wine>>> iterator = items.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, List<Wine>> entry = iterator.next();
-            if (entry.getValue().size() == 0) {
-                // ToDO: If you want generate random provisiong do it here
-                elements.put(Params.NAME, entry.getKey());
+        List<String> winesNotAvaiable = this.warehouseDAO.findWineNotInWarehouse();
+        Map<Params, Object> elements = new HashMap<>();
+        if (winesNotAvaiable != null && !winesNotAvaiable.isEmpty()) {
+            for (String wineName : winesNotAvaiable) {
+                elements.put(Params.NAME, wineName);
                 elements.put(Params.QTY, 15);
                 this.provisioningManager.handleProvisioning(elements);
             }
 
         }
-        */
-
     }
 
     public Integer getId() {
@@ -236,4 +236,16 @@ public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>
         this.name = name;
     }
 
+
+
+    /**
+     * Persist the current entity and return itself with id generated by db
+     * Return @Warehouse
+     * */
+    @Override
+    public Warehouse persist() {
+        warehouseDAO.add(this);
+        LOGGER.info("Inserted Warehouse with ID: " + this.id + " in WAREHOUSE Table");
+        return this;
+    }
 }

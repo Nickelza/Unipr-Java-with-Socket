@@ -1,6 +1,7 @@
 package it.unipr.ingegneria;
 
 import it.unipr.ingegneria.db.DTO.OrderDTO;
+import it.unipr.ingegneria.entities.Order;
 import it.unipr.ingegneria.entities.Vineyard;
 import it.unipr.ingegneria.entities.Wine;
 import it.unipr.ingegneria.entities.user.Customer;
@@ -18,10 +19,13 @@ import it.unipr.ingegneria.request.search.WineSearchCriteria;
 import it.unipr.ingegneria.utils.ModelRequestType;
 import it.unipr.ingegneria.utils.Type;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
-public class main {
-    public static void main(final String[] args) {
+public class startClient {
+    public static void main(final String[] args) throws IOException, SQLException {
+
         // Parte di esempio da integrare in JavaFX
         ClientSocket clientSocket = new ClientSocket();
 
@@ -34,8 +38,6 @@ public class main {
 
         Customer user = (Customer) clientSocket.createUser(createUserCriteria);
 
-        UserLoginRequest userLoginRequest = new UserLoginRequest().asType(ModelRequestType.LOGIN).setEmail("mario.rossi@gmail.com").setPassword("P@ssw0rd");
-        User customerCreated = clientSocket.loginUser(userLoginRequest);
 
         CreateVineyardCriteria createVineyardCriteria = new CreateVineyardCriteria().setName("Vigna");
         Vineyard vineyard = clientSocket.createVineyard(createVineyardCriteria);
@@ -47,6 +49,29 @@ public class main {
                         .setYear(2015)
                         .setInQuantity(25)
                         .setVineyard(vineyard);
+        String results = clientSocket.createProvisioning(createProvisioningCriteriaLambrusco);
+
+
+        CreateOrderCriteria createOrderLambruscoCriteria = new CreateOrderCriteria()
+                .setInQuantity(30)
+                .setName("Lambrusco")
+                .setUser(user);
+
+        Order o = clientSocket.createOrder(createOrderLambruscoCriteria);
+
+ 
+        CreateUserCriteria createEmployeeCriteria = new CreateUserCriteria()
+                .setName("Lucia")
+                .setSurname("Neri")
+                .setEmail("lucia.neri@gmail.com")
+                .setPassword("P@ssw0rd")
+                .setUserType(Type.EMPLOYEE);
+
+        clientSocket.createUser(createEmployeeCriteria);
+
+        UserLoginRequest userLoginRequest = new UserLoginRequest().asType(ModelRequestType.LOGIN).setEmail("mario.rossi@gmail.com").setPassword("P@ssw0rd");
+        User customerCreated = clientSocket.loginUser(userLoginRequest);
+
 
         CreateProvisioningCriteria createProvisioningCriteriaChianti =
                 new CreateProvisioningCriteria().setName("Chianti")
@@ -56,16 +81,16 @@ public class main {
                         .setInQuantity(25)
                         .setVineyard(vineyard);
 
-        String results = clientSocket.createProvisioning(createProvisioningCriteriaLambrusco);
+
         clientSocket.createProvisioning(createProvisioningCriteriaChianti);
 
 
-        CreateOrderCriteria createOrderCriteria = new CreateOrderCriteria()
-                .setInQuantity(20)
-                .setName("Lambrusco")
+        CreateOrderCriteria createOrderChiantiCriteria = new CreateOrderCriteria()
+                .setInQuantity(25)
+                .setName("Chianti")
                 .setUser(user);
 
-        clientSocket.createOrder(createOrderCriteria);
+        clientSocket.createOrder(createOrderChiantiCriteria);
 
         // Search all wines in Warehouse
         WineSearchCriteria searchAllWinesCriteria = new WineSearchCriteria().setSelectAll(true);

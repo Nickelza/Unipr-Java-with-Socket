@@ -3,23 +3,28 @@ package it.unipr.ingegneria.entities;
 
 import it.unipr.ingegneria.api.*;
 import it.unipr.ingegneria.db.DTO.OrderDTO;
-import it.unipr.ingegneria.db.persistance.*;
+import it.unipr.ingegneria.db.persistance.OrderDAO;
+import it.unipr.ingegneria.db.persistance.UserDAO;
+import it.unipr.ingegneria.db.persistance.WineShopDAO;
 import it.unipr.ingegneria.db.persistance.relations.RelOrderUser;
 import it.unipr.ingegneria.db.persistance.relations.RelOrderWine;
 import it.unipr.ingegneria.db.persistance.relations.RelUserWineshop;
 import it.unipr.ingegneria.db.persistance.relations.RelWineshopWarehouse;
-import it.unipr.ingegneria.exception.AvailabilityException;
-import it.unipr.ingegneria.exception.RequiredValueException;
 import it.unipr.ingegneria.entities.notifications.CustomerNotification;
 import it.unipr.ingegneria.entities.user.Customer;
 import it.unipr.ingegneria.entities.user.Employee;
 import it.unipr.ingegneria.entities.user.User;
+import it.unipr.ingegneria.exception.AvailabilityException;
+import it.unipr.ingegneria.exception.RequiredValueException;
 import it.unipr.ingegneria.utils.Params;
 import it.unipr.ingegneria.utils.Type;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -56,10 +61,13 @@ public class WineShop implements
 
     public WineShop(String name) {
 
-        // Initialize self object and persist obtaining the id
+        // Initialize
         this.name = name;
         this.users = new ArrayList<>();
+
         this.warehouse = new Warehouse("WAREHOUSE-0");
+        this.warehouse.persist();
+
         this.provisioningManager = warehouse.getProvisioningManager();
         warehouse.addObserver(this);
     }
@@ -116,7 +124,7 @@ public class WineShop implements
      */
     @Override
     public void addUser(User user) {
-        if (user.getUserType().equals(Type.EMPLOYEE))
+        if (user.getUserType().equals(Type.EMPLOYEE.toString()))
             provisioningManager.addObserver((Employee) user);
 
         userDAO.add(user);

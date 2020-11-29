@@ -44,7 +44,8 @@ public class CreateRequestManager {
                     .setName(c.getName())
                     .setSurname(c.getSurname())
                     .setPassword(c.getPassword())
-                    .setUserType(Type.valueOf(c.getUserType()));
+                    .setUserType(Type.valueOf(c.getUserType()))
+                    .setWineshop(shop);
             shop.addUser(u);
         }
         return u;
