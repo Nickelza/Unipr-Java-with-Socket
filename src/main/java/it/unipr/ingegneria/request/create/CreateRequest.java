@@ -1,17 +1,16 @@
 package it.unipr.ingegneria.request;
 
+import it.unipr.ingegneria.utils.ModelRequestType;
 
-import it.unipr.ingegneria.util.ModelRequestType;
-
-public class SearchRequest<MODEL> extends ModelRequest {
+public class CreateRequest<MODEL> extends ModelRequest {
     private MODEL model;
 
 
-    public SearchRequest() {
+    public CreateRequest() {
         super();
     }
 
-    public SearchRequest withModel(MODEL model) {
+    public CreateRequest withModel(MODEL model) {
         this.model = model;
         return this;
     }
@@ -21,7 +20,7 @@ public class SearchRequest<MODEL> extends ModelRequest {
     }
 
     @Override
-    public SearchRequest asType(ModelRequestType type) {
+    public CreateRequest asType(ModelRequestType type) {
         this.type = type.toString();
         return this;
     }

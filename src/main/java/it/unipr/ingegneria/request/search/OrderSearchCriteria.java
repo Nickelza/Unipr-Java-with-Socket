@@ -1,9 +1,12 @@
 package it.unipr.ingegneria.request.search;
 
+import it.unipr.ingegneria.entities.user.User;
+
 import java.io.Serializable;
 
 public class OrderSearchCriteria implements Serializable {
     private boolean selectAll;
+    private User searchByUser;
 
     public boolean isSelectAll() {
         return selectAll;
@@ -11,6 +14,15 @@ public class OrderSearchCriteria implements Serializable {
 
     public OrderSearchCriteria setSelectAll(boolean selectAll) {
         this.selectAll = selectAll;
+        return this;
+    }
+
+    public User getSearchByUser() {
+        return searchByUser;
+    }
+
+    public OrderSearchCriteria setSearchByUser(User searchByUser) {
+        this.searchByUser = searchByUser;
         return this;
     }
 }

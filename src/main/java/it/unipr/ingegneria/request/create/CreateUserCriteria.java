@@ -1,21 +1,22 @@
 package it.unipr.ingegneria.request.create;
 
-import it.unipr.ingegneria.request.ModelRequest;
-import it.unipr.ingegneria.util.ModelRequestType;
+import it.unipr.ingegneria.utils.Type;
+import java.io.Serializable;
 
-public class CreateUserRequest extends ModelRequest<CreateUserRequest> {
+public class UserCriteria implements Serializable {
 
     private String name;
     private String surname;
     private String email;
     private String password;
+    private String userType;
 
 
     public String getName() {
         return name;
     }
 
-    public CreateUserRequest setName(String name) {
+    public UserCriteria setName(String name) {
         this.name = name;
         return this;
     }
@@ -24,7 +25,7 @@ public class CreateUserRequest extends ModelRequest<CreateUserRequest> {
         return surname;
     }
 
-    public CreateUserRequest setSurname(String surname) {
+    public UserCriteria setSurname(String surname) {
         this.surname = surname;
         return this;
     }
@@ -33,7 +34,7 @@ public class CreateUserRequest extends ModelRequest<CreateUserRequest> {
         return email;
     }
 
-    public CreateUserRequest setEmail(String email) {
+    public UserCriteria setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -42,14 +43,18 @@ public class CreateUserRequest extends ModelRequest<CreateUserRequest> {
         return password;
     }
 
-    public CreateUserRequest setPassword(String password) {
+    public UserCriteria setPassword(String password) {
         this.password = password;
         return this;
     }
 
-    @Override
-    public CreateUserRequest asType(ModelRequestType type) {
-        this.type = type.toString();
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public UserCriteria setUserType(Type userType) {
+        this.userType = userType.toString();
         return this;
     }
 }

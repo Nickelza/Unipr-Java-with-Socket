@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.util;
+package it.unipr.ingegneria.utils;
 
 public enum Type {
     CLIENT {

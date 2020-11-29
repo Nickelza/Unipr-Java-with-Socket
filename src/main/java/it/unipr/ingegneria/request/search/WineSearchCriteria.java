@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class WineSearchCriteria implements Serializable {
     private boolean selectAll;
     private String name;
-    private int year;
+    private Integer year;
 
     public boolean isSelectAll() {
         return selectAll;
@@ -25,11 +25,11 @@ public class WineSearchCriteria implements Serializable {
         return this;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public WineSearchCriteria setYear(int year) {
+    public WineSearchCriteria setYear(Integer year) {
         this.year = year;
         return this;
     }

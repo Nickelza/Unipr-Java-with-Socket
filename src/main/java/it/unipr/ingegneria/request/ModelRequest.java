@@ -1,6 +1,6 @@
 package it.unipr.ingegneria.request;
 
-import it.unipr.ingegneria.util.ModelRequestType;
+import it.unipr.ingegneria.utils.ModelRequestType;
 
 import java.io.Serializable;
 

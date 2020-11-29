@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.util;
+package it.unipr.ingegneria.utils;
 
 public enum ModelRequestType {
     LOGIN {
@@ -7,28 +7,24 @@ public enum ModelRequestType {
             return "UserLoginRequest";
         }
     },
-    CREATE_USER {
+    LOGOUT {
         @Override
         public String toString() {
-            return "CreateUserRequest";
+            return "UserLogoutRequest";
         }
     },
+    CREATE {
+        @Override
+        public String toString() {
+            return "CreateRequest";
+        }
+    },
+
     SEARCH {
         @Override
         public String toString() {
             return "SearchRequest";
         }
     },
-    PROVISIONING {
-        @Override
-        public String toString() {
-            return "CreateProvisioningRequest";
-        }
-    },
-    ORDER {
-        @Override
-        public String toString() {
-            return "CreateOrderRequest";
-        }
-    }
+
 }
