@@ -59,7 +59,7 @@ public class startClient {
 
         Order o = clientSocket.createOrder(createOrderLambruscoCriteria);
 
- 
+
         CreateUserCriteria createEmployeeCriteria = new CreateUserCriteria()
                 .setName("Lucia")
                 .setSurname("Neri")

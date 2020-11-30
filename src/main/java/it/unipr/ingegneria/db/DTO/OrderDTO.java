@@ -2,6 +2,11 @@ package it.unipr.ingegneria.db.DTO;
 
 import java.io.Serializable;
 
+/**
+ * The {@code OrderDTO} represent a summary of the order with a certain ID.
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class OrderDTO implements Serializable {
     private Integer userId;
     private Integer orderId;

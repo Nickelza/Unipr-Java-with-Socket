@@ -1,7 +1,7 @@
 package it.unipr.ingegneria.api;
 
 /**
- * The  {@code IObservable} is use to implement the observer pattern.
+ * The {@code IObservable} is use to implement the observer pattern.
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */

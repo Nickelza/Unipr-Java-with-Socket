@@ -1,7 +1,7 @@
 package it.unipr.ingegneria.api;
 
 /**
- * The  {@code IAuthentication} interface include the method for the User authentication.
+ * The {@code IAuthentication} interface include the method for the User authentication.
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
