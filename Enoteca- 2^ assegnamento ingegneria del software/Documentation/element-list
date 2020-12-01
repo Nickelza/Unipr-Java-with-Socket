@@ -1,0 +1,8 @@
+it.unipr.ingegneria
+it.unipr.ingegneria.api
+it.unipr.ingegneria.builders
+it.unipr.ingegneria.entities
+it.unipr.ingegneria.entities.notifications
+it.unipr.ingegneria.entities.user
+it.unipr.ingegneria.exception
+it.unipr.ingegneria.utils
