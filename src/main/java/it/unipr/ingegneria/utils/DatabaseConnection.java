@@ -7,7 +7,6 @@ import java.sql.SQLException;
 /**
  * {@code DatabaseConnection} is a Singleton class to establish connection with the Database
  * This will remove the necessity to establish a connection in each class that access the Database
- */
 public class DatabaseConnection {
 
     private static Connection con = null;
