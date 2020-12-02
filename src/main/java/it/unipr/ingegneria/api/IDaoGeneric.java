@@ -20,34 +20,33 @@ public interface IDaoGeneric<T> {
     /**
      * Method to delete an item
      * @param id Unique id of the searched element
-     * @return success status
      */
-    boolean delete(int id);
+    void delete(int id) throws SQLException;
 
     /**
      * Updates an item
      * @param t
      * @return success status
      */
-    boolean update(T t);
+    void update(T t) throws SQLException;
 
     /**
      * Method to get all elements of an item
      * @return a generic list of items
      */
-    List<T> findAll();
+    List<T> findAll() throws SQLException;
 
     /**
      * Method to get an item provided it's id
      * @param id Unique id of the searched item
      * @return a generic item
      */
-    <T> T findById(int id);
+    <T> T findById(int id) throws SQLException;
 
     /**
      * Method to get an item provided it's name
      * @param name Non unique name of the requested item
      * @return a generic list of items
      */
-    List<T> findByName(int name);
+    List<T> findByName(String name) throws SQLException;
 }

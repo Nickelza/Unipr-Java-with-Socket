@@ -5,7 +5,6 @@ import it.unipr.ingegneria.entities.Wine;
 import it.unipr.ingegneria.entities.WineShop;
 import it.unipr.ingegneria.entities.user.Customer;
 import it.unipr.ingegneria.entities.user.Employee;
-import it.unipr.ingegneria.entities.dao.DaoUser;
 import java.util.List;
 
 /**
@@ -23,10 +22,7 @@ public class main {
         /**
          * Adds an employee to the Wine Shop who in turn adds some wines
          */
-        Employee emp = new Employee(1L, "Luca", "Bianchi", "email", "pwd", wineShop);
-
-        DaoUser daoUser = new DaoUser();
-        daoUser.add(emp);
+        Employee emp = new Employee(1L, "Lucaz", "Bianchi", "email", "pwd", wineShop);
 
         emp.provisionWine("Chianti", 15);
         emp.provisionWine("Lambrusco", 15);

@@ -35,6 +35,13 @@ public class Customer extends User implements IAuthentication, IObserver {
     private List<Order> orders;
 
     /**
+     * Empty class constructor
+     */
+    public Customer() {
+        this.setUserType(Type.CLIENT);
+    }
+
+    /**
      * Default class constructor
      * @param id
      * @param name

@@ -2,13 +2,16 @@ package it.unipr.ingegneria.entities.user;
 
 import it.unipr.ingegneria.api.IObserver;
 import it.unipr.ingegneria.api.IStoreManager;
+import it.unipr.ingegneria.entities.dao.DaoUser;
 import it.unipr.ingegneria.utils.LogMessages;
 import it.unipr.ingegneria.utils.Params;
 import it.unipr.ingegneria.utils.Type;
 import org.apache.log4j.Logger;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +26,14 @@ public class Employee extends User implements IObserver {
     private IStoreManager wineShop;
     private Boolean isWorking;
     private static final Logger logger = Logger.getLogger(Employee.class);
+    private DaoUser daoEmployee = new DaoUser();
+
+    /**
+     * Empty class constructor
+     */
+    public Employee(){
+        this.setUserType(Type.EMPLOYEE);
+    }
 
     /**
      * Default class constructor
@@ -33,10 +44,10 @@ public class Employee extends User implements IObserver {
      * @param password
      * @param wineShop
      */
-    public Employee(long id, String name, String surname, String email, String password, IStoreManager wineShop) {
+    public Employee(long id, String name, String surname, String email, String password, IStoreManager wineShop) throws SQLException {
         super(id, name, surname, email, password, Type.EMPLOYEE);
         this.wineShop = wineShop;
-
+        daoEmployee.add(this);
     }
 
     /**

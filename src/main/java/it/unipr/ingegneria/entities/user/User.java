@@ -48,6 +48,12 @@ public abstract class User {
     private WineShop wineshop;
 
     /**
+     * Empty class constructor
+     */
+    public User() {
+    }
+
+    /**
      * Default class constructor
      * @param _id
      * @param name
