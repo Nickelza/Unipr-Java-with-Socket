@@ -30,7 +30,7 @@ public class ServerThread implements Runnable {
     // Since is a two-way communication between the client and server, the server listen for new request
     // but there are times when client does not send nothing (stay in idle) so the InputStream is empty and the readObject launch (rightly) the EOF exception
 
-    // So the foundend possibile solution are
+    // So the founded possibile solution are
     // - opening and closing the socket for every request
     // - "ignore"/skip the EOF exception.. since the socket will be closed when receive a UserLogoutRequest
 
@@ -80,9 +80,9 @@ public class ServerThread implements Runnable {
                             os.flush();
                             break;
                         case "UserLogoutRequest":
-                            if (this.server.getPool().getActiveCount() == 1) {
+                            if (this.server.getPool().getActiveCount() == 1)
                                 this.server.close();
-                            }
+
 
                             this.socket.close();
                             exit = true;

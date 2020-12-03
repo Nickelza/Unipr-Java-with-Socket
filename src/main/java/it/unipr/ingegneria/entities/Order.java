@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The {@code Order} class rappresent an order of wine
+ * The {@code Order} class represent an order of wine
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
