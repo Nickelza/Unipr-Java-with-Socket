@@ -8,7 +8,11 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-
+/**
+ * The {@code RelUserWineshop} handle the relation between a WineShop entity and User entity.
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class RelUserWineshop {
 
     private Connection conn;

@@ -9,6 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * The {@code RelOrderUser} handle the relation between a Order entity and Wine entity.
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class RelOrderWine {
 
     private Connection conn;

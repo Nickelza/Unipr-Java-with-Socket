@@ -2,10 +2,9 @@ package it.unipr.ingegneria.db.persistance;
 
 import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.db.IOperations;
-import it.unipr.ingegneria.entities.Vineyard;
-import it.unipr.ingegneria.entities.Wine;
 import it.unipr.ingegneria.entities.WineShop;
-import it.unipr.ingegneria.entities.user.*;
+import it.unipr.ingegneria.entities.user.User;
+import it.unipr.ingegneria.entities.user.UserFactory;
 import it.unipr.ingegneria.utils.Type;
 import org.antlr.stringtemplate.StringTemplate;
 import org.apache.log4j.Logger;
@@ -14,6 +13,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The {@code UserDAO} handle the persistance and retrival data of User entity.
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class UserDAO implements IOperations<User> {
     private Connection conn;
     private static UserDAO INSTANCE = null;

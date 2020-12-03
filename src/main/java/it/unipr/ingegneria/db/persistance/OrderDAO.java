@@ -4,18 +4,21 @@ import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.db.DTO.OrderDTO;
 import it.unipr.ingegneria.db.IOperations;
 import it.unipr.ingegneria.entities.Order;
-import it.unipr.ingegneria.entities.Vineyard;
-import it.unipr.ingegneria.entities.Wine;
 import org.antlr.stringtemplate.StringTemplate;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+/**
+ * The {@code OrderDAO} handle the persistance and retrival data of Order entity.
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class OrderDAO implements IOperations<Order> {
 
     private Connection conn;

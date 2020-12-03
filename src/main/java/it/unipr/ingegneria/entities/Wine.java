@@ -185,7 +185,7 @@ public class Wine implements Serializable, Persistable<Wine> {
         String WINE_TECHNOTES = rs.getString("WINE_TECHNOTES");
 
         Integer VINEYARD_ID = rs.getInt("VINEYARD_ID");
-        Vineyard v = null;
+        Vineyard v;
         List<Vineyard> VINEYEARDS = new ArrayList<>();
 
         if (VINEYARD_ID != null) {

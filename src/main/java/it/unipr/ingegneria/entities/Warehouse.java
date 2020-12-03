@@ -65,7 +65,7 @@ public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>
         String WINE_PRODUCER = elements.containsKey(Params.PRODUCER) ? (String) elements.get(Params.PRODUCER) : "Unknown";
         String TECH_NOTES = elements.containsKey(Params.TECH_NOTES) ? (String) elements.get(Params.TECH_NOTES) : "";
 
-        List<Vineyard> VINEYEARDS = (List) elements.get(Params.VINEYARDS);
+        List<Vineyard> VINEYEARDS = elements.containsKey(Params.VINEYARDS) ? (List) elements.get(Params.VINEYARDS) : new ArrayList<>();
 
         // Cannot use the executeBatch because it's not return the inserted id, so the Wine object is persisted one by one
         List<Wine> wines = IntStream.range(0, NUMBER)
@@ -110,7 +110,7 @@ public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>
         if (!this.warehouseDAO.checkAvailability(NAME, QUANTITY))
             throw new AvailabilityException();
 
-        List<Wine> foundedWines = this.warehouseDAO.findByName(NAME);
+        List<Wine> foundedWines = this.wineDAO.findByName(NAME);
         if (foundedWines != null && !foundedWines.isEmpty()) {
 
             workedWines = foundedWines
@@ -248,7 +248,7 @@ public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>
         if (name == null || name.isEmpty())
             throw new RequiredValueException(Params.NAME.name());
 
-        Integer quantity = Integer.parseInt((String) elements.get(Params.QTY));
+        Integer quantity = (Integer) elements.get(Params.QTY);
         if (quantity == null || quantity < 0)
             throw new RequiredValueException(Params.QTY.name());
     }

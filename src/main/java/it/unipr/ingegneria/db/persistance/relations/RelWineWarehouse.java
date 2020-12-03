@@ -10,6 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * The {@code RelWineWarehouse} handle the relation between a Wine entity and Warehouse entity.
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class RelWineWarehouse {
 
     private Connection conn;

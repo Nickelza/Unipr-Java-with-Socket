@@ -345,3 +345,73 @@
 2020-11-29 11:53:33 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 3405 in WINE Table
 2020-11-29 11:53:33 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 3406 in WINE Table
 2020-11-29 11:53:33 INFO [it.unipr.ingegneria.entities.Warehouse:107] - Check in Warehouse for availability of Wine
+2020-12-03 23:18:31 INFO [it.unipr.ingegneria.db.DBContext:26] - Connecting to database...
+2020-12-03 23:18:32 INFO [it.unipr.ingegneria.entities.Warehouse:265] - Inserted Warehouse with ID: 224 in WAREHOUSE Table
+2020-12-03 23:19:39 INFO [it.unipr.ingegneria.entities.Warehouse:59] - Add in Warehouse Wine
+2020-12-03 23:20:40 INFO [it.unipr.ingegneria.entities.Warehouse:59] - Add in Warehouse Wine
+2020-12-03 23:20:41 INFO [it.unipr.ingegneria.entities.Warehouse:59] - Add in Warehouse Wine
+2020-12-03 23:20:42 INFO [it.unipr.ingegneria.entities.Warehouse:59] - Add in Warehouse Wine
+2020-12-03 23:21:48 INFO [it.unipr.ingegneria.db.DBContext:26] - Connecting to database...
+2020-12-03 23:21:49 INFO [it.unipr.ingegneria.entities.Warehouse:265] - Inserted Warehouse with ID: 225 in WAREHOUSE Table
+2020-12-03 23:22:30 INFO [it.unipr.ingegneria.entities.Warehouse:59] - Add in Warehouse Wine
+2020-12-03 23:23:31 INFO [it.unipr.ingegneria.db.DBContext:26] - Connecting to database...
+2020-12-03 23:23:33 INFO [it.unipr.ingegneria.entities.Warehouse:265] - Inserted Warehouse with ID: 226 in WAREHOUSE Table
+2020-12-03 23:24:07 INFO [it.unipr.ingegneria.entities.Warehouse:59] - Add in Warehouse Wine
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4122 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4123 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4124 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4125 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4126 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4127 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4128 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4129 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4130 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4131 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4132 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4133 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4134 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4135 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4136 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4137 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4138 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4139 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4140 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4141 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4142 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4143 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4144 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4145 in WINE Table
+2020-12-03 23:24:14 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4146 in WINE Table
+2020-12-03 23:26:21 INFO [it.unipr.ingegneria.db.DBContext:26] - Connecting to database...
+2020-12-03 23:26:23 INFO [it.unipr.ingegneria.entities.Warehouse:265] - Inserted Warehouse with ID: 227 in WAREHOUSE Table
+2020-12-03 23:26:54 INFO [it.unipr.ingegneria.db.DBContext:26] - Connecting to database...
+2020-12-03 23:26:55 INFO [it.unipr.ingegneria.entities.Warehouse:265] - Inserted Warehouse with ID: 228 in WAREHOUSE Table
+2020-12-03 23:27:20 INFO [it.unipr.ingegneria.entities.Warehouse:59] - Add in Warehouse Wine
+2020-12-03 23:28:36 INFO [it.unipr.ingegneria.db.DBContext:26] - Connecting to database...
+2020-12-03 23:28:37 INFO [it.unipr.ingegneria.entities.Warehouse:265] - Inserted Warehouse with ID: 229 in WAREHOUSE Table
+2020-12-03 23:29:33 INFO [it.unipr.ingegneria.entities.Warehouse:59] - Add in Warehouse Wine
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4148 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4149 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4150 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4151 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4152 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4153 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4154 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4155 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4156 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4157 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4158 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4159 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4160 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4161 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4162 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4163 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4164 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4165 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4166 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4167 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4168 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4169 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4170 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4171 in WINE Table
+2020-12-03 23:29:40 INFO [it.unipr.ingegneria.entities.Wine:210] - Inserted Wine with ID: 4172 in WINE Table

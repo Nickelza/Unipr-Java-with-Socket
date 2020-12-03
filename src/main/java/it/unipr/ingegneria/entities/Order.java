@@ -19,7 +19,12 @@ public class Order implements Serializable, Persistable<Order> {
     private List<Wine> wine;
     private boolean delivered;
 
-    public Order() { }
+
+    /**
+     * Default class for Order
+     */
+    public Order() {
+    }
 
     public int getId() {
         return id;

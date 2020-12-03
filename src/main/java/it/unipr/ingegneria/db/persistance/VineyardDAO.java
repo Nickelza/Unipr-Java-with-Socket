@@ -10,7 +10,11 @@ import org.apache.log4j.Logger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * The {@code VineyardDAO} handle the persistance and retrival data of Vineyard entity.
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class VineyardDAO implements IOperations<Vineyard> {
 
     private Connection conn;

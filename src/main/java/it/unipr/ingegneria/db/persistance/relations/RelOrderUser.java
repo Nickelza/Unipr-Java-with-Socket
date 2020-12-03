@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 /**
  * The {@code RelOrderUser} handle the relation between a Order entity and User entity.
  *
@@ -33,10 +34,10 @@ public class RelOrderUser {
     }
 
     /**
-     * Method to update/notify the state
+     * Insert the relation between order and user
      *
-     * @param user user of order
-     * @param user user of order0            
+     * @param user  user of order
+     * @param order order
      */
     public void add(User user, Order order) {
         Statement statement = null;

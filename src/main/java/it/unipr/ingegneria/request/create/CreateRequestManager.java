@@ -3,8 +3,6 @@ package it.unipr.ingegneria.request.create;
 import it.unipr.ingegneria.entities.Order;
 import it.unipr.ingegneria.entities.Vineyard;
 import it.unipr.ingegneria.entities.WineShop;
-import it.unipr.ingegneria.entities.notifications.CustomerNotification;
-import it.unipr.ingegneria.entities.user.Customer;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.entities.user.UserFactory;
 import it.unipr.ingegneria.exception.AvailabilityException;
@@ -79,11 +77,7 @@ public class CreateRequestManager {
         try {
             order = shop.sellWine(c.getUser(), elements);
         } catch (AvailabilityException e) {
-            CustomerNotification notification =
-                    new CustomerNotification()
-                            .setCustomer((Customer) c.getUser())
-                            .setQuantity(c.getInQuantity())
-                            .setWineName(c.getName());
+
         }
         return order;
     }

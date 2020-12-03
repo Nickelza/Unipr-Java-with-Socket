@@ -12,14 +12,17 @@ import it.unipr.ingegneria.response.ModelResponse;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * The {@code ServerThread} class represent an instance for a socket connection
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class ServerThread implements Runnable {
-    private static final int SPORT = 4445;
+
     private final MainServer server;
     private final Socket socket;
     private final WineShop shop;
 
-    private ObjectInputStream is;
-    private ObjectOutputStream os;
 
     public ServerThread(final MainServer s, final Socket c, WineShop shop) {
         this.server = s;
@@ -27,12 +30,6 @@ public class ServerThread implements Runnable {
         this.shop = shop;
     }
 
-    // Since is a two-way communication between the client and server, the server listen for new request
-    // but there are times when client does not send nothing (stay in idle) so the InputStream is empty and the readObject launch (rightly) the EOF exception
-
-    // So the founded possibile solution are
-    // - opening and closing the socket for every request
-    // - "ignore"/skip the EOF exception.. since the socket will be closed when receive a UserLogoutRequest
 
     @Override
     public void run() {
@@ -90,6 +87,12 @@ public class ServerThread implements Runnable {
                     }
                 }
             } catch (IOException | ClassNotFoundException e) {
+                // Since is a two-way communication between the client and server, the server listen for new request
+                // but there are times when client does not send nothing (stay in idle) so the InputStream is empty and the readObject launch (rightly) the EOF exception
+
+                // So the founded possibile solution are
+                // - opening and closing the socket for every request
+                // - "ignore"/skip the EOF exception.. since the socket will be closed when receive a UserLogoutRequest as the connection with socket act as a Session
             }
         }
 

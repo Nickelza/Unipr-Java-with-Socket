@@ -8,6 +8,11 @@ import org.apache.log4j.Logger;
 
 import java.sql.*;
 
+/**
+ * The {@code RelWineshopWarehouse} handle the relation between a Wineshop entity and Warehouse entity.
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class RelWineshopWarehouse {
     private Connection conn;
     private static RelWineshopWarehouse INSTANCE = null;
