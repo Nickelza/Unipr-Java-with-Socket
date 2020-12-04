@@ -84,6 +84,24 @@ public class OrderDAO implements IOperations<Order> {
         return buildOrderDTO(SQL_FIND_ALL);
     }
 
+    public void updateOrders() {
+        String SQL_UPDATE_ALL =
+                "UPDATE ORDER_ITEM SET DELIVERED = 'Y' WHERE ID IN (SELECT ORDER_ID FROM `REL_ORDER_USER` WHERE USER_ID IN (SELECT USER_ID FROM REL_USER_WINESHOP)) AND DELIVERED = 'N'";
+        Statement statement = null;
+        try {
+            statement = conn.createStatement();
+            statement.executeUpdate(SQL_UPDATE_ALL);
+        } catch (Exception e) {
+            LOGGER.error(e);
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                LOGGER.error(e);
+            }
+        }
+    }
+
     public List<OrderDTO> buildOrderDTO(String sql) {
         List<OrderDTO> items = new ArrayList<>();
         Statement statement = null;

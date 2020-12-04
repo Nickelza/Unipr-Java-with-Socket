@@ -4,8 +4,7 @@ import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.entities.WineShop;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,13 +13,20 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class MainServer {
+
     private static final int COREPOOL = 5;
     private static final int MAXPOOL = 100;
     private static final long IDLETIME = 5000;
     private static final int SPORT = 4445;
 
+    private static final String ADDRESS = "230.0.0.1";
+    private static final int DPORT = 4446;
+
     private WineShop shop;
+    private MulticastSocket multicastSocket;
     private ServerSocket socket;
+
+
     private ThreadPoolExecutor pool;
 
     /**
@@ -33,9 +39,14 @@ public class MainServer {
         // Clear all tables by previous running
         clearAllTables();
 
+        InetAddress inetA = InetAddress.getByName(ADDRESS);
+        InetSocketAddress group = new InetSocketAddress(inetA, DPORT);
+        NetworkInterface netI = NetworkInterface.getByInetAddress(inetA);
+        this.multicastSocket = new MulticastSocket(DPORT);
+        multicastSocket.joinGroup(group, netI);
+
         // Define the default WineShop that will be used in the lifecycle application
-        this.shop = new WineShop("Enoteca Galvani");
-        this.shop.persist();
+        this.shop = new WineShop("Enoteca Galvani", multicastSocket, inetA).persist();
 
         this.socket = new ServerSocket(SPORT);
 

@@ -10,8 +10,6 @@ import it.unipr.ingegneria.db.persistance.relations.RelOrderUser;
 import it.unipr.ingegneria.db.persistance.relations.RelOrderWine;
 import it.unipr.ingegneria.db.persistance.relations.RelUserWineshop;
 import it.unipr.ingegneria.db.persistance.relations.RelWineshopWarehouse;
-import it.unipr.ingegneria.entities.notifications.CustomerNotification;
-import it.unipr.ingegneria.entities.user.Customer;
 import it.unipr.ingegneria.entities.user.Employee;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.exception.AvailabilityException;
@@ -20,12 +18,17 @@ import it.unipr.ingegneria.utils.Params;
 import it.unipr.ingegneria.utils.Type;
 import org.apache.log4j.Logger;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * The {@code WineShop} is a class for the manage the wine and people inside the shop.
@@ -38,7 +41,7 @@ import java.util.stream.Collectors;
  */
 
 public class WineShop implements
-        IUserManager, IStoreManager<Wine>, IObservable<CustomerNotification>, IObserver, Serializable, Persistable<WineShop> {
+        IUserManager, IStoreManager<Wine>, IObserver, Serializable, Persistable<WineShop> {
 
     private transient WineShopDAO wineShopDAO = WineShopDAO.getInstance();
     private transient UserDAO userDAO = UserDAO.getInstance();
@@ -47,7 +50,8 @@ public class WineShop implements
     private transient RelWineshopWarehouse relWineshopWarehouse = RelWineshopWarehouse.getInstance();
     private transient RelUserWineshop relUserWineshop = RelUserWineshop.getInstance();
     private transient RelOrderWine relOrderWine = RelOrderWine.getInstance();
-
+    private transient MulticastSocket multicastSocket;
+    private transient InetAddress inetA;
     private transient Logger logger = Logger.getLogger(WineShop.class);
 
     private Integer id;
@@ -57,19 +61,19 @@ public class WineShop implements
     private transient List<User> users;
     private transient ProvisioningManager provisioningManager;
 
-    private transient List<CustomerNotification> observers = new ArrayList<>();
 
-    public WineShop(String name) {
+    public WineShop(String name, MulticastSocket multicastSocket, InetAddress inetA) {
 
         // Initialize
         this.name = name;
         this.users = new ArrayList<>();
-
-        this.warehouse = new Warehouse("WAREHOUSE-0");
-        this.warehouse.persist();
+        this.multicastSocket = multicastSocket;
+        this.inetA = inetA;
+        this.warehouse = new Warehouse("WAREHOUSE-0").persist();
 
         this.provisioningManager = warehouse.getProvisioningManager();
         warehouse.addObserver(this);
+
     }
 
     /**
@@ -85,9 +89,13 @@ public class WineShop implements
             List<Wine> wines = this.warehouse.remove(elements);
             Order order = new Order()
                     .setDate(new Date())
-                    .setDelivered(false).setWine(wines).persist();
+                    .setDelivered(false)
+                    .setWine(wines)
+                    .persist();
+
             relOrderUser.add(to, order);
             relOrderWine.addAll(wines, order);
+
             return order;
 
         } catch (RequiredValueException e) {
@@ -137,13 +145,8 @@ public class WineShop implements
      */
     @Override
     public void sendOrders() {
-        // logger.info("Sending Orderes");
-        users.stream()
-                .filter(u -> u.getUserType().equals(Type.CLIENT.toString()))
-                .map(user -> ((Customer) user))
-                .map(customer -> customer.getOrders())
-                .filter(orders -> !orders.isEmpty())
-                .forEach((x) -> x.stream().forEach((i) -> i.setDelivered(true)));
+        logger.info("Sending Orderes");
+        orderDAO.updateOrders();
     }
 
 
@@ -166,29 +169,15 @@ public class WineShop implements
     @Override
     public void update(Object o) {
         List<Wine> winesAvailable = this.warehouse.getAvailableWines();
-
-        for (CustomerNotification observer : this.observers) {
-            String wineName = observer.getWineName();
-
-            int sizes = winesAvailable.stream()
-                    .filter(i -> i.getName().equals(wineName))
-                    .collect(Collectors.toList()).size();
-
-            Customer customer = observer.getCustomer();
-            if (sizes >= observer.getQuantity())
-                customer.update("");
+        try {
+            byte[] b = toByteArray(winesAvailable);
+            DatagramPacket packet = new DatagramPacket(b, b.length, inetA, 4446);
+            multicastSocket.send(packet);
+        } catch (IOException e) {
+            logger.info(e);
         }
     }
 
-    @Override
-    public void addObserver(CustomerNotification user) {
-        this.observers.add(user);
-    }
-
-    @Override
-    public void removeObserver(CustomerNotification user) {
-        this.observers.remove(user);
-    }
 
     public Integer getId() {
         return id;
@@ -229,6 +218,18 @@ public class WineShop implements
 
     public List<OrderDTO> getOrders() {
         return this.orderDAO.findAll();
+    }
+
+    private byte[] toByteArray(final Object o) throws IOException {
+        ByteArrayOutputStream b = new ByteArrayOutputStream();
+        ObjectOutputStream s = new ObjectOutputStream(b);
+
+        s.writeObject(o);
+        s.flush();
+        s.close();
+        b.close();
+
+        return b.toByteArray();
     }
 }
 
