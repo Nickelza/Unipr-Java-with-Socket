@@ -8,10 +8,7 @@ import it.unipr.ingegneria.entities.user.Customer;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.request.UserLoginRequest;
 import it.unipr.ingegneria.request.UserLogoutRequest;
-import it.unipr.ingegneria.request.create.CreateOrderCriteria;
-import it.unipr.ingegneria.request.create.CreateProvisioningCriteria;
-import it.unipr.ingegneria.request.create.CreateUserCriteria;
-import it.unipr.ingegneria.request.create.CreateVineyardCriteria;
+import it.unipr.ingegneria.request.create.*;
 import it.unipr.ingegneria.request.search.OrderSearchCriteria;
 import it.unipr.ingegneria.request.search.SearchVineyardCriteria;
 import it.unipr.ingegneria.request.search.UserSearchCriteria;
@@ -90,6 +87,8 @@ public class startClient {
                 .setName("Chianti")
                 .setUser(user);
 
+
+
         clientSocket.createOrder(createOrderChiantiCriteria);
 
         // Search all wines in Warehouse
@@ -117,6 +116,9 @@ public class startClient {
         OrderSearchCriteria orderSearchCriteria = new OrderSearchCriteria().setSearchByUser(user);
         List<OrderDTO> orderDTOS = clientSocket.searchOrders(orderSearchCriteria);
 
+
+        CreateSendOrderCriteria createSendOrderCriteria = new CreateSendOrderCriteria();
+        clientSocket.sendOrders(createSendOrderCriteria);
 
         UserLogoutRequest userLogoutRequest = new UserLogoutRequest().setUser(user).asType(ModelRequestType.LOGOUT);
         clientSocket.logoutUser(userLogoutRequest);

@@ -51,8 +51,7 @@ public class ClientSocket {
 
             os.writeObject(createUserRequest);
             os.flush();
-            if (is == null)
-            {
+            if (is == null) {
                 is = new ObjectInputStream(new BufferedInputStream(
                         client.getInputStream()));
             }
@@ -312,6 +311,28 @@ public class ClientSocket {
             e.printStackTrace();
         }
         return results;
+    }
+
+    public void sendOrders(CreateSendOrderCriteria createSendOrderCriteria) {
+        String results;
+        try {
+            SearchRequest<WineSearchCriteria> searchWine = new SearchRequest<>()
+                    .asType(ModelRequestType.SEARCH)
+                    .withModel(createSendOrderCriteria);
+
+            os.writeObject(searchWine);
+            os.flush();
+
+            Object o = is.readObject();
+
+            if ((o != null) && (o instanceof ModelResponse)) {
+                results = (String) ((ModelResponse<?>) o).getModel();
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
