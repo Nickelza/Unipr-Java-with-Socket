@@ -215,6 +215,10 @@ public class WineShop implements IUserManager, IStoreManager<Wine>, IObserver, S
         return this.userDAO.findAll(this);
     }
 
+    public List<User> findByType(String type) {
+        return this.userDAO.findByType(this, type);
+    }
+
     public List<OrderDTO> getOrders() {
         return this.orderDAO.findAll();
     }

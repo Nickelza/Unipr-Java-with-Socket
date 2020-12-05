@@ -64,7 +64,7 @@ public class SearchRequestManager {
         if (u1.isSelectAll())
             results = shop.getUsers();
         if (u1.getUserType() != null && !u1.getUserType().equals(""))
-            results = shop.getUsers().stream().filter(user -> user.getUserType().equals(u1.getUserType())).collect(Collectors.toList());
+            results = shop.findByType(u1.getUserType());
 
         return results;
     }

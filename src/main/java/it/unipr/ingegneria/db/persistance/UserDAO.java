@@ -109,6 +109,44 @@ public class UserDAO implements IOperations<User> {
 
     }
 
+    public List<User> findByType(WineShop wineShop, String type) {
+        List<User> users = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        String SELECT_STATEMENT = "SELECT * FROM REL_USER_WINESHOP_EXTENDED u WHERE u.WINESHOP_ID = ? AND u.TYPE = ? ORDER BY USER_ID";
+        try {
+            preparedStatement = conn.prepareStatement(SELECT_STATEMENT);
+            preparedStatement.setInt(1, wineShop.getId());
+            preparedStatement.setString(1, type);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String USER_TYPE = rs.getString("TYPE");
+                User u = UserFactory.getUser(Type.valueOf(USER_TYPE));
+                Integer USER_ID = rs.getInt("USER_ID");
+                String USER_NAME = rs.getString("NAME");
+                String USER_SURNAME = rs.getString("SURNAME");
+                String USER_EMAIL = rs.getString("EMAIL");
+                String USER_PASSWORD = rs.getString("PASSWORD");
+                if (USER_ID != null)
+                    u.setId(USER_ID)
+                            .setName(USER_NAME)
+                            .setSurname(USER_SURNAME)
+                            .setEmail(USER_EMAIL)
+                            .setPassword(USER_PASSWORD);
+                users.add(u);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        } finally {
+            try {
+                preparedStatement.close();
+            } catch (SQLException e) {
+                LOGGER.error(e);
+            }
+        }
+
+        return users;
+
+    }
 
     public User executeLogin(String userEmail, String userPassword, WineShop wineShop) {
         PreparedStatement preparedStatement = null;
