@@ -43,14 +43,14 @@ public class RelOrderUser {
     public void add(User user, Order order) {
         PreparedStatement preparedStatement = null;
         try {
-            String SQL_INSERT = "INSERT INTO REL_ORDER_USER (USER_ID, ORDER_ID) VALUES (?, ?)";
+            String SQL_INSERT = "INSERT INTO REL_ORDER_USER (USER_ID, ORDER_ID) VALUES (?,?)";
 
             preparedStatement = conn.prepareStatement(SQL_INSERT);
 
             preparedStatement.setInt(1, user.getId());
             preparedStatement.setInt(2, order.getId());
 
-            preparedStatement.executeUpdate(SQL_INSERT);
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             LOGGER.error(e);

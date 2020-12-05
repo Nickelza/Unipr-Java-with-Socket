@@ -135,7 +135,7 @@ public class UserDAO implements IOperations<User> {
         try {
             preparedStatement = conn.prepareStatement(SELECT_STATEMENT);
             preparedStatement.setInt(1, wineShop.getId());
-            preparedStatement.setString(1, type);
+            preparedStatement.setString(2, type);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 String USER_TYPE = rs.getString("TYPE");
@@ -181,7 +181,6 @@ public class UserDAO implements IOperations<User> {
         String SELECT_STATEMENT = "SELECT * FROM REL_USER_WINESHOP_EXTENDED u WHERE u.EMAIL = ? AND u.PASSWORD = ? AND u.WINESHOP_ID = ? LIMIT 1";
         try {
             preparedStatement = conn.prepareStatement(SELECT_STATEMENT);
-            preparedStatement.setInt(1, wineShop.getId());
 
             preparedStatement.setString(1, userEmail);
             preparedStatement.setString(2, userPassword);

@@ -50,6 +50,7 @@ public class OrderDAO implements IOperations<Order> {
         try {
 
             String INSERT_STATMENT = "INSERT INTO ORDER_ITEM (DATE, DELIVERED) VALUES (?, ?)";
+            preparedStatement = conn.prepareStatement(INSERT_STATMENT, Statement.RETURN_GENERATED_KEYS);
 
             Date date = order.getDate();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
@@ -59,9 +60,8 @@ public class OrderDAO implements IOperations<Order> {
             preparedStatement.setString(1, strDate);
             preparedStatement.setString(2, orderIsDelivered);
 
-            String SQL_INSERT = INSERT_STATMENT.toString();
 
-            preparedStatement = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows > 0) {
                 try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {

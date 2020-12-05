@@ -122,14 +122,14 @@ public class WineDAO implements IOperations<Wine> {
      * @return List of Wine
      */
     public List<Wine> findByName(String name) {
-        String FIND_STATMENT = "SELECT * FROM REL_WINE_VINEYARD_EXTENDED WHERE WINE_NAME LIKE ? ORDER BY WINE_ID";
+        String FIND_STATMENT = "SELECT * FROM REL_WINE_VINEYARD_EXTENDED WHERE WINE_NAME = ? ORDER BY WINE_ID";
         List<Wine> items = new ArrayList<>();
-        PreparedStatement statement = null;
+        PreparedStatement preparedStatement = null;
         try {
-            statement = conn.prepareStatement(FIND_STATMENT);
-            statement.setString(1, name);
+            preparedStatement = conn.prepareStatement(FIND_STATMENT);
+            preparedStatement.setString(1, name);
 
-            ResultSet rs = statement.executeQuery(FIND_STATMENT);
+            ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Wine wine = Wine.valueOf(rs);
                 // Check if there is element with same WINE_ID, if present add object updating only Vineyards List
@@ -149,7 +149,7 @@ public class WineDAO implements IOperations<Wine> {
             LOGGER.error(e);
         } finally {
             try {
-                statement.close();
+                preparedStatement.close();
             } catch (SQLException e) {
                 LOGGER.error(e);
             }
