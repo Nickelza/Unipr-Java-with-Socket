@@ -21,16 +21,24 @@ public class WineDAO implements IOperations<Wine> {
     private static WineDAO INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(WineDAO.class);
 
-    public WineDAO() {
+    private WineDAO() {
         conn = DBContext.getConnection();
     }
 
+    /**
+     * Return {@code WineDAO} singleton instance
+     */
     public synchronized static WineDAO getInstance() {
         if (INSTANCE == null)
             INSTANCE = new WineDAO();
         return INSTANCE;
     }
 
+    /**
+     * Method to add the Wine in the database
+     *
+     * @param wine object
+     */
     @Override
     public void add(Wine wine) {
         PreparedStatement preparedStatement = null;
@@ -66,6 +74,11 @@ public class WineDAO implements IOperations<Wine> {
         }
     }
 
+    /**
+     * Method to retrive all Wine
+     *
+     * @return List of Wine
+     */
     public List<Wine> findAll() {
         String SQL_FIND_BY_NAME = "SELECT * FROM REL_WINE_VINEYARD_EXTENDED";
         List<Wine> items = new ArrayList<>();
@@ -101,6 +114,13 @@ public class WineDAO implements IOperations<Wine> {
         return items;
     }
 
+
+    /**
+     * Method to retrive all Wine by a given name
+     *
+     * @param name name of searched wine
+     * @return List of Wine
+     */
     public List<Wine> findByName(String name) {
         String FIND_STATMENT = "SELECT * FROM REL_WINE_VINEYARD_EXTENDED WHERE WINE_NAME LIKE ? ORDER BY WINE_ID";
         List<Wine> items = new ArrayList<>();
@@ -137,6 +157,12 @@ public class WineDAO implements IOperations<Wine> {
         return items;
     }
 
+    /**
+     * Method to retrive all Wine by a given name
+     *
+     * @param year year of searched wine
+     * @return List of Wine
+     */
     public List<Wine> findByYear(int year) {
         String FIND_STATMENT = "SELECT * FROM  REL_WINE_VINEYARD_EXTENDED WHERE WINE_YEAR = ? ORDER BY WINE_ID";
         List<Wine> items = new ArrayList<>();

@@ -2,6 +2,11 @@ package it.unipr.ingegneria.request;
 
 import it.unipr.ingegneria.utils.ModelRequestType;
 
+/**
+ * The {@code UserLoginRequest} defining the Login request .
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class UserLoginRequest extends ModelRequest<UserLoginRequest> {
     private String email;
     private String password;

@@ -21,11 +21,13 @@ public class RelOrderUser {
     private static RelOrderUser INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(WineDAO.class);
 
-    public RelOrderUser() {
+    private RelOrderUser() {
         conn = DBContext.getConnection();
     }
 
-
+    /**
+     * Return {@code RelOrderUser} singleton instance
+     */
     public synchronized static RelOrderUser getInstance() {
         if (INSTANCE == null)
             INSTANCE = new RelOrderUser();

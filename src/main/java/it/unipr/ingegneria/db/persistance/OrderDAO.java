@@ -24,16 +24,25 @@ public class OrderDAO implements IOperations<Order> {
     private static OrderDAO INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(OrderDAO.class);
 
-    public OrderDAO() {
+    private OrderDAO() {
         conn = DBContext.getConnection();
     }
 
+    /**
+     * Return {@code OrderDAO} singleton instance
+     */
     public synchronized static OrderDAO getInstance() {
         if (INSTANCE == null)
             INSTANCE = new OrderDAO();
         return INSTANCE;
     }
 
+
+    /**
+     * Method to add the Order in the database
+     *
+     * @param order order object
+     */
     @Override
     public void add(Order order) {
         PreparedStatement preparedStatement = null;
@@ -74,7 +83,11 @@ public class OrderDAO implements IOperations<Order> {
         }
     }
 
-
+    /**
+     * Method to retrive all Order summary
+     *
+     * @return List of OrderDTO
+     */
     public List<OrderDTO> findAll() {
         String SQL_FIND_ALL =
                 "SELECT USER_ID, WINE_NAME, ORDER_ID, ORDER_DATE, ORDER_DELIVERED, COUNT(*) AS QTY FROM REL_ORDER_USER_WINE_EXTENDED GROUP BY USER_ID, WINE_NAME, ORDER_ID";
@@ -82,6 +95,9 @@ public class OrderDAO implements IOperations<Order> {
         return buildOrderDTO(SQL_FIND_ALL);
     }
 
+    /**
+     * Method to sending the orders
+     */
     public void updateOrders() {
         String SQL_UPDATE_ALL =
                 "UPDATE ORDER_ITEM SET DELIVERED = 'Y' WHERE ID IN (SELECT ORDER_ID FROM `REL_ORDER_USER` WHERE USER_ID IN (SELECT USER_ID FROM REL_USER_WINESHOP)) AND DELIVERED = 'N'";
@@ -100,6 +116,12 @@ public class OrderDAO implements IOperations<Order> {
         }
     }
 
+    /**
+     * Build the object executing the passed query
+     *
+     * @param sql the executed query
+     * @return List of OrderDTO
+     */
     public List<OrderDTO> buildOrderDTO(String sql) {
         List<OrderDTO> items = new ArrayList<>();
         Statement statement = null;

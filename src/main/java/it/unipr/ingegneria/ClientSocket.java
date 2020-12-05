@@ -20,6 +20,12 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
 
+
+/**
+ * The {@code ClientSocket} define the object client that can be used for obtaining the response by socket server   .
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class ClientSocket {
     private static final int SPORT = 4445;
     private static final String SHOST = "localhost";

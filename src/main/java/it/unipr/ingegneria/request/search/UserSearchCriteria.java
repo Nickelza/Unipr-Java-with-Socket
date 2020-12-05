@@ -4,6 +4,11 @@ import it.unipr.ingegneria.utils.Type;
 
 import java.io.Serializable;
 
+/**
+ * The {@code UserSearchCriteria} class defines the criteria of request with params for search User .
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class UserSearchCriteria implements Serializable {
     private boolean selectAll;
     private boolean makeCount;

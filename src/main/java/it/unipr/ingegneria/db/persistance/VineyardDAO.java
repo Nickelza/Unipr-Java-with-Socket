@@ -21,16 +21,24 @@ public class VineyardDAO implements IOperations<Vineyard> {
     private static VineyardDAO INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(RelWineshopWarehouse.class);
 
-    public VineyardDAO() {
+    private VineyardDAO() {
         conn = DBContext.getConnection();
     }
 
+    /**
+     * Return {@code VineyardDAO} singleton instance
+     */
     public synchronized static VineyardDAO getInstance() {
         if (INSTANCE == null)
             INSTANCE = new VineyardDAO();
         return INSTANCE;
     }
 
+    /**
+     * Method to add the Vineyard in the database
+     *
+     * @param vineyard object
+     */
     @Override
     public void add(Vineyard vineyard) {
         {
@@ -66,6 +74,11 @@ public class VineyardDAO implements IOperations<Vineyard> {
 
     }
 
+    /**
+     * Method to retrive all Vineyard
+     *
+     * @return List of Vineyard
+     */
     public List<Vineyard> findAll() {
         List<Vineyard> items = new ArrayList<>();
         String SQL_SELECT = "SELECT * FROM VINEYARD";

@@ -1,8 +1,15 @@
 package it.unipr.ingegneria.request.create;
 
 import it.unipr.ingegneria.utils.Type;
+
 import java.io.Serializable;
 
+
+/**
+ * The {@code CreateUserCriteria} class defines the criteria of request with params for create user .
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class CreateUserCriteria implements Serializable {
 
     private String name;

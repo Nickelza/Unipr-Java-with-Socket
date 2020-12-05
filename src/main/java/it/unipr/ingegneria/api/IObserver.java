@@ -1,4 +1,5 @@
 package it.unipr.ingegneria.api;
+
 /**
  * The {@code IObserver} is use to implement the observer pattern.
  *

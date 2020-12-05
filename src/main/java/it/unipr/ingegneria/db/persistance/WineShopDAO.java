@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import java.sql.*;
 
 /**
- * The {@code WineShopDAO} handle the persistance and retrival data of WineShop entity.
+ * The {@code WineShopDAO} handle the persistence and retrieval data of WineShop entity.
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
@@ -18,16 +18,24 @@ public class WineShopDAO implements IOperations<WineShop> {
     private static WineShopDAO INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(RelWineshopWarehouse.class);
 
-    public WineShopDAO() {
+    private WineShopDAO() {
         conn = DBContext.getConnection();
     }
 
+    /**
+     * Return {@code WineShopDAO} singleton instance
+     */
     public synchronized static WineShopDAO getInstance() {
         if (INSTANCE == null)
             INSTANCE = new WineShopDAO();
         return INSTANCE;
     }
 
+    /**
+     * Method to add the WineShop in the database
+     *
+     * @param wineShop object
+     */
     @Override
     public void add(WineShop wineShop) {
         {
@@ -38,7 +46,7 @@ public class WineShopDAO implements IOperations<WineShop> {
                 preparedStatement.setString(1, wineShop.getName());
 
 
-                int affectedRows  = preparedStatement.executeUpdate();
+                int affectedRows = preparedStatement.executeUpdate();
                 if (affectedRows > 0) {
                     try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                         if (generatedKeys.next()) {

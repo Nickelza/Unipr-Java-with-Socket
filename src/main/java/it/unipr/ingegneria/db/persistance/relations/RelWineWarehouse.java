@@ -21,10 +21,14 @@ public class RelWineWarehouse {
     private static RelWineWarehouse INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(RelWineshopWarehouse.class);
 
-    public RelWineWarehouse() {
+    private RelWineWarehouse() {
         conn = DBContext.getConnection();
     }
 
+    /**
+     * Return {@code RelWineVineyard} singleton instance
+     *
+     */
     public synchronized static RelWineWarehouse getInstance() {
         if (INSTANCE == null)
             INSTANCE = new RelWineWarehouse();

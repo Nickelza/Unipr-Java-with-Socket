@@ -19,7 +19,7 @@ public class Vineyard implements Serializable, Persistable {
 
 
     /**
-     * Default class constructor without name
+     * Default class constructor
      */
     public Vineyard() {
     }

@@ -2,6 +2,12 @@ package it.unipr.ingegneria.request.search;
 
 import java.io.Serializable;
 
+
+/**
+ * The {@code SearchVineyardCriteria} class defines the criteria of request with params for search a Vineyard .
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class SearchVineyardCriteria implements Serializable {
     public boolean isSelectAll() {
         return selectAll;

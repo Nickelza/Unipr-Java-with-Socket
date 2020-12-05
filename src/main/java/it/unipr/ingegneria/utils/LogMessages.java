@@ -1,6 +1,5 @@
 package it.unipr.ingegneria.utils;
 
-import it.unipr.ingegneria.entities.notifications.CustomerNotification;
 import it.unipr.ingegneria.entities.user.User;
 
 /**
@@ -66,22 +65,5 @@ public class LogMessages {
         return builder.toString();
     }
 
-    /**
-     * Metod call when a user receive a notify
-     *
-     * @param user         User
-     * @param notification Notification
-     * @return string
-     */
-    public static String userNotification(User user, CustomerNotification notification) {
-        StringBuilder builder = new StringBuilder()
-                .append("Dear ")
-                .append(user.getName())
-                .append(" ")
-                .append(user.getSurname())
-                .append(" the wine that you searched ")
-                .append(notification.getWineName())
-                .append(" is now is available");
-        return builder.toString();
-    }
+
 }

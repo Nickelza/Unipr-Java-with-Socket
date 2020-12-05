@@ -3,6 +3,11 @@ package it.unipr.ingegneria.request;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.utils.ModelRequestType;
 
+/**
+ * The {@code UserLogoutRequest} defining the Logout request .
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class UserLogoutRequest extends ModelRequest<UserLogoutRequest> {
     private User user;
 

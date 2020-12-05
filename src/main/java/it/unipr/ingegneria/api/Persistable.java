@@ -7,7 +7,7 @@ package it.unipr.ingegneria.api;
 
 
 /**
- * Method to execute the persistance on db
+ * Method to execute the persistence on db
  */
 public interface Persistable<T> {
     T persist();

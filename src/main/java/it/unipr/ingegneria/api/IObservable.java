@@ -16,7 +16,7 @@ public interface IObservable<T> {
     /**
      * Method to remove an observer
      *
-     * @param t  element that observe
+     * @param t element that observe
      */
     void removeObserver(T t);
 

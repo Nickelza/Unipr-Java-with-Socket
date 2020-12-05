@@ -19,17 +19,25 @@ public class RelOrderWine {
     private Connection conn;
     private static RelOrderWine INSTANCE = null;
 
-    public RelOrderWine() {
+    private RelOrderWine() {
         conn = DBContext.getConnection();
     }
 
+    /**
+     * @return {@code RelOrderWine} singleton instance
+     */
     public synchronized static RelOrderWine getInstance() {
         if (INSTANCE == null)
             INSTANCE = new RelOrderWine();
         return INSTANCE;
     }
 
-
+    /**
+     * Insert in massive mode the relation between order and Wine
+     *
+     * @param wines wines of order
+     * @param order order
+     */
     public void addAll(List<Wine> wines, Order order) {
         try {
             String SQL_INSERT = "INSERT INTO REL_ORDER_WINE (WINE_ID, ORDER_ID) VALUES (?, ?)";

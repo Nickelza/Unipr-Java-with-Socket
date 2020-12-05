@@ -26,12 +26,20 @@ public class WarehouseDAO implements IOperations<Warehouse> {
         conn = DBContext.getConnection();
     }
 
+    /**
+     * Return {@code WarehouseDAO} singleton instance
+     */
     public synchronized static WarehouseDAO getInstance() {
         if (INSTANCE == null)
             INSTANCE = new WarehouseDAO();
         return INSTANCE;
     }
 
+    /**
+     * Method to add the Warehouse in the database
+     *
+     * @param warehouse object
+     */
     @Override
     public void add(Warehouse warehouse) {
         PreparedStatement preparedStatement = null;
@@ -63,11 +71,22 @@ public class WarehouseDAO implements IOperations<Warehouse> {
 
     }
 
+
+    /**
+     * Method to retrive all Wine
+     *
+     * @return List of Wine
+     */
     public List<Wine> findAll() {
         String SQL_FIND_ALL = "SELECT * FROM REL_WINE_WAREHOUSE_EXTENDED ORDER BY WINE_ID";
         return this.buildWines(SQL_FIND_ALL);
     }
 
+    /**
+     * Method to retrieve all Wine not in the warehouse reading the database
+     *
+     * @return List of Wine Names not available
+     */
     public List<String> findWineNotInWarehouse() {
         String sql = "SELECT DISTINCT(NAME) AS NAME FROM WINE t1 LEFT JOIN REL_WINE_WAREHOUSE_EXTENDED t2 ON t2.WINE_NAME = t1.NAME WHERE t2.WINE_NAME IS NULL";
         List<String> results = new ArrayList<>();
@@ -93,7 +112,13 @@ public class WarehouseDAO implements IOperations<Warehouse> {
 
     }
 
-
+    /**
+     * Method to check availability reading the database
+     *
+     * @param wineName         name of wine to search
+     * @param requiredQuantity required quantity of wine
+     * @return Boolean
+     */
     public Boolean checkAvailability(String wineName, Integer requiredQuantity) {
         Boolean hasEnoughWines = Boolean.FALSE;
         String COUNT_STATMENT = "SELECT COUNT(DISTINCT WINE_ID) FROM REL_WINE_WAREHOUSE_EXTENDED WHERE WINE_NAME = ? ORDER BY WINE_ID";
@@ -123,6 +148,12 @@ public class WarehouseDAO implements IOperations<Warehouse> {
         return hasEnoughWines;
     }
 
+    /**
+     * Build the object executing the passed query
+     *
+     * @param sql the executed query
+     * @return List of Wine
+     */
     private List<Wine> buildWines(String sql) {
         List<Wine> items = new ArrayList<>();
         Statement statement = null;

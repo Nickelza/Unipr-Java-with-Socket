@@ -17,7 +17,11 @@ public class RelWineshopWarehouse {
     private static RelWineshopWarehouse INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(RelWineshopWarehouse.class);
 
-    public RelWineshopWarehouse() {
+    /**
+     * Return {@code RelWineshopWarehouse} singleton instance
+     *
+     */
+    private RelWineshopWarehouse() {
         conn = DBContext.getConnection();
     }
 

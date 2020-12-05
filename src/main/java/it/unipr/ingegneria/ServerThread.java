@@ -13,7 +13,7 @@ import java.io.*;
 import java.net.Socket;
 
 /**
- * The {@code ServerThread} class represent an instance for a socket connection
+ * The {@code ServerThread} class represent an instance server for a socket connection
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */

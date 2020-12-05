@@ -15,9 +15,21 @@ import org.apache.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The {@code CreateRequestManager} handle the criteria of the arrived request .
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class CreateRequestManager {
     private static final Logger logger = Logger.getLogger(WineShop.class);
 
+    /**
+     * Handle the received request
+     *
+     * @param shop the WineShop
+     * @param o    Object of the request
+     * @return ModelResponse containing the worked data
+     */
     public static ModelResponse fillWithResponse(WineShop shop, Object o) {
         ModelResponse response = new ModelResponse<User>().withModel(null);
 
@@ -39,7 +51,13 @@ public class CreateRequestManager {
         return response;
     }
 
-
+    /**
+     * Handle the CreateUserCriteria object
+     *
+     * @param shop the WineShop
+     * @param o    Object of the request
+     * @return User created
+     */
     private static User createUserCriteria(CreateRequest o, WineShop shop) {
         CreateUserCriteria c = (CreateUserCriteria) ((CreateRequest<?>) o).getModel();
         User u = UserFactory.getUser(Type.valueOf(c.getUserType()));
@@ -55,11 +73,23 @@ public class CreateRequestManager {
         return u;
     }
 
+    /**
+     * Handle the CreateVineyardCriteria object
+     *
+     * @param o Object of the request
+     * @return Vineyard created
+     */
     private static Vineyard createVineyardCriteria(CreateRequest o) {
         CreateVineyardCriteria c = (CreateVineyardCriteria) ((CreateRequest<?>) o).getModel();
         return new Vineyard().setName(c.getName()).persist();
     }
 
+    /**
+     * Handle the CreateProvisioningCriteria object
+     *
+     * @param o Object of the request
+     * @return a default message string
+     */
     private static String createProvisioningCriteria(CreateRequest o, WineShop shop) {
         CreateProvisioningCriteria c = (CreateProvisioningCriteria) ((CreateRequest<?>) o).getModel();
         Map<Params, Object> elements = new HashMap<>();
@@ -74,6 +104,12 @@ public class CreateRequestManager {
         return "Started Provisioning";
     }
 
+    /**
+     * Handle the CreateOrderCriteria object
+     *
+     * @param o Object of the request
+     * @return Order created
+     */
     private static Order createOrderCriteria(CreateRequest o, WineShop shop) {
         Order order = null;
         CreateOrderCriteria c = (CreateOrderCriteria) ((CreateRequest<?>) o).getModel();
@@ -90,6 +126,12 @@ public class CreateRequestManager {
         return order;
     }
 
+    /**
+     * Handle the CreateSendOrderCriteria object
+     *
+     * @param o Object of the request
+     * @return a default message string
+     */
     private static String createSendOrderCriteria(CreateRequest o, WineShop shop) {
         CreateSendOrderCriteria c = (CreateSendOrderCriteria) ((CreateRequest<?>) o).getModel();
         shop.sendOrders();

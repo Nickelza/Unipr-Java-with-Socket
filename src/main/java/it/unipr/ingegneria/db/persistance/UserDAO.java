@@ -23,17 +23,24 @@ public class UserDAO implements IOperations<User> {
     private static UserDAO INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(WineDAO.class);
 
-    public UserDAO() {
+    private UserDAO() {
         conn = DBContext.getConnection();
     }
 
+    /**
+     * Return {@code UserDAO} singleton instance
+     */
     public synchronized static UserDAO getInstance() {
         if (INSTANCE == null)
             INSTANCE = new UserDAO();
         return INSTANCE;
     }
 
-
+    /**
+     * Method to add the User in the database
+     *
+     * @param user object
+     */
     @Override
     public void add(User user) {
         PreparedStatement preparedStatement = null;
@@ -70,7 +77,11 @@ public class UserDAO implements IOperations<User> {
 
     }
 
-
+    /**
+     * Method to retrive all User
+     *
+     * @return List of User
+     */
     public List<User> findAll(WineShop wineShop) {
         List<User> users = new ArrayList<>();
         PreparedStatement preparedStatement = null;
@@ -109,6 +120,14 @@ public class UserDAO implements IOperations<User> {
 
     }
 
+
+    /**
+     * Method to retrive all User by type in the wineshop
+     *
+     * @param wineShop object
+     * @param type     of the searched user
+     * @return List of User
+     */
     public List<User> findByType(WineShop wineShop, String type) {
         List<User> users = new ArrayList<>();
         PreparedStatement preparedStatement = null;
@@ -148,6 +167,14 @@ public class UserDAO implements IOperations<User> {
 
     }
 
+    /**
+     * Method to try to execute login
+     *
+     * @param userEmail    email of user
+     * @param userPassword password of user
+     * @param wineShop     object
+     * @return User if founded
+     */
     public User executeLogin(String userEmail, String userPassword, WineShop wineShop) {
         PreparedStatement preparedStatement = null;
         User user = null;

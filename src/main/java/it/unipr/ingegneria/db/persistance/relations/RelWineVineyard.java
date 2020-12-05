@@ -21,6 +21,9 @@ public class RelWineVineyard {
     private static RelWineVineyard INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(RelWineshopWarehouse.class);
 
+    /**
+     * Return {@code RelWineVineyard} singleton instance
+     */
     public RelWineVineyard() {
         conn = DBContext.getConnection();
     }
@@ -31,7 +34,11 @@ public class RelWineVineyard {
         return INSTANCE;
     }
 
-
+    /**
+     * Method to add in massive mode the wines to Wine Table.
+     *
+     * @param email User email
+     */
     public void addAll(List<Wine> wines) {
         boolean itemsFound = false;
         try {

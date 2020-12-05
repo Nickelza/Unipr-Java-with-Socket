@@ -20,6 +20,9 @@ public class ProvisioningManager implements IObservable<Employee>, Serializable 
     private Queue<Map> ordersQueue;
      private static final Logger logger = Logger.getLogger(ProvisioningManager.class);
 
+    /**
+     * Default constructor
+     */
     public ProvisioningManager() {
         this.managedEmployees = new ArrayList<>();
         this.ordersQueue = new LinkedList<Map>();

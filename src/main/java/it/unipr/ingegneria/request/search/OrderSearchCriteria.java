@@ -4,6 +4,11 @@ import it.unipr.ingegneria.entities.user.User;
 
 import java.io.Serializable;
 
+/**
+ * The {@code OrderSearchCriteria} class defines the criteria of request with params for search a Order .
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class OrderSearchCriteria implements Serializable {
     private boolean selectAll;
     private User searchByUser;

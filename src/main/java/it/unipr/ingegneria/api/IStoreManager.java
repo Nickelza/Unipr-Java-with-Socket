@@ -5,7 +5,6 @@ import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.exception.AvailabilityException;
 import it.unipr.ingegneria.utils.Params;
 
-import java.util.List;
 import java.util.Map;
 
 /**

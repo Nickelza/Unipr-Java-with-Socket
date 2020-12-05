@@ -12,7 +12,19 @@ import it.unipr.ingegneria.utils.Type;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The {@code SearchRequestManager} handle the criteria of the arrived request .
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class SearchRequestManager {
+    /**
+     * Handle the received request
+     *
+     * @param shop the WineShop
+     * @param o    Object of the request
+     * @return ModelListResponse containing the worked data
+     */
     public static ModelListResponse fillWithResponse(WineShop shop, Object o) {
         ModelListResponse response = new ModelListResponse()
                 .withModels(null);
@@ -32,6 +44,13 @@ public class SearchRequestManager {
         return response;
     }
 
+    /**
+     * Handle the WineSearchCriteria object
+     *
+     * @param o Object of the request
+     * @param shop the WineShop
+     * @return List of Wine
+     */
     private static List<Wine> createWineSearchCriteria(SearchRequest o, WineShop shop) {
         WineSearchCriteria u0 = (WineSearchCriteria) o.getModel();
         List<Wine> results = null;
@@ -48,6 +67,12 @@ public class SearchRequestManager {
         return results;
     }
 
+    /**
+     * Handle the SearchVineyardCriteria object
+     *
+     * @param o Object of the request
+     * @return List of Vineyard
+     */
     private static List<Vineyard> createSearchVineyardCriteria(SearchRequest o) {
         SearchVineyardCriteria u1 = (SearchVineyardCriteria) o.getModel();
         List<Vineyard> results = null;
@@ -56,6 +81,13 @@ public class SearchRequestManager {
         return results;
     }
 
+    /**
+     * Handle the UserSearchCriteria object
+     *
+     * @param o Object of the request
+     * @param shop the WineShop
+     * @return List of User
+     */
     private static List<User> createUserSearchCriteria(SearchRequest o, WineShop shop) {
         UserSearchCriteria u1 = (UserSearchCriteria) o.getModel();
         List<User> results = null;
@@ -69,6 +101,13 @@ public class SearchRequestManager {
         return results;
     }
 
+    /**
+     * Handle the OrderSearchCriteria object
+     *
+     * @param o Object of the request
+     * @param shop the WineShop
+     * @return List of User
+     */
     private static List<OrderDTO> createOrderSearchCriteria(SearchRequest o, WineShop shop) {
         OrderSearchCriteria u1 = (OrderSearchCriteria) o.getModel();
         List<OrderDTO> results = null;

@@ -2,8 +2,6 @@ package it.unipr.ingegneria.api;
 
 import it.unipr.ingegneria.entities.user.User;
 
-import java.util.List;
-
 /**
  * The {@code IUserManager} interface contain the method to manage a user.
  *

@@ -21,11 +21,14 @@ public class RelUserWineshop {
     private static RelUserWineshop INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(WineDAO.class);
 
-    public RelUserWineshop() {
+    private RelUserWineshop() {
         conn = DBContext.getConnection();
     }
 
-
+    /**
+     * Return {@code RelUserWineshop} singleton instance
+     *
+     */
     public synchronized static RelUserWineshop getInstance() {
         if (INSTANCE == null)
             INSTANCE = new RelUserWineshop();

@@ -4,9 +4,15 @@ import it.unipr.ingegneria.entities.user.User;
 
 import java.io.Serializable;
 
+/**
+ * The {@code CreateOrderCriteria} class defines the criteria of request with params for create a Order .
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class CreateOrderCriteria implements Serializable {
     private User user;
     private String name;
+    private Integer inQuantity;
 
     public User getUser() {
         return user;
@@ -34,7 +40,4 @@ public class CreateOrderCriteria implements Serializable {
         this.inQuantity = inQuantity;
         return this;
     }
-
-    private Integer inQuantity;
-
 }

@@ -6,6 +6,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code CreateProvisioningCriteria} class defines the criteria of request with params for create Provisioning .
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class CreateProvisioningCriteria implements Serializable {
     private String name;
     private int year;
