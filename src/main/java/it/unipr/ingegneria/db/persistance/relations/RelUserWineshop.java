@@ -4,10 +4,12 @@ import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.db.persistance.WineDAO;
 import it.unipr.ingegneria.entities.WineShop;
 import it.unipr.ingegneria.entities.user.User;
-import org.antlr.stringtemplate.StringTemplate;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 /**
  * The {@code RelUserWineshop} handle the relation between a WineShop entity and User entity.
  *
@@ -31,25 +33,23 @@ public class RelUserWineshop {
     }
 
     public void add(User user, WineShop wineShop) {
-        Statement statement = null;
+        PreparedStatement preparedStatement = null;
         try {
 
-            StringTemplate INSERT_STATMENT =
-                    new StringTemplate("INSERT INTO REL_USER_WINESHOP (WINESHOP_ID, USER_ID) VALUES ($ID_WINESHOP$, $ID_USER$)");
-            statement = conn.createStatement();
+            String INSERT_STATMENT = "INSERT INTO REL_USER_WINESHOP (WINESHOP_ID, USER_ID) VALUES (?, ?)";
+            preparedStatement = conn.prepareStatement(INSERT_STATMENT);
 
-            INSERT_STATMENT.setAttribute("ID_USER", user.getId());
-            INSERT_STATMENT.setAttribute("ID_WINESHOP", wineShop.getId());
+            preparedStatement.setInt(1, wineShop.getId());
+            preparedStatement.setInt(2, user.getId());
 
-            String SQL_INSERT = INSERT_STATMENT.toString();
-            statement.executeUpdate(SQL_INSERT);
+            preparedStatement.executeUpdate();
 
 
         } catch (SQLException e) {
             LOGGER.error(e);
         } finally {
             try {
-                statement.close();
+                preparedStatement.close();
             } catch (SQLException e) {
                 LOGGER.error(e);
             }

@@ -4,7 +4,6 @@ import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.db.IOperations;
 import it.unipr.ingegneria.entities.Vineyard;
 import it.unipr.ingegneria.entities.Wine;
-import org.antlr.stringtemplate.StringTemplate;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -34,24 +33,21 @@ public class WineDAO implements IOperations<Wine> {
 
     @Override
     public void add(Wine wine) {
-        PreparedStatement statement = null;
+        PreparedStatement preparedStatement = null;
         Integer generatedId = null;
         try {
 
-            StringTemplate INSERT_STATMENT =
-                    new StringTemplate("INSERT INTO WINE (NAME, YEAR, PRODUCER, TECHNOTES) VALUES ('$NAME_WINE$', $YEAR_WINE$, '$PRODUCER_WINE$', '$TECHNOTES_WINE$')");
+            String INSERT_STATMENT = "INSERT INTO WINE (NAME, YEAR, PRODUCER, TECHNOTES) VALUES (?, ?, ?, ?)";
+            preparedStatement = conn.prepareStatement(INSERT_STATMENT, Statement.RETURN_GENERATED_KEYS);
 
-            INSERT_STATMENT.setAttribute("NAME_WINE", wine.getName());
-            INSERT_STATMENT.setAttribute("YEAR_WINE", wine.getYear());
-            INSERT_STATMENT.setAttribute("PRODUCER_WINE", wine.getProducer());
-            INSERT_STATMENT.setAttribute("TECHNOTES_WINE", wine.getTechNotes());
+            preparedStatement.setString(1, wine.getName());
+            preparedStatement.setInt(2, wine.getYear());
+            preparedStatement.setString(3, wine.getProducer());
+            preparedStatement.setString(4, wine.getTechNotes());
 
-            String SQL_INSERT = INSERT_STATMENT.toString();
-
-            statement = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
-            int affectedRows = statement.executeUpdate();
+            int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows > 0) {
-                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         generatedId = generatedKeys.getInt(1);
                         wine.setId(generatedId);
@@ -63,7 +59,7 @@ public class WineDAO implements IOperations<Wine> {
             LOGGER.error(e);
         } finally {
             try {
-                statement.close();
+                preparedStatement.close();
             } catch (SQLException e) {
                 LOGGER.error(e);
             }
@@ -72,36 +68,12 @@ public class WineDAO implements IOperations<Wine> {
 
     public List<Wine> findAll() {
         String SQL_FIND_BY_NAME = "SELECT * FROM REL_WINE_VINEYARD_EXTENDED";
-        return this.buildWines(SQL_FIND_BY_NAME);
-    }
-
-    public List<Wine> findByName(String name) {
-        StringTemplate FIND_STATMENT =
-                new StringTemplate("SELECT * FROM REL_WINE_VINEYARD_EXTENDED WHERE WINE_NAME LIKE '%$PARAM$%' ORDER BY WINE_ID");
-
-        FIND_STATMENT.setAttribute("PARAM", name);
-        String SQL_FIND_BY_NAME = FIND_STATMENT.toString();
-
-        return this.buildWines(SQL_FIND_BY_NAME);
-    }
-
-    public List<Wine> findByYear(int year) {
-        StringTemplate FIND_STATMENT =
-                new StringTemplate("SELECT * FROM  REL_WINE_VINEYARD_EXTENDED WHERE WINE_YEAR = $PARAM$ ORDER BY WINE_ID");
-
-        FIND_STATMENT.setAttribute("PARAM", year);
-        String SQL_FIND_BY_YEAR = FIND_STATMENT.toString();
-
-        return this.buildWines(SQL_FIND_BY_YEAR);
-    }
-
-    private List<Wine> buildWines(String sql) {
         List<Wine> items = new ArrayList<>();
         Statement statement = null;
         try {
             statement = conn.createStatement();
 
-            ResultSet rs = statement.executeQuery(sql);
+            ResultSet rs = statement.executeQuery(SQL_FIND_BY_NAME);
             while (rs.next()) {
                 Wine wine = Wine.valueOf(rs);
                 // Check if there is element with same WINE_ID, if present add object updating only Vineyards List
@@ -128,4 +100,78 @@ public class WineDAO implements IOperations<Wine> {
         }
         return items;
     }
+
+    public List<Wine> findByName(String name) {
+        String FIND_STATMENT = "SELECT * FROM REL_WINE_VINEYARD_EXTENDED WHERE WINE_NAME LIKE ? ORDER BY WINE_ID";
+        List<Wine> items = new ArrayList<>();
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(FIND_STATMENT);
+            statement.setString(1, name);
+
+            ResultSet rs = statement.executeQuery(FIND_STATMENT);
+            while (rs.next()) {
+                Wine wine = Wine.valueOf(rs);
+                // Check if there is element with same WINE_ID, if present add object updating only Vineyards List
+                if (items.contains(wine)) {
+                    if ((wine.getVineyards() != null && !wine.getVineyards().isEmpty())) {
+                        Vineyard extracted = wine.getVineyards().get(0);
+                        int position = items.indexOf(wine);
+                        Wine oldWine = items.get(position);
+                        oldWine.getVineyards().add(extracted);
+                    }
+                } else {
+                    items.add(wine);
+                }
+
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                LOGGER.error(e);
+            }
+        }
+        return items;
+    }
+
+    public List<Wine> findByYear(int year) {
+        String FIND_STATMENT = "SELECT * FROM  REL_WINE_VINEYARD_EXTENDED WHERE WINE_YEAR = ? ORDER BY WINE_ID";
+        List<Wine> items = new ArrayList<>();
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(FIND_STATMENT);
+            statement.setInt(1, year);
+
+            ResultSet rs = statement.executeQuery(FIND_STATMENT);
+            while (rs.next()) {
+                Wine wine = Wine.valueOf(rs);
+                // Check if there is element with same WINE_ID, if present add object updating only Vineyards List
+                if (items.contains(wine)) {
+                    if ((wine.getVineyards() != null && !wine.getVineyards().isEmpty())) {
+                        Vineyard extracted = wine.getVineyards().get(0);
+                        int position = items.indexOf(wine);
+                        Wine oldWine = items.get(position);
+                        oldWine.getVineyards().add(extracted);
+                    }
+                } else {
+                    items.add(wine);
+                }
+
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        } finally {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                LOGGER.error(e);
+            }
+        }
+        return items;
+    }
+
+
 }

@@ -4,7 +4,6 @@ import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.db.DTO.OrderDTO;
 import it.unipr.ingegneria.db.IOperations;
 import it.unipr.ingegneria.entities.Order;
-import org.antlr.stringtemplate.StringTemplate;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -37,27 +36,26 @@ public class OrderDAO implements IOperations<Order> {
 
     @Override
     public void add(Order order) {
-        PreparedStatement statement = null;
+        PreparedStatement preparedStatement = null;
         Integer generatedId = null;
         try {
 
-            StringTemplate INSERT_STATMENT =
-                    new StringTemplate("INSERT INTO ORDER_ITEM (DATE, DELIVERED) VALUES ('$DATE_VALUE$', '$IS_DELIVERED$')");
+            String INSERT_STATMENT = "INSERT INTO ORDER_ITEM (DATE, DELIVERED) VALUES (?, ?)";
 
             Date date = order.getDate();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
             String strDate = dateFormat.format(date);
             String orderIsDelivered = order.isDelivered() ? "Y" : "N";
 
-            INSERT_STATMENT.setAttribute("DATE_VALUE", strDate);
-            INSERT_STATMENT.setAttribute("IS_DELIVERED", orderIsDelivered);
+            preparedStatement.setString(1, strDate);
+            preparedStatement.setString(2, orderIsDelivered);
 
             String SQL_INSERT = INSERT_STATMENT.toString();
 
-            statement = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
-            int affectedRows = statement.executeUpdate();
+            preparedStatement = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+            int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows > 0) {
-                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         generatedId = generatedKeys.getInt(1);
                         order.setId(generatedId);
@@ -69,7 +67,7 @@ public class OrderDAO implements IOperations<Order> {
             LOGGER.error(e);
         } finally {
             try {
-                statement.close();
+                preparedStatement.close();
             } catch (SQLException e) {
                 LOGGER.error(e);
             }

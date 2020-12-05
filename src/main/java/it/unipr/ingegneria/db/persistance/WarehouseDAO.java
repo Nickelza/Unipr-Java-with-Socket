@@ -5,7 +5,6 @@ import it.unipr.ingegneria.db.IOperations;
 import it.unipr.ingegneria.entities.Vineyard;
 import it.unipr.ingegneria.entities.Warehouse;
 import it.unipr.ingegneria.entities.Wine;
-import org.antlr.stringtemplate.StringTemplate;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -35,21 +34,16 @@ public class WarehouseDAO implements IOperations<Warehouse> {
 
     @Override
     public void add(Warehouse warehouse) {
-        PreparedStatement statement = null;
+        PreparedStatement preparedStatement = null;
+        String INSERT_STATMENT = "INSERT INTO WAREHOUSE (NAME) VALUES (?)";
         try {
+            preparedStatement = conn.prepareStatement(INSERT_STATMENT, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, warehouse.getName());
 
-            StringTemplate INSERT_STATMENT =
-                    new StringTemplate("INSERT INTO WAREHOUSE (NAME) VALUES ('$NAME_WAREHOUSE$')");
 
-            INSERT_STATMENT.setAttribute("NAME_WAREHOUSE", warehouse.getName());
-
-            String SQL_INSERT = INSERT_STATMENT.toString();
-
-            statement = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
-
-            int affectedRows = statement.executeUpdate();
+            int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows > 0) {
-                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         Integer generatedId = generatedKeys.getInt(1);
                         warehouse.setId(generatedId);
@@ -61,7 +55,7 @@ public class WarehouseDAO implements IOperations<Warehouse> {
             LOGGER.error(e);
         } finally {
             try {
-                statement.close();
+                preparedStatement.close();
             } catch (SQLException e) {
                 LOGGER.error(e);
             }
@@ -102,17 +96,13 @@ public class WarehouseDAO implements IOperations<Warehouse> {
 
     public Boolean checkAvailability(String wineName, Integer requiredQuantity) {
         Boolean hasEnoughWines = Boolean.FALSE;
-        Statement statement = null;
+        String COUNT_STATMENT = "SELECT COUNT(DISTINCT WINE_ID) FROM REL_WINE_WAREHOUSE_EXTENDED WHERE WINE_NAME = ? ORDER BY WINE_ID";
+        PreparedStatement preparedStatement = null;
         try {
-            statement = conn.createStatement();
+            preparedStatement = conn.prepareStatement(COUNT_STATMENT);
+            preparedStatement.setString(1, wineName);
 
-            StringTemplate COUNT_STATMENT =
-                    new StringTemplate("SELECT COUNT(DISTINCT WINE_ID) FROM REL_WINE_WAREHOUSE_EXTENDED WHERE WINE_NAME = '$PARAM$' ORDER BY WINE_ID");
-
-            COUNT_STATMENT.setAttribute("PARAM", wineName);
-
-            String SQL_COUNT = COUNT_STATMENT.toString();
-            ResultSet rs = statement.executeQuery(SQL_COUNT);
+            ResultSet rs = preparedStatement.executeQuery();
             int n = 0;
             if (rs.next()) {
                 n = rs.getInt(1);
@@ -125,7 +115,7 @@ public class WarehouseDAO implements IOperations<Warehouse> {
             LOGGER.error(e);
         } finally {
             try {
-                statement.close();
+                preparedStatement.close();
             } catch (SQLException e) {
                 LOGGER.error(e);
             }

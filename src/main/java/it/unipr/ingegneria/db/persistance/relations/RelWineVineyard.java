@@ -35,8 +35,7 @@ public class RelWineVineyard {
     public void addAll(List<Wine> wines) {
         boolean itemsFound = false;
         try {
-            String SQL_INSERT =
-                    "INSERT INTO REL_WINE_VINEYARD (WINE_ID, VINEYARD_ID) VALUES (?, ?)";
+            String SQL_INSERT = "INSERT INTO REL_WINE_VINEYARD (WINE_ID, VINEYARD_ID) VALUES (?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT);
             for (Wine wine : wines) {
                 if (wine.getVineyards() != null && !wine.getVineyards().isEmpty()) {

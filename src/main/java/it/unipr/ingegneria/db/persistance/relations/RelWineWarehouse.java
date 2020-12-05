@@ -34,8 +34,7 @@ public class RelWineWarehouse {
 
     public void addAll(List<Wine> wines, Warehouse warehouse) {
         try {
-            String SQL_INSERT =
-                    "INSERT INTO REL_WINE_WAREHOUSE (WINE_ID, WAREHOUSE_ID) VALUES (?, ?)";
+            String SQL_INSERT = "INSERT INTO REL_WINE_WAREHOUSE (WINE_ID, WAREHOUSE_ID) VALUES (?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT);
             for (Wine wine : wines) {
                 preparedStatement.setInt(1, wine.getId());
@@ -52,8 +51,7 @@ public class RelWineWarehouse {
     public void deleteAll(List<Wine> wines, Warehouse warehouse) {
 
         try {
-            String SQL_INSERT =
-                    "DELETE FROM REL_WINE_WAREHOUSE WHERE WINE_ID = ? AND WAREHOUSE_ID = ?";
+            String SQL_INSERT = "DELETE FROM REL_WINE_WAREHOUSE WHERE WINE_ID = ? AND WAREHOUSE_ID = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT);
             for (Wine wine : wines) {
                 preparedStatement.setInt(1, wine.getId());

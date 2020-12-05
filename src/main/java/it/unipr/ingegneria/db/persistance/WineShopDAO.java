@@ -4,7 +4,6 @@ import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.db.IOperations;
 import it.unipr.ingegneria.db.persistance.relations.RelWineshopWarehouse;
 import it.unipr.ingegneria.entities.WineShop;
-import org.antlr.stringtemplate.StringTemplate;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -32,20 +31,16 @@ public class WineShopDAO implements IOperations<WineShop> {
     @Override
     public void add(WineShop wineShop) {
         {
-            PreparedStatement statement = null;
+            PreparedStatement preparedStatement = null;
             try {
-                StringTemplate INSERT_STATMENT =
-                        new StringTemplate("INSERT INTO WINESHOP (NAME) VALUES ('$WINESHOP_NAME$')");
+                String SQL_INSERT = "INSERT INTO WINESHOP (NAME) VALUES (?)";
+                preparedStatement = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setString(1, wineShop.getName());
 
-                INSERT_STATMENT.setAttribute("WINESHOP_NAME", wineShop.getName());
 
-                String SQL_INSERT = INSERT_STATMENT.toString();
-
-                statement = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
-
-                int affectedRows = statement.executeUpdate();
+                int affectedRows  = preparedStatement.executeUpdate();
                 if (affectedRows > 0) {
-                    try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                         if (generatedKeys.next()) {
                             Integer generatedId = generatedKeys.getInt(1);
                             wineShop.setId(generatedId);
@@ -56,7 +51,7 @@ public class WineShopDAO implements IOperations<WineShop> {
                 LOGGER.error(e);
             } finally {
                 try {
-                    statement.close();
+                    preparedStatement.close();
                 } catch (SQLException e) {
                     LOGGER.error(e);
                 }

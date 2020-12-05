@@ -4,12 +4,12 @@ import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.db.IOperations;
 import it.unipr.ingegneria.db.persistance.relations.RelWineshopWarehouse;
 import it.unipr.ingegneria.entities.Vineyard;
-import org.antlr.stringtemplate.StringTemplate;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * The {@code VineyardDAO} handle the persistance and retrival data of Vineyard entity.
  *
@@ -34,21 +34,17 @@ public class VineyardDAO implements IOperations<Vineyard> {
     @Override
     public void add(Vineyard vineyard) {
         {
-            PreparedStatement statement = null;
+            PreparedStatement preparedStatement = null;
 
             try {
-                StringTemplate INSERT_STATMENT =
-                        new StringTemplate("INSERT INTO VINEYARD (NAME) VALUES ('$VINEYARD_NAME$')");
+                String INSERT_STATMENT = "INSERT INTO VINEYARD (NAME) VALUES (?)";
 
-                INSERT_STATMENT.setAttribute("VINEYARD_NAME", vineyard.getName());
+                preparedStatement = conn.prepareStatement(INSERT_STATMENT, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setString(1, vineyard.getName());
 
-                String SQL_INSERT = INSERT_STATMENT.toString();
-
-                statement = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
-
-                int affectedRows = statement.executeUpdate();
+                int affectedRows = preparedStatement.executeUpdate();
                 if (affectedRows > 0) {
-                    try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                         if (generatedKeys.next()) {
                             Integer generatedId = generatedKeys.getInt(1);
                             vineyard.setId(generatedId);
@@ -60,7 +56,7 @@ public class VineyardDAO implements IOperations<Vineyard> {
                 LOGGER.error(e);
             } finally {
                 try {
-                    statement.close();
+                    preparedStatement.close();
                 } catch (SQLException e) {
                     LOGGER.error(e);
                 }

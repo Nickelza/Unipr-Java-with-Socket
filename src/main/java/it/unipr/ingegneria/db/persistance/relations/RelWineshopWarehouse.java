@@ -3,7 +3,6 @@ package it.unipr.ingegneria.db.persistance.relations;
 import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.entities.Warehouse;
 import it.unipr.ingegneria.entities.WineShop;
-import org.antlr.stringtemplate.StringTemplate;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -30,24 +29,21 @@ public class RelWineshopWarehouse {
 
     public Integer add(WineShop wineShop, Warehouse wareHouse) {
         {
-            PreparedStatement statement = null;
+            PreparedStatement preparedStatement = null;
             Integer generatedId = null;
             try {
 
 
-                StringTemplate INSERT_STATMENT =
-                        new StringTemplate("INSERT INTO REL_WINESHOP_WAREHOUSE(ID_WAREHOUSE, ID_WINESHOP) VALUES ($WAREHOUSE_ID$, $WINESHOP_ID$)");
+                String INSERT_STATMENT = "INSERT INTO REL_WINESHOP_WAREHOUSE(ID_WAREHOUSE, ID_WINESHOP) VALUES (?, ?)";
+                preparedStatement = conn.prepareStatement(INSERT_STATMENT, Statement.RETURN_GENERATED_KEYS);
 
-                INSERT_STATMENT.setAttribute("WAREHOUSE_ID", wareHouse.getId());
-                INSERT_STATMENT.setAttribute("WINESHOP_ID", wineShop.getId());
+                preparedStatement.setInt(1, wareHouse.getId());
+                preparedStatement.setInt(2, wineShop.getId());
 
-                String SQL_INSERT = INSERT_STATMENT.toString();
+                int affectedRows = preparedStatement.executeUpdate();
 
-                statement = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
-
-                int affectedRows = statement.executeUpdate();
                 if (affectedRows > 0) {
-                    try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                         if (generatedKeys.next()) {
                             generatedId = generatedKeys.getInt(1);
                         }
@@ -58,7 +54,7 @@ public class RelWineshopWarehouse {
                 LOGGER.error(e);
             } finally {
                 try {
-                    statement.close();
+                    preparedStatement.close();
                 } catch (SQLException e) {
                     LOGGER.error(e);
                 }

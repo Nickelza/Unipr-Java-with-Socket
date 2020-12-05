@@ -32,8 +32,7 @@ public class RelOrderWine {
 
     public void addAll(List<Wine> wines, Order order) {
         try {
-            String SQL_INSERT =
-                    "INSERT INTO REL_ORDER_WINE (WINE_ID, ORDER_ID) VALUES (?, ?)";
+            String SQL_INSERT = "INSERT INTO REL_ORDER_WINE (WINE_ID, ORDER_ID) VALUES (?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT);
             for (Wine wine : wines) {
                 preparedStatement.setInt(1, wine.getId());
