@@ -29,7 +29,6 @@ public class LogMessages {
     }
 
 
-
     /**
      * Method called when a order is well completed
      *

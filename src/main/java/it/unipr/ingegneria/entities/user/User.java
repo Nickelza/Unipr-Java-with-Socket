@@ -5,7 +5,6 @@ import it.unipr.ingegneria.entities.WineShop;
 import it.unipr.ingegneria.utils.Type;
 
 import java.io.Serializable;
-import java.util.Observer;
 
 /**
  * The {@code User} is an abstract class.
@@ -31,7 +30,8 @@ public abstract class User implements Serializable {
     }
 
 
-    public User(){}
+    public User() {
+    }
 
     public User(String name, String surname, String email, String password, Type type) {
         this.id = id;

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Customer extends User {
 
-    private List<Order> orders;
+    private final List<Order> orders;
 
     /**
      * Constructor used when instantiate the object without knowing any data. Will be enriched later
