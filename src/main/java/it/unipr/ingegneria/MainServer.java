@@ -92,6 +92,10 @@ public class MainServer {
         }
     }
 
+
+    /**
+     * Clear database connection
+     */
     private static void clearAllTables() throws SQLException {
 
         Connection conn = DBContext.getConnection();

@@ -2,6 +2,7 @@ package it.unipr.ingegneria.entities.user;
 
 import it.unipr.ingegneria.entities.Order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,6 +23,7 @@ public class Customer extends User {
 
     public Customer() {
         super();
+        this.orders = new ArrayList<>();
     }
 
     /**

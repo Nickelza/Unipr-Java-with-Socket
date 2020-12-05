@@ -40,8 +40,7 @@ import java.util.Map;
  * @see IStoreManager
  */
 
-public class WineShop implements
-        IUserManager, IStoreManager<Wine>, IObserver, Serializable, Persistable<WineShop> {
+public class WineShop implements IUserManager, IStoreManager<Wine>, IObserver, Serializable, Persistable<WineShop> {
 
     private transient WineShopDAO wineShopDAO = WineShopDAO.getInstance();
     private transient UserDAO userDAO = UserDAO.getInstance();

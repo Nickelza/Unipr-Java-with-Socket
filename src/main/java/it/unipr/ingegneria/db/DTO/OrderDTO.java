@@ -3,7 +3,7 @@ package it.unipr.ingegneria.db.DTO;
 import java.io.Serializable;
 
 /**
- * The {@code OrderDTO} represent a summary of the order with a certain ID.
+ * The {@code OrderDTO} represent a summary of a certain order
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */

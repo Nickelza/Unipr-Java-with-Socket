@@ -42,6 +42,11 @@ public class Vineyard implements Serializable, Persistable {
         return this;
     }
 
+    /**
+     * Persist entity
+     *
+     * @return {@code Vineyard} with id
+     */
     @Override
     public Vineyard persist() {
         vineyardDAO.add(this);

@@ -9,6 +9,11 @@ import org.apache.log4j.Logger;
 
 import java.sql.*;
 
+/**
+ * The {@code WineShopDAO} handle the persistance and retrival data of WineShop entity.
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class WineShopDAO implements IOperations<WineShop> {
     private Connection conn;
     private static WineShopDAO INSTANCE = null;

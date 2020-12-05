@@ -21,7 +21,7 @@ public class Order implements Serializable, Persistable<Order> {
 
 
     /**
-     * Default class for Order
+     * Default constructor
      */
     public Order() {
     }

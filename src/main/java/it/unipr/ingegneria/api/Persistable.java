@@ -1,6 +1,6 @@
 package it.unipr.ingegneria.api;
 /**
- * The {@code Persistable} interface include the method for the persiste a generic entity on database.
+ * The {@code Persistable} interface include the method for the persist a generic entity on database.
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */

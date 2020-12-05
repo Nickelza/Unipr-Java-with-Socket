@@ -313,8 +313,14 @@ public class ClientSocket {
         return results;
     }
 
-    public void sendOrders(CreateSendOrderCriteria createSendOrderCriteria) {
-        String results;
+    /**
+     * Create a request to send to Server with passed parameters for updated and send Orders
+     *
+     * @param createSendOrderCriteria Criteria object containing the params
+     * @return List of OrderDTO
+     */
+    public String sendOrders(CreateSendOrderCriteria createSendOrderCriteria) {
+        String results = null;
         try {
             SearchRequest<WineSearchCriteria> searchWine = new SearchRequest<>()
                     .asType(ModelRequestType.SEARCH)
@@ -332,7 +338,7 @@ public class ClientSocket {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
+        return results;
     }
 
 

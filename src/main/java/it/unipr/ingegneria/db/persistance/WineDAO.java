@@ -11,6 +11,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code WineDAO} handle the persistance and retrival data of Wine entity.
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class WineDAO implements IOperations<Wine> {
 
     private Connection conn;
@@ -99,7 +104,7 @@ public class WineDAO implements IOperations<Wine> {
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 Wine wine = Wine.valueOf(rs);
-                // Check if there is element with same WINE_ID, if present add object update only Vineyards Array
+                // Check if there is element with same WINE_ID, if present add object updating only Vineyards List
                 if (items.contains(wine)) {
                     if ((wine.getVineyards() != null && !wine.getVineyards().isEmpty())) {
                         Vineyard extracted = wine.getVineyards().get(0);

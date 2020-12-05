@@ -50,12 +50,6 @@ public class Employee extends User implements IObserver {
         return this;
     }
 
-    /**
-     * Method to send ordered wines to customers
-     */
-    public void sendOrders() {
-        this.wineshop.sendOrders();
-    }
 
     /**
      * Receive notification from {@code ProvisioningManager} and start provisioning the Warehouse
