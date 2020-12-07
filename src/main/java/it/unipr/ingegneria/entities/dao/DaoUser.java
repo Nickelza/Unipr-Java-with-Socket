@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unipr.ingegneria.entities.WineShop;
 import it.unipr.ingegneria.entities.user.Customer;
 import it.unipr.ingegneria.entities.user.Employee;
 import it.unipr.ingegneria.entities.user.User;
@@ -30,7 +31,7 @@ public class DaoUser implements IDaoGeneric<User> {
     public int add(User user) throws SQLException{
         String query = "INSERT INTO User (name, surname, email, password, type) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        ps.setString(1, user.getName());
+            ps.setString(1, user.getName());
         ps.setString(2, user.getSurname());
         ps.setString(3, user.getEmail());
         ps.setString(4, user.getPassword());
@@ -47,22 +48,25 @@ public class DaoUser implements IDaoGeneric<User> {
      * Method to delete a {@code User}
      *
      * @param id Unique id of the searched user
+     * @return
      */
     @Override
-    public void delete(int id) throws SQLException {
+    public boolean delete(int id) throws SQLException {
         String query = "DELETE FROM User WHERE id = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, id);
         ps.executeUpdate();
+        return true;
     }
 
     /**
      * Updates a {@code User} information
      *
      * @param user
+     * @return
      */
     @Override
-    public void update(User user) throws SQLException {
+    public boolean update(User user) throws SQLException {
         String query= "UPDATE User SET name = ?, surname = ?, email = ?, password = ?, type = ? WHERE id = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, user.getName());
@@ -70,7 +74,9 @@ public class DaoUser implements IDaoGeneric<User> {
         ps.setString(3, user.getEmail());
         ps.setString(4, user.getPassword());
         ps.setString(5, String.valueOf(user.getUserType()));
+        ps.setInt(6, (int) user.getId());
         ps.executeUpdate();
+        return true;
     }
 
     /**
@@ -104,16 +110,47 @@ public class DaoUser implements IDaoGeneric<User> {
     }
 
     /**
-     * Method to get list of users of a certain type
-     *
-     * @param type Type of users to search for
-     * @return list of users
+     * Overload method to get all users of a Type
+     * @return
      * @throws SQLException
      */
-    public List<User> findAll(Type type) throws SQLException {
+    public List<User> findByType(Type type) throws SQLException {
         String query = "SELECT * from User WHERE type = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, type.name());
+        ResultSet rs = ps.executeQuery();
+        List<User> ls = new ArrayList();
+
+        while (rs.next()) {
+            User user;
+            if (rs.getString("type").equals(Type.EMPLOYEE))
+                user = new Employee();
+            else
+                user = new Customer();
+
+            user.setId(rs.getInt("id"));
+            user.setName(rs.getString("name"));
+            user.setSurname(rs.getString("surname"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+
+            ls.add(user);
+        }
+        return ls;
+    }
+
+
+    /**
+     *  Overload method to get all users of a Wineshop
+     *
+     * @param wineShop Wineshop in which to search
+     * @return list of users
+     */
+
+    public List<User> findByWineShop(WineShop wineShop) throws SQLException {
+        String query = "SELECT * from ViewWineShopUsers WHERE wineshop_id = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, (int) wineShop.getId());
         ResultSet rs = ps.executeQuery();
         List<User> ls = new ArrayList();
 
@@ -172,7 +209,7 @@ public class DaoUser implements IDaoGeneric<User> {
      */
     @Override
     public List<User> findByName(String name) throws SQLException {
-        String query = "SELECT * from User WHERE type = ?";
+        String query = "SELECT * from User WHERE name LIKE %?%";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, name);
         ResultSet rs = ps.executeQuery();
@@ -194,5 +231,63 @@ public class DaoUser implements IDaoGeneric<User> {
             ls.add(user);
         }
         return ls;
+    }
+
+    /**
+     * Overload method to get a list of {@code User} provided a name
+     *
+     * @param wineShop Id of the Wineshop in which to search
+     * @param name Non unique name of the requested user
+     * @return a list of users
+     */
+    public List<User> findByName(WineShop wineShop, String name) throws SQLException {
+        String query = "SELECT * from ViewWineShopUsers WHERE wineshop_id = ? AND name LIKE %?%";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, (int) wineShop.getId());
+        ps.setString(2, name);
+        ResultSet rs = ps.executeQuery();
+        List<User> ls = new ArrayList();
+
+        while (rs.next()) {
+            User user;
+            if (rs.getString("type").equals(Type.EMPLOYEE))
+                user = new Employee();
+            else
+                user = new Customer();
+
+            user.setId(rs.getInt("user_id"));
+            user.setName(rs.getString("name"));
+            user.setSurname(rs.getString("surname"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+
+            ls.add(user);
+        }
+        return ls;
+    }
+
+    public User login(String email, String password, WineShop wineShop) throws SQLException {
+        String query = "SELECT * from ViewWineShopUsers WHERE wineshop_id = ? AND email = ? AND password = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, (int) wineShop.getId());
+        ps.setString(2, email);
+        ps.setString(3, password);
+        ResultSet rs = ps.executeQuery();
+        User user = null;
+
+        while (rs.next()) {
+            if (rs.getString("type").equals(Type.EMPLOYEE))
+                user = new Employee();
+            else
+                user = new Customer();
+
+            user.setId(rs.getInt("user_id"));
+            user.setName(rs.getString("name"));
+            user.setSurname(rs.getString("surname"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+        }
+
+        return user;
     }
 }

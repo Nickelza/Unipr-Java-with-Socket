@@ -5,6 +5,7 @@ import it.unipr.ingegneria.entities.Wine;
 import it.unipr.ingegneria.entities.WineShop;
 import it.unipr.ingegneria.api.IAuthentication;
 import it.unipr.ingegneria.api.IObserver;
+import it.unipr.ingegneria.entities.dao.DaoUser;
 import it.unipr.ingegneria.exception.AvailabilityException;
 import it.unipr.ingegneria.exception.NotFoundException;
 import it.unipr.ingegneria.entities.notifications.CustomerNotification;
@@ -13,6 +14,7 @@ import it.unipr.ingegneria.utils.Params;
 import it.unipr.ingegneria.utils.Type;
 import org.apache.log4j.Logger;
 
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -33,6 +35,7 @@ public class Customer extends User implements IAuthentication, IObserver {
     private CustomerNotification notification;
     private Boolean isAuthenticated;
     private List<Order> orders;
+    private DaoUser daoCustomer = new DaoUser();
 
     /**
      * Empty class constructor
@@ -50,11 +53,12 @@ public class Customer extends User implements IAuthentication, IObserver {
      * @param password
      * @param wineShop
      */
-    public Customer(long id, String name, String surname, String email, String password, WineShop wineShop) {
+    public Customer(long id, String name, String surname, String email, String password, WineShop wineShop) throws SQLException {
         super(id, name, surname, email, password, Type.CLIENT);
         this.orders = new ArrayList<>();
         this.isAuthenticated = false;
         setWineshop(wineShop);
+        daoCustomer.add(this);
     }
 
     /**

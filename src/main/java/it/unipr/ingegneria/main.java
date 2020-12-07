@@ -17,7 +17,7 @@ public class main {
         /**
          * Instances a new Wine Shop
          */
-        WineShop wineShop = new WineShop();
+        WineShop wineShop = new WineShop("ws1");
 
         /**
          * Adds an employee to the Wine Shop who in turn adds some wines

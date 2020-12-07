@@ -20,15 +20,16 @@ public interface IDaoGeneric<T> {
     /**
      * Method to delete an item
      * @param id Unique id of the searched element
+     * @return
      */
-    void delete(int id) throws SQLException;
+    boolean delete(int id) throws SQLException;
 
     /**
      * Updates an item
      * @param t
      * @return success status
      */
-    void update(T t) throws SQLException;
+    boolean update(T t) throws SQLException;
 
     /**
      * Method to get all elements of an item

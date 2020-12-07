@@ -1,7 +1,10 @@
 package it.unipr.ingegneria.entities;
 
 
+import it.unipr.ingegneria.entities.dao.DaoWine;
 import org.apache.log4j.Logger;
+
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -44,6 +47,14 @@ public class Wine {
     private static final Logger logger = Logger.getLogger(Wine.class);
 
     /**
+     * Data Access object for Database
+     */
+    private DaoWine daoWine = new DaoWine();
+
+    public Wine() {
+    }
+
+    /**
      * Default class constructor
      * @param _id
      * @param name
@@ -51,12 +62,13 @@ public class Wine {
      * @param producer
      * @param techNotes
      */
-    public Wine(long _id, String name, Date year, String producer, String techNotes) {
+    public Wine(long _id, String name, Date year, String producer, String techNotes) throws SQLException {
         this._id = _id;
         this.name = name;
         this.year = year;
         this.producer = producer;
         this.techNotes = techNotes;
+        daoWine.add(this);
     }
 
     public long get_id() {

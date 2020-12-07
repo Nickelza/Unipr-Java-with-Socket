@@ -27,6 +27,16 @@ import java.util.stream.IntStream;
 public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop> {
 
     /**
+     * Unique Id for a Warehouse
+     */
+    private long id;
+
+    /**
+     * Name of a Warehouse
+     */
+    private String name;
+
+    /**
      * Log manager
      */
     private static final Logger logger = Logger.getLogger(Warehouse.class);
@@ -45,7 +55,8 @@ public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>
     /**
      * Default class constructor
      */
-    public Warehouse() {
+    public Warehouse(String _name) {
+        this.name = _name;
         items = new HashMap<>();
     }
 
@@ -196,5 +207,21 @@ public class Warehouse implements IWarehouseManager<Wine>, IObservable<WineShop>
 
     private int workWithDate(Date date) {
         return LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(date)).getYear();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

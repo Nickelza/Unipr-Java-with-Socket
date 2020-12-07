@@ -5,6 +5,7 @@ import it.unipr.ingegneria.api.IObservable;
 import it.unipr.ingegneria.api.IObserver;
 import it.unipr.ingegneria.api.IStoreManager;
 import it.unipr.ingegneria.api.IUserManager;
+import it.unipr.ingegneria.entities.dao.DaoWineShop;
 import it.unipr.ingegneria.exception.AvailabilityException;
 import it.unipr.ingegneria.exception.RequiredValueException;
 import it.unipr.ingegneria.entities.notifications.CustomerNotification;
@@ -15,6 +16,7 @@ import it.unipr.ingegneria.utils.Params;
 import it.unipr.ingegneria.utils.Type;
 import org.apache.log4j.Logger;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,12 +35,22 @@ public class WineShop implements
         IUserManager, IStoreManager<Wine>, IObservable<CustomerNotification>, IObserver {
 
     /**
+     * Unique Id for a WineShop
+     */
+    private long id;
+
+    /**
+     * Name of a WineShop
+     */
+    private String name;
+
+    /**
      * Log manager
      */
     Logger logger = Logger.getLogger(WineShop.class);
 
     /**
-     * Warehouse //ToDo: Redifine
+     * Warehouse //ToDo: Redefine
      */
     private Warehouse warehouse;
     /**
@@ -53,15 +65,21 @@ public class WineShop implements
      * Customer notifications to process
      */
     private List<CustomerNotification> observers = new ArrayList<>();
+    /**
+     * Data Access object for Database
+     */
+    private DaoWineShop daoWineShop = new DaoWineShop();
 
     /**
      * Default class constructor
      */
-    public WineShop() {
+    public WineShop(String _name) throws SQLException {
+        this.name = _name;
         this.users = new ArrayList<>();
         this.provisioningManager = new ProvisioningManager();
-        this.warehouse = new Warehouse();
+        this.warehouse = new Warehouse("wh1");
         warehouse.addObserver(this);
+        daoWineShop.add(this);
     }
 
 
@@ -172,4 +190,21 @@ public class WineShop implements
     public void removeObserver(CustomerNotification user) {
         this.observers.remove(user);
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long _id) {
+        this.id = _id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
