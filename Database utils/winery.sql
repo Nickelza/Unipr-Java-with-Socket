@@ -176,6 +176,24 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary view structure for view `viewwinevineyard`
+--
+
+DROP TABLE IF EXISTS `viewwinevineyard`;
+/*!50001 DROP VIEW IF EXISTS `viewwinevineyard`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `viewwinevineyard` AS SELECT 
+ 1 AS `vineyar_id`,
+ 1 AS `vineyard_name`,
+ 1 AS `wine_id`,
+ 1 AS `wine_name`,
+ 1 AS `year`,
+ 1 AS `producer`,
+ 1 AS `tech_note`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `vinyard`
 --
 
@@ -443,6 +461,24 @@ UNLOCK TABLES;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `viewwinevineyard`
+--
+
+/*!50001 DROP VIEW IF EXISTS `viewwinevineyard`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `viewwinevineyard` AS select `vinyard`.`id` AS `vineyar_id`,`vinyard`.`name` AS `vineyard_name`,`wine`.`id` AS `wine_id`,`wine`.`name` AS `wine_name`,`wine`.`year` AS `year`,`wine`.`producer` AS `producer`,`wine`.`tech_note` AS `tech_note` from (`wine` left join (`vinyard` join `winevineyards` on((`vinyard`.`id` = `winevineyards`.`wine_id`))) on((`winevineyards`.`wine_id` = `wine`.`id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -453,4 +489,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-07  1:19:32
+-- Dump completed on 2020-12-08 23:36:29

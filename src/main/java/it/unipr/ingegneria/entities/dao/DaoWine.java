@@ -11,6 +11,7 @@ import java.util.List;
 public class DaoWine implements IDaoGeneric<Wine> {
 
     static Connection con = DatabaseConnection.getConnection();
+    private DaoWineVineyards daoWineVineyards = new DaoWineVineyards();
 
     /**
      * Method to add a wine
@@ -112,6 +113,7 @@ public class DaoWine implements IDaoGeneric<Wine> {
             wine.setYear(rs.getDate("year"));
             wine.setProducer(rs.getString("producer"));
             wine.setTechNotes(rs.getString("tech_note"));
+            wine.setVineyards(daoWineVineyards.findAllVineyards((int) wine.get_id()));
 
             ls.add(wine);
         }
@@ -138,6 +140,7 @@ public class DaoWine implements IDaoGeneric<Wine> {
             wine.setYear(rs.getDate("year"));
             wine.setProducer(rs.getString("producer"));
             wine.setTechNotes(rs.getString("tech_note"));
+            wine.setVineyards(daoWineVineyards.findAllVineyards((int) wine.get_id()));
         }
         return wine;
     }
@@ -163,6 +166,7 @@ public class DaoWine implements IDaoGeneric<Wine> {
             wine.setYear(rs.getDate("year"));
             wine.setProducer(rs.getString("producer"));
             wine.setTechNotes(rs.getString("tech_note"));
+            wine.setVineyards(daoWineVineyards.findAllVineyards((int) wine.get_id()));
 
             ls.add(wine);
         }
@@ -190,6 +194,7 @@ public class DaoWine implements IDaoGeneric<Wine> {
             wine.setYear(rs.getDate("year"));
             wine.setProducer(rs.getString("producer"));
             wine.setTechNotes(rs.getString("tech_note"));
+            wine.setVineyards(daoWineVineyards.findAllVineyards((int) wine.get_id()));
 
             ls.add(wine);
         }
@@ -215,6 +220,7 @@ public class DaoWine implements IDaoGeneric<Wine> {
             wine.setYear(rs.getDate("year"));
             wine.setProducer(rs.getString("producer"));
             wine.setTechNotes(rs.getString("tech_note"));
+            wine.setVineyards(daoWineVineyards.findAllVineyards((int) wine.get_id()));
 
             ls.add(wine);
         }

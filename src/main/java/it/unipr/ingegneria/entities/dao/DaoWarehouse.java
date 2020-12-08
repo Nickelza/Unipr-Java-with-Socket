@@ -42,6 +42,7 @@ public class DaoWarehouse implements IDaoGeneric<Warehouse> {
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, id);
         ps.executeUpdate();
+        return true;
     }
 
     /**

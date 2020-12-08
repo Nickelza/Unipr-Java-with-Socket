@@ -5,6 +5,8 @@ import it.unipr.ingegneria.entities.Wine;
 import it.unipr.ingegneria.utils.DatabaseConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The {@code DaoWineVineyards} manages database access for the {@code Wine} and {@code Vineyard} relationship
@@ -35,6 +37,30 @@ public class DaoWineVineyards {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Method to find all Vineyards of a Wine
+     *
+     * @param wine_id Unique ID of the wine
+     * @return list of Vineyards
+     * @throws SQLException
+     */
+    public List<Vineyard> findAllVineyards(int wine_id) throws SQLException {
+        String query = "SELECT * from ViewWineVineyard WHERE wine_id = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, wine_id);
+        ResultSet rs = ps.executeQuery();
+        List<Vineyard> ls = new ArrayList();
+
+        while (rs.next()) {
+            Vineyard vineyard = new Vineyard();
+            vineyard.setId(rs.getInt("vineyard_id"));
+            vineyard.setName(rs.getString("name"));
+
+            ls.add(vineyard);
+        }
+        return ls;
     }
 
 }

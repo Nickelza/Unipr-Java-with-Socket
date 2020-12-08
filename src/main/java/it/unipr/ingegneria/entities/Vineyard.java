@@ -35,6 +35,12 @@ public class Vineyard {
         daoVineyard.add(this);
     }
 
+    /**
+     * Empty class constructor
+     */
+    public Vineyard() {
+    }
+
     public String getName() {
         return name;
     }
