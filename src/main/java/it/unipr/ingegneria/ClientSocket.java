@@ -12,6 +12,7 @@ import it.unipr.ingegneria.request.search.*;
 import it.unipr.ingegneria.response.ModelListResponse;
 import it.unipr.ingegneria.response.ModelResponse;
 import it.unipr.ingegneria.utils.ModelRequestType;
+import org.apache.log4j.Logger;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -32,6 +33,7 @@ public class ClientSocket {
     private Socket client;
     private ObjectOutputStream os;
     private ObjectInputStream is;
+    private transient Logger logger = Logger.getLogger(ClientSocket.class);
 
     public ClientSocket() {
         try {
@@ -39,7 +41,9 @@ public class ClientSocket {
             this.os = new ObjectOutputStream(client.getOutputStream());
             this.is = null;
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
+        } catch (Exception e) {
+            logger.error(e);
         }
     }
 
@@ -69,7 +73,9 @@ public class ClientSocket {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e);
+        } catch (Exception e) {
+            logger.error(e);
         }
         return results;
     }
@@ -85,7 +91,10 @@ public class ClientSocket {
         try {
             os.writeObject(userLoginRequest);
             os.flush();
-
+            if (is == null) {
+                is = new ObjectInputStream(new BufferedInputStream(
+                        client.getInputStream()));
+            }
             Object o = is.readObject();
 
             if ((o != null) && (o instanceof ModelResponse)) {
@@ -93,8 +102,11 @@ public class ClientSocket {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e);
+        } catch (Exception e) {
+            logger.error(e);
         }
+
         return results;
     }
 
@@ -111,12 +123,14 @@ public class ClientSocket {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         } finally {
             try {
                 client.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e);
+            } catch (Exception e) {
+                logger.error(e);
             }
         }
 
@@ -137,7 +151,10 @@ public class ClientSocket {
 
             os.writeObject(provisioningRequest);
             os.flush();
-
+            if (is == null) {
+                is = new ObjectInputStream(new BufferedInputStream(
+                        client.getInputStream()));
+            }
             Object o = is.readObject();
 
             if ((o != null) && (o instanceof ModelResponse)) {
@@ -145,7 +162,9 @@ public class ClientSocket {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e);
+        } catch (Exception e) {
+            logger.error(e);
         }
         return results;
     }
@@ -165,7 +184,10 @@ public class ClientSocket {
 
             os.writeObject(provisioningRequest);
             os.flush();
-
+            if (is == null) {
+                is = new ObjectInputStream(new BufferedInputStream(
+                        client.getInputStream()));
+            }
             Object o = is.readObject();
 
             if ((o != null) && (o instanceof ModelResponse)) {
@@ -173,7 +195,9 @@ public class ClientSocket {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e);
+        } catch (Exception e) {
+            logger.error(e);
         }
         return results;
     }
@@ -194,7 +218,10 @@ public class ClientSocket {
 
             os.writeObject(provisioningRequest);
             os.flush();
-
+            if (is == null) {
+                is = new ObjectInputStream(new BufferedInputStream(
+                        client.getInputStream()));
+            }
             Object o = is.readObject();
 
             if ((o != null) && (o instanceof ModelResponse)) {
@@ -202,7 +229,9 @@ public class ClientSocket {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e);
+        } catch (Exception e) {
+            logger.error(e);
         }
         return results;
     }
@@ -222,7 +251,10 @@ public class ClientSocket {
 
             os.writeObject(searchWine);
             os.flush();
-
+            if (is == null) {
+                is = new ObjectInputStream(new BufferedInputStream(
+                        client.getInputStream()));
+            }
             Object o = is.readObject();
 
             if ((o != null) && (o instanceof ModelListResponse)) {
@@ -230,7 +262,9 @@ public class ClientSocket {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e);
+        } catch (Exception e) {
+            logger.error(e);
         }
         return results;
     }
@@ -250,7 +284,10 @@ public class ClientSocket {
 
             os.writeObject(searchWine);
             os.flush();
-
+            if (is == null) {
+                is = new ObjectInputStream(new BufferedInputStream(
+                        client.getInputStream()));
+            }
             Object o = is.readObject();
 
             if ((o != null) && (o instanceof ModelListResponse)) {
@@ -258,7 +295,9 @@ public class ClientSocket {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e);
+        } catch (Exception e) {
+            logger.error(e);
         }
         return results;
     }
@@ -278,7 +317,10 @@ public class ClientSocket {
 
             os.writeObject(searchWine);
             os.flush();
-
+            if (is == null) {
+                is = new ObjectInputStream(new BufferedInputStream(
+                        client.getInputStream()));
+            }
             Object o = is.readObject();
 
             if ((o != null) && (o instanceof ModelListResponse)) {
@@ -286,7 +328,9 @@ public class ClientSocket {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e);
+        } catch (Exception e) {
+            logger.error(e);
         }
         return results;
     }
@@ -306,7 +350,10 @@ public class ClientSocket {
 
             os.writeObject(searchWine);
             os.flush();
-
+            if (is == null) {
+                is = new ObjectInputStream(new BufferedInputStream(
+                        client.getInputStream()));
+            }
             Object o = is.readObject();
 
             if ((o != null) && (o instanceof ModelListResponse)) {
@@ -314,7 +361,7 @@ public class ClientSocket {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         return results;
     }
@@ -334,7 +381,10 @@ public class ClientSocket {
 
             os.writeObject(searchWine);
             os.flush();
-
+            if (is == null) {
+                is = new ObjectInputStream(new BufferedInputStream(
+                        client.getInputStream()));
+            }
             Object o = is.readObject();
 
             if ((o != null) && (o instanceof ModelResponse)) {
@@ -342,7 +392,9 @@ public class ClientSocket {
             }
 
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e);
+        } catch (Exception e) {
+            logger.error(e);
         }
         return results;
     }
@@ -355,7 +407,9 @@ public class ClientSocket {
         try {
             this.client.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
+        } catch (Exception e) {
+            logger.error(e);
         }
     }
 

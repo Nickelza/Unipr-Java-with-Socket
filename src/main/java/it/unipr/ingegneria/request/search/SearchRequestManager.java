@@ -47,7 +47,7 @@ public class SearchRequestManager {
     /**
      * Handle the WineSearchCriteria object
      *
-     * @param o Object of the request
+     * @param o    Object of the request
      * @param shop the WineShop
      * @return List of Wine
      */
@@ -84,7 +84,7 @@ public class SearchRequestManager {
     /**
      * Handle the UserSearchCriteria object
      *
-     * @param o Object of the request
+     * @param o    Object of the request
      * @param shop the WineShop
      * @return List of User
      */
@@ -92,7 +92,7 @@ public class SearchRequestManager {
         UserSearchCriteria u1 = (UserSearchCriteria) o.getModel();
         List<User> results = null;
         if (u1.isMakeCountAdmin())
-            results = shop.getUsers().stream().filter(user -> user.getUserType().equals(Type.ADMIN)).collect(Collectors.toList());
+            results = shop.getUsers().stream().filter(user -> user.getUserType().equals(Type.ADMIN.toString())).collect(Collectors.toList());
         if (u1.isSelectAll())
             results = shop.getUsers();
         if (u1.getUserType() != null && !u1.getUserType().equals(""))
@@ -104,7 +104,7 @@ public class SearchRequestManager {
     /**
      * Handle the OrderSearchCriteria object
      *
-     * @param o Object of the request
+     * @param o    Object of the request
      * @param shop the WineShop
      * @return List of User
      */
