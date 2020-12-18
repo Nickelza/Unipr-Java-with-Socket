@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.ui.models.views;
+package it.unipr.ingegneria.models.views;
 
 import it.unipr.ingegneria.entities.Vineyard;
 import it.unipr.ingegneria.entities.Wine;

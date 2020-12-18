@@ -1,7 +1,4 @@
-package it.unipr.ingegneria.ui.models.menu;
-
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+package it.unipr.ingegneria.models.menu;
 
 
 public  class SetupMenu {

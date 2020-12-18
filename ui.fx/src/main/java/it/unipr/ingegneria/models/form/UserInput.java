@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.ui.models.form;
+package it.unipr.ingegneria.models.form;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

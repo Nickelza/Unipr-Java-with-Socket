@@ -1,6 +1,7 @@
 package it.unipr.ingegneria.api;
 
 import it.unipr.ingegneria.entities.user.User;
+import java.util.List;
 
 /**
  * The {@code IUserManager} interface contain the method to manage a user.
@@ -16,13 +17,6 @@ public interface IUserManager {
     void addUser(User user);
 
     /**
-     * Method to remove user by the system.
-     *
-     * @param user User to delete
-     */
-    void deleteUser(User user);
-
-    /**
      * Method to control if is user.
      *
      * @param email    User email
@@ -31,5 +25,6 @@ public interface IUserManager {
      */
     User findByMailAndPassword(String email, String password);
 
+    List<User> findByType(String userType);
 
 }

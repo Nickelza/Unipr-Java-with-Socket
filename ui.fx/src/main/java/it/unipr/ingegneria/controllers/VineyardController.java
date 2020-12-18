@@ -1,18 +1,18 @@
-package it.unipr.ingegneria.ui.controllers;
+package it.unipr.ingegneria.controllers;
 
 
 import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.Vineyard;
 import it.unipr.ingegneria.request.create.CreateVineyardCriteria;
 import it.unipr.ingegneria.request.search.SearchVineyardCriteria;
-import it.unipr.ingegneria.ui.models.utils.Size;
-import it.unipr.ingegneria.ui.views.component.panes.MainPane;
-import it.unipr.ingegneria.ui.views.component.stage.BuilderStage;
-import it.unipr.ingegneria.ui.views.forms.VineyardForm;
-import it.unipr.ingegneria.ui.views.menu.Menu;
-import it.unipr.ingegneria.ui.views.response.Error;
-import it.unipr.ingegneria.ui.views.response.Success;
-import it.unipr.ingegneria.ui.views.views.ListVineyard;
+import it.unipr.ingegneria.models.utils.Size;
+import it.unipr.ingegneria.views.component.panes.MainPane;
+import it.unipr.ingegneria.views.component.stage.BuilderStage;
+import it.unipr.ingegneria.views.forms.VineyardForm;
+import it.unipr.ingegneria.views.menu.Menu;
+import it.unipr.ingegneria.views.response.Error;
+import it.unipr.ingegneria.views.response.Success;
+import it.unipr.ingegneria.views.views.ListVineyard;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 

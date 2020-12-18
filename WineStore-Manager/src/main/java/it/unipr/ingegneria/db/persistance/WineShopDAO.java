@@ -3,7 +3,7 @@ package it.unipr.ingegneria.db.persistance;
 import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.db.IOperations;
 import it.unipr.ingegneria.db.persistance.relations.RelWineshopWarehouse;
-import it.unipr.ingegneria.entities.WineShop;
+import it.unipr.ingegneria.entities.Shop;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -13,7 +13,7 @@ import java.sql.*;
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
-public class WineShopDAO implements IOperations<WineShop> {
+public class WineShopDAO implements IOperations<Shop> {
     private Connection conn;
     private static WineShopDAO INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(RelWineshopWarehouse.class);
@@ -37,7 +37,7 @@ public class WineShopDAO implements IOperations<WineShop> {
      * @param wineShop object
      */
     @Override
-    public void add(WineShop wineShop) {
+    public void add(Shop wineShop) {
         {
             PreparedStatement preparedStatement = null;
             try {

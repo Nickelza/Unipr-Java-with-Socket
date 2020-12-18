@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.ui.views.component.panes;
+package it.unipr.ingegneria.views.component.panes;
 
 public interface IPane <T> {
     T getPane();

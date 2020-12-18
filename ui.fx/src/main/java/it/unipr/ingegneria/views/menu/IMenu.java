@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.ui.views.menu;
+package it.unipr.ingegneria.views.menu;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;

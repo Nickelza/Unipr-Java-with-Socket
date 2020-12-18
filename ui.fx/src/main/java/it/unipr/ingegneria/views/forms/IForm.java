@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.ui.views.forms;
+package it.unipr.ingegneria.views.forms;
 
 public interface IForm<T, C>{
      T  getGrid(C c);

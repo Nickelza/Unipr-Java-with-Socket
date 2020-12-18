@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.ui.views.component.panes;
+package it.unipr.ingegneria.views.component.panes;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;

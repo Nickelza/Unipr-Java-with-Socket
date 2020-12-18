@@ -1,12 +1,13 @@
-package it.unipr.ingegneria.request.create;
+package it.unipr.ingegneria.impl;
 
 import it.unipr.ingegneria.db.persistance.VineyardDAO;
 import it.unipr.ingegneria.entities.Order;
 import it.unipr.ingegneria.entities.Vineyard;
-import it.unipr.ingegneria.entities.impl.WineShop;
+
 import it.unipr.ingegneria.entities.user.Customer;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.exception.AvailabilityException;
+import it.unipr.ingegneria.request.create.*;
 import it.unipr.ingegneria.response.ModelResponse;
 import it.unipr.ingegneria.utils.Params;
 import it.unipr.ingegneria.utils.Type;
@@ -103,7 +104,7 @@ public class CreateRequestManager {
         elements.put(Params.VINEYARDS, c.getVineyards());
         elements.put(Params.QTY, c.getInQuantity());
 
-        shop.provisionWine(elements);
+        shop.restock(elements);
         return "Started Provisioning";
     }
 
@@ -121,7 +122,7 @@ public class CreateRequestManager {
         elements.put(Params.NAME, c.getName());
         elements.put(Params.QTY, c.getInQuantity());
         try {
-            order = shop.sellWine(c.getUser(), elements);
+            order = shop.sell(c.getUser(), elements);
             customer.getOrders().add(order);
         } catch (AvailabilityException e) {
             logger.error(e);

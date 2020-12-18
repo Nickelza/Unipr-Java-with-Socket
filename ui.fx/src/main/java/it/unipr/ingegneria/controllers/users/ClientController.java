@@ -1,19 +1,19 @@
-package it.unipr.ingegneria.ui.controllers.users;
+package it.unipr.ingegneria.controllers.users;
 
 import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.user.Customer;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.request.search.UserSearchCriteria;
-import it.unipr.ingegneria.ui.api.IController;
-import it.unipr.ingegneria.ui.views.component.panes.MainPane;
-import it.unipr.ingegneria.ui.views.component.stage.BuilderStage;
-import it.unipr.ingegneria.ui.views.forms.users.ClientForm;
-import it.unipr.ingegneria.ui.views.menu.CustomerMenu;
-import it.unipr.ingegneria.ui.views.menu.Menu;
-import it.unipr.ingegneria.ui.views.response.Error;
-import it.unipr.ingegneria.ui.views.response.Success;
-import it.unipr.ingegneria.ui.views.views.ListCustomer;
-import it.unipr.ingegneria.ui.views.views.UserProfile;
+import it.unipr.ingegneria.api.IController;
+import it.unipr.ingegneria.views.component.panes.MainPane;
+import it.unipr.ingegneria.views.component.stage.BuilderStage;
+import it.unipr.ingegneria.views.forms.users.ClientForm;
+import it.unipr.ingegneria.views.menu.CustomerMenu;
+import it.unipr.ingegneria.views.menu.Menu;
+import it.unipr.ingegneria.views.response.Error;
+import it.unipr.ingegneria.views.response.Success;
+import it.unipr.ingegneria.views.views.ListCustomer;
+import it.unipr.ingegneria.views.views.UserProfile;
 import it.unipr.ingegneria.utils.Type;
 import javafx.scene.layout.BorderPane;
 

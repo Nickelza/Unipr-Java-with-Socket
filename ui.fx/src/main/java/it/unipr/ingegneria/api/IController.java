@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.ui.api;
+package it.unipr.ingegneria.api;
 
 public interface IController <T> {
     T getController();

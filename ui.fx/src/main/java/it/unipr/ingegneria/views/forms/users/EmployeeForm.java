@@ -1,7 +1,7 @@
-package it.unipr.ingegneria.ui.views.forms.users;
+package it.unipr.ingegneria.views.forms.users;
 
-import it.unipr.ingegneria.ui.controllers.users.EmployeeController;
-import it.unipr.ingegneria.ui.views.forms.IForm;
+import it.unipr.ingegneria.controllers.users.EmployeeController;
+import it.unipr.ingegneria.views.forms.IForm;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 

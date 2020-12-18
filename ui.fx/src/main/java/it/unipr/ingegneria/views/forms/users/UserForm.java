@@ -1,8 +1,8 @@
-package it.unipr.ingegneria.ui.views.forms.users;
+package it.unipr.ingegneria.views.forms.users;
 
 
-import it.unipr.ingegneria.ui.models.form.UserInput;
-import it.unipr.ingegneria.ui.views.component.panes.FormPane;
+import it.unipr.ingegneria.models.form.UserInput;
+import it.unipr.ingegneria.views.component.panes.FormPane;
 import javafx.scene.layout.GridPane;
 
 /**

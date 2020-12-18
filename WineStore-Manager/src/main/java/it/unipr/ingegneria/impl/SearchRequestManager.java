@@ -1,13 +1,15 @@
-package it.unipr.ingegneria.request.search;
+package it.unipr.ingegneria.impl;
 
-import it.unipr.ingegneria.api.IWarehouseManager;
 import it.unipr.ingegneria.DTO.OrderDTO;
+import it.unipr.ingegneria.api.IStoreManager;
+import it.unipr.ingegneria.api.IUserManager;
+import it.unipr.ingegneria.api.IWarehouseManager;
 import it.unipr.ingegneria.db.persistance.VineyardDAO;
 import it.unipr.ingegneria.entities.Shop;
 import it.unipr.ingegneria.entities.Vineyard;
 import it.unipr.ingegneria.entities.Wine;
-import it.unipr.ingegneria.entities.impl.WineShop;
 import it.unipr.ingegneria.entities.user.User;
+import it.unipr.ingegneria.request.search.*;
 import it.unipr.ingegneria.response.ModelListResponse;
 import it.unipr.ingegneria.utils.Type;
 
@@ -98,7 +100,7 @@ public class SearchRequestManager {
         if (u1.isSelectAll())
             results = shop.getUsers();
         if (u1.getUserType() != null && !u1.getUserType().equals(""))
-            results = shop.findByType(u1.getUserType());
+            results = ((IUserManager) shop).findByType(u1.getUserType());
 
         return results;
     }
@@ -114,9 +116,11 @@ public class SearchRequestManager {
         OrderSearchCriteria u1 = (OrderSearchCriteria) o.getModel();
         List<OrderDTO> results = null;
         if (u1.isSelectAll())
-            results = shop.getOrders();
+            results = ((IStoreManager) shop).getOrders();
         if (u1.getSearchByUser() != null)
-            results = shop.getOrders().stream().filter(item -> item.getUserId().equals(u1.getSearchByUser().getId())).collect(Collectors.toList());
+            results = (List<OrderDTO>) (((IStoreManager) shop).getOrders()).stream()
+                    .filter(item -> ((OrderDTO) item).getUserId()
+                            .equals(u1.getSearchByUser().getId())).collect(Collectors.toList());
         return results;
     }
 }

@@ -1,17 +1,17 @@
-package it.unipr.ingegneria.ui.controllers;
+package it.unipr.ingegneria.controllers;
 
 
 import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.request.UserLoginRequest;
-import it.unipr.ingegneria.ui.controllers.users.AdminController;
-import it.unipr.ingegneria.ui.controllers.users.ClientController;
-import it.unipr.ingegneria.ui.controllers.users.EmployeeController;
-import it.unipr.ingegneria.ui.models.utils.Size;
-import it.unipr.ingegneria.ui.views.component.stage.BuilderStage;
-import it.unipr.ingegneria.ui.views.forms.LoginForm;
+import it.unipr.ingegneria.controllers.users.AdminController;
+import it.unipr.ingegneria.controllers.users.ClientController;
+import it.unipr.ingegneria.controllers.users.EmployeeController;
+import it.unipr.ingegneria.models.utils.Size;
+import it.unipr.ingegneria.views.component.stage.BuilderStage;
+import it.unipr.ingegneria.views.forms.LoginForm;
 import it.unipr.ingegneria.utils.ModelRequestType;
-import it.unipr.ingegneria.ui.views.response.Error;
+import it.unipr.ingegneria.views.response.Error;
 
 public class LoginController {
     private LoginForm form;

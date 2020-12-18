@@ -1,6 +1,7 @@
 package it.unipr.ingegneria.entities.user;
 
 import it.unipr.ingegneria.api.IObserver;
+import it.unipr.ingegneria.api.IStoreManager;
 import it.unipr.ingegneria.utils.LogMessages;
 import it.unipr.ingegneria.utils.Params;
 import org.apache.log4j.Logger;
@@ -36,7 +37,7 @@ public class Employee extends User implements IObserver {
      */
     public void provisionWine(Map<Params, Object> elements) {
         LOGGER.info(LogMessages.employeeProvisiongWine(this, ((String) elements.get(Params.NAME))));
-        this.wineshop.provisionWine(elements);
+        ((IStoreManager) shop).restock(elements);
         this.isWorking = false;
     }
 

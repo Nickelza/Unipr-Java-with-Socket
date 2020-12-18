@@ -1,10 +1,12 @@
 package it.unipr.ingegneria.api;
 
+import it.unipr.ingegneria.DTO.OrderDTO;
 import it.unipr.ingegneria.entities.Order;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.exception.AvailabilityException;
 import it.unipr.ingegneria.utils.Params;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,15 +25,15 @@ public interface IStoreManager<T> {
      * @return a generic list
      * @throws AvailabilityException
      */
-    Order sellWine(User to, Map<Params, Object> elements) throws AvailabilityException;
+    Order sell(User to, Map<Params, Object> elements) throws AvailabilityException;
 
 
     /**
-     * Method method of replenishing wine in the warehouse
+     * Method for restock wine in the warehouse
      *
      * @param elements Map that contains info about Wine as name and quantity
      */
-    void provisionWine(Map<Params, Object> elements);
+    void restock(Map<Params, Object> elements);
 
 
     /**
@@ -39,4 +41,10 @@ public interface IStoreManager<T> {
      */
     void sendOrders();
 
+    /**
+     * Find all executed orders
+     *
+     * @return List of OrderDTO
+     */
+    List<OrderDTO> getOrders();
 }

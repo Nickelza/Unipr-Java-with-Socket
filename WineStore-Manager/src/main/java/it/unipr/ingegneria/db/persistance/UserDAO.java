@@ -2,9 +2,9 @@ package it.unipr.ingegneria.db.persistance;
 
 import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.db.IOperations;
-import it.unipr.ingegneria.entities.WineShop;
+import it.unipr.ingegneria.impl.WineShop;
 import it.unipr.ingegneria.entities.user.User;
-import it.unipr.ingegneria.entities.user.UserFactory;
+import it.unipr.ingegneria.utils.UserFactory;
 import it.unipr.ingegneria.utils.Type;
 import org.apache.log4j.Logger;
 

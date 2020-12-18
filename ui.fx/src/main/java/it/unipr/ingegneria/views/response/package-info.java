@@ -3,4 +3,4 @@
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
-package it.unipr.ingegneria.ui.views.response;
+package it.unipr.ingegneria.views.response;

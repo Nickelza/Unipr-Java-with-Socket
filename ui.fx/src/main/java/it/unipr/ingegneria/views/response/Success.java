@@ -1,7 +1,7 @@
-package it.unipr.ingegneria.ui.views.response;
+package it.unipr.ingegneria.views.response;
 
-import it.unipr.ingegneria.ui.models.utils.Response;
-import it.unipr.ingegneria.ui.views.component.panes.FormPane;
+import it.unipr.ingegneria.models.utils.Response;
+import it.unipr.ingegneria.views.component.panes.FormPane;
 import javafx.scene.layout.GridPane;
 
 /**

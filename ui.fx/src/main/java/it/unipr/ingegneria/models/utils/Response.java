@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.ui.models.utils;
+package it.unipr.ingegneria.models.utils;
 
 import javafx.scene.text.Text;
 

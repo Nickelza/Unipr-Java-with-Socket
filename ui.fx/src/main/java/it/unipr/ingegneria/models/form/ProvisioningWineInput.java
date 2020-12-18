@@ -1,7 +1,7 @@
-package it.unipr.ingegneria.ui.models.form;
+package it.unipr.ingegneria.models.form;
 
 import it.unipr.ingegneria.entities.Vineyard;
-import it.unipr.ingegneria.ui.controllers.VineyardController;
+import it.unipr.ingegneria.controllers.VineyardController;
 import javafx.collections.*;
 import javafx.scene.control.*;
 

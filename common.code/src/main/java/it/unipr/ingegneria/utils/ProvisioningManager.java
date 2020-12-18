@@ -1,8 +1,7 @@
-package it.unipr.ingegneria.entities;
+package it.unipr.ingegneria.utils;
 
 import it.unipr.ingegneria.api.IObservable;
 import it.unipr.ingegneria.entities.user.Employee;
-import it.unipr.ingegneria.utils.Params;
 import org.apache.log4j.Logger;
 
 

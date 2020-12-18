@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.ui.models.menu;
+package it.unipr.ingegneria.models.menu;
 
 public enum MenuItems {
     PROFILE {

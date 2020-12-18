@@ -1,7 +1,7 @@
-package it.unipr.ingegneria.ui.views.response;
+package it.unipr.ingegneria.views.response;
 
-import it.unipr.ingegneria.ui.controllers.LoginController;
-import it.unipr.ingegneria.ui.controllers.users.AdminController;
+import it.unipr.ingegneria.controllers.LoginController;
+import it.unipr.ingegneria.controllers.users.AdminController;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 

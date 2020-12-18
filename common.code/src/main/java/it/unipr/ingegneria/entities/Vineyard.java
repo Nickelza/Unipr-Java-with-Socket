@@ -1,8 +1,5 @@
 package it.unipr.ingegneria.entities;
 
-import it.unipr.ingegneria.api.Persistable;
-import it.unipr.ingegneria.db.persistance.VineyardDAO;
-
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,10 +9,10 @@ import java.sql.SQLException;
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
-public class Vineyard implements Serializable, Persistable {
+public class Vineyard implements Serializable {
+
     private int id;
     private String name;
-    private transient VineyardDAO vineyardDAO = VineyardDAO.getInstance();
 
 
     /**
@@ -39,17 +36,6 @@ public class Vineyard implements Serializable, Persistable {
 
     public Vineyard setName(String name) {
         this.name = name;
-        return this;
-    }
-
-    /**
-     * Persist entity
-     *
-     * @return {@code Vineyard} with id
-     */
-    @Override
-    public Vineyard persist() {
-        vineyardDAO.add(this);
         return this;
     }
 

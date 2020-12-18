@@ -1,8 +1,8 @@
-package it.unipr.ingegneria.ui.views.views;
+package it.unipr.ingegneria.views.views;
 
-import it.unipr.ingegneria.db.DTO.OrderDTO;
-import it.unipr.ingegneria.ui.models.views.OrderData;
-import it.unipr.ingegneria.ui.views.component.panes.ListPane;
+import it.unipr.ingegneria.DTO.OrderDTO;
+import it.unipr.ingegneria.models.views.OrderData;
+import it.unipr.ingegneria.views.component.panes.ListPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;

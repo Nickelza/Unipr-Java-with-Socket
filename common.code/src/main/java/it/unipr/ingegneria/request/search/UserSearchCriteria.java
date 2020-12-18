@@ -1,7 +1,6 @@
 package it.unipr.ingegneria.request.search;
 
 import it.unipr.ingegneria.utils.Type;
-
 import java.io.Serializable;
 
 /**

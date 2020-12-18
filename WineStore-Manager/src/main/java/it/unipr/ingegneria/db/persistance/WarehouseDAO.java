@@ -3,7 +3,7 @@ package it.unipr.ingegneria.db.persistance;
 import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.db.IOperations;
 import it.unipr.ingegneria.entities.Vineyard;
-import it.unipr.ingegneria.entities.Warehouse;
+import it.unipr.ingegneria.impl.Warehouse;
 import it.unipr.ingegneria.entities.Wine;
 import org.apache.log4j.Logger;
 

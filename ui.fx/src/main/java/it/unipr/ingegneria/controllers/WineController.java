@@ -1,18 +1,18 @@
-package it.unipr.ingegneria.ui.controllers;
+package it.unipr.ingegneria.controllers;
 
 
 import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.Wine;
 import it.unipr.ingegneria.request.search.WineSearchCriteria;
-import it.unipr.ingegneria.ui.models.utils.Size;
-import it.unipr.ingegneria.ui.models.utils.TypeSearch;
-import it.unipr.ingegneria.ui.views.component.panes.MainPane;
-import it.unipr.ingegneria.ui.views.component.stage.BuilderStage;
-import it.unipr.ingegneria.ui.views.forms.search.Search;
-import it.unipr.ingegneria.ui.views.forms.search.SearchWineByYear;
-import it.unipr.ingegneria.ui.views.forms.search.SearchWineWineByName;
-import it.unipr.ingegneria.ui.views.menu.Menu;
-import it.unipr.ingegneria.ui.views.views.ListWine;
+import it.unipr.ingegneria.models.utils.Size;
+import it.unipr.ingegneria.models.utils.TypeSearch;
+import it.unipr.ingegneria.views.component.panes.MainPane;
+import it.unipr.ingegneria.views.component.stage.BuilderStage;
+import it.unipr.ingegneria.views.forms.search.Search;
+import it.unipr.ingegneria.views.forms.search.SearchWineByYear;
+import it.unipr.ingegneria.views.forms.search.SearchWineWineByName;
+import it.unipr.ingegneria.views.menu.Menu;
+import it.unipr.ingegneria.views.views.ListWine;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -71,7 +71,8 @@ public class WineController {
             else if(type == TypeSearch.BY_YEAR)
                 {
                 System.out.println(Integer.parseInt(input));
-                WineSearchCriteria searchAllWinesCriteriaByYear = new WineSearchCriteria().setYear(Integer.parseInt(input));
+                int value = Integer.parseInt(input.trim());
+                WineSearchCriteria searchAllWinesCriteriaByYear = new WineSearchCriteria().setYear(value);
                  wines = clientSocket.searchWines(searchAllWinesCriteriaByYear);
                 System.out.println(wines);
             }

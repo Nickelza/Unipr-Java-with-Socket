@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.entities.impl;
+package it.unipr.ingegneria.impl;
 
 import it.unipr.ingegneria.api.IObservable;
 import it.unipr.ingegneria.api.IWarehouseManager;

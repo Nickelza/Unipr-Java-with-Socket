@@ -1,13 +1,13 @@
-package it.unipr.ingegneria.ui.views.menu;
+package it.unipr.ingegneria.views.menu;
 
 import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.user.User;
-import it.unipr.ingegneria.ui.controllers.OrderWineController;
-import it.unipr.ingegneria.ui.controllers.ProvisioningWineController;
-import it.unipr.ingegneria.ui.controllers.users.EmployeeController;
-import it.unipr.ingegneria.ui.controllers.users.UserController;
-import it.unipr.ingegneria.ui.models.menu.EmployeeItems;
-import it.unipr.ingegneria.ui.models.menu.SetupMenu;
+import it.unipr.ingegneria.controllers.OrderWineController;
+import it.unipr.ingegneria.controllers.ProvisioningWineController;
+import it.unipr.ingegneria.controllers.users.EmployeeController;
+import it.unipr.ingegneria.controllers.users.UserController;
+import it.unipr.ingegneria.models.menu.EmployeeItems;
+import it.unipr.ingegneria.models.menu.SetupMenu;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;

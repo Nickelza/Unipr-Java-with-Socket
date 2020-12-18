@@ -1,8 +1,8 @@
-package it.unipr.ingegneria.entities.impl;
+package it.unipr.ingegneria.impl;
 
 
+import it.unipr.ingegneria.DTO.OrderDTO;
 import it.unipr.ingegneria.api.*;
-import it.unipr.ingegneria.db.DTO.OrderDTO;
 import it.unipr.ingegneria.db.persistance.OrderDAO;
 import it.unipr.ingegneria.db.persistance.UserDAO;
 import it.unipr.ingegneria.db.persistance.WineShopDAO;
@@ -24,12 +24,11 @@ import org.apache.log4j.Logger;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
+import java.net.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * The {@code WineShop} is a class for the manage the wine and people inside the shop.
@@ -50,24 +49,31 @@ public class WineShop extends Shop implements IUserManager, IStoreManager<Wine>,
     private transient RelWineshopWarehouse relWineshopWarehouse = RelWineshopWarehouse.getInstance();
     private transient RelUserWineshop relUserWineshop = RelUserWineshop.getInstance();
     private transient RelOrderWine relOrderWine = RelOrderWine.getInstance();
-    private transient MulticastSocket multicastSocket;
+
     private transient InetAddress inetA;
+    private transient MulticastSocket multicastSocket;
     private transient Logger logger = Logger.getLogger(WineShop.class);
 
     private IWarehouseManager warehouseManager;
 
 
-    public WineShop(String name, Warehouse warehouse, MulticastSocket multicastSocket, InetAddress inetA) {
+    public WineShop(String name, Warehouse warehouse) {
         super(name, warehouse);
 
         this.warehouseManager = warehouse;
-
-        this.multicastSocket = multicastSocket;
-        this.inetA = inetA;
-
         this.provisioningManager = warehouse.getProvisioningManager();
         warehouse.addObserver(this);
 
+        try {
+            this.inetA = InetAddress.getByName("230.0.0.1");
+            this.multicastSocket = new MulticastSocket(4446);
+
+            InetSocketAddress group = new InetSocketAddress(inetA, 4446);
+            NetworkInterface netI = NetworkInterface.getByInetAddress(inetA);
+            multicastSocket.joinGroup(group, netI);
+        } catch (IOException e) {
+
+        }
     }
 
     /**
@@ -78,7 +84,7 @@ public class WineShop extends Shop implements IUserManager, IStoreManager<Wine>,
      * @throws AvailabilityException
      */
     @Override
-    public Order sellWine(User to, Map<Params, Object> elements) throws AvailabilityException {
+    public Order sell(User to, Map<Params, Object> elements) throws AvailabilityException {
         try {
             List<Wine> wines = this.warehouseManager.remove(elements);
             Order order = new Order()
@@ -110,7 +116,7 @@ public class WineShop extends Shop implements IUserManager, IStoreManager<Wine>,
      * @param elements Map that contains info about Wine as name and quantity
      */
     @Override
-    public void provisionWine(Map<Params, Object> elements) {
+    public void restock(Map<Params, Object> elements) {
         try {
             this.warehouseManager.add(elements);
         } catch (Exception e) {
@@ -152,14 +158,18 @@ public class WineShop extends Shop implements IUserManager, IStoreManager<Wine>,
      */
     @Override
     public void update(Object o) {
-        List<Wine> winesAvailable = this.warehouseManager.findAllAvailables();
         try {
-            byte[] b = toByteArray(winesAvailable);
+            List<Wine> winesAvailable = this.warehouseManager.findAllAvailables();
+            Map<String, Long> map = winesAvailable.stream().collect(
+                    Collectors.groupingBy(Wine::getName, Collectors.counting()));
+            byte[] b = toByteArray(map);
             DatagramPacket packet = new DatagramPacket(b, b.length, inetA, 4446);
             multicastSocket.send(packet);
+
         } catch (IOException e) {
-            logger.info(e);
+            e.printStackTrace();
         }
+
     }
 
 
@@ -193,11 +203,6 @@ public class WineShop extends Shop implements IUserManager, IStoreManager<Wine>,
         return this.userDAO.findByType(this, type);
     }
 
-    /**
-     * Find all executed orders
-     *
-     * @return List of OrderDTO
-     */
     public List<OrderDTO> getOrders() {
         return this.orderDAO.findAll();
     }

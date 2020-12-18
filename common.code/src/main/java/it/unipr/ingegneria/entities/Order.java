@@ -1,8 +1,5 @@
 package it.unipr.ingegneria.entities;
 
-import it.unipr.ingegneria.api.Persistable;
-import it.unipr.ingegneria.db.persistance.OrderDAO;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -12,8 +9,8 @@ import java.util.List;
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
-public class Order implements Serializable, Persistable<Order> {
-    private transient OrderDAO orderDAO = OrderDAO.getInstance();
+public class Order implements Serializable {
+
     private int id;
     private Date date;
     private List<Wine> wine;
@@ -63,9 +60,4 @@ public class Order implements Serializable, Persistable<Order> {
         return delivered;
     }
 
-    @Override
-    public Order persist() {
-        orderDAO.add(this);
-        return this;
-    }
 }

@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.db.DTO;
+package it.unipr.ingegneria.DTO;
 
 import java.io.Serializable;
 

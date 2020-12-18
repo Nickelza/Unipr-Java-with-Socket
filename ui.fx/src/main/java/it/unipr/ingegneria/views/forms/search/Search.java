@@ -1,8 +1,8 @@
-package it.unipr.ingegneria.ui.views.forms.search;
+package it.unipr.ingegneria.views.forms.search;
 
-import it.unipr.ingegneria.ui.controllers.WineController;
-import it.unipr.ingegneria.ui.views.component.panes.FormPane;
-import it.unipr.ingegneria.ui.views.forms.IForm;
+import it.unipr.ingegneria.controllers.WineController;
+import it.unipr.ingegneria.views.component.panes.FormPane;
+import it.unipr.ingegneria.views.forms.IForm;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 

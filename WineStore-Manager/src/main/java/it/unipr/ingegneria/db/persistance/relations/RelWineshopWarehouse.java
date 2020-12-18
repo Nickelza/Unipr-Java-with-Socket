@@ -1,8 +1,8 @@
 package it.unipr.ingegneria.db.persistance.relations;
 
 import it.unipr.ingegneria.db.DBContext;
-import it.unipr.ingegneria.entities.Warehouse;
-import it.unipr.ingegneria.entities.WineShop;
+import it.unipr.ingegneria.impl.Warehouse;
+import it.unipr.ingegneria.impl.WineShop;
 import org.apache.log4j.Logger;
 
 import java.sql.*;

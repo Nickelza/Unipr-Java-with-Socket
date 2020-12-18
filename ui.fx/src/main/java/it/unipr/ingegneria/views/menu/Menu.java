@@ -1,11 +1,11 @@
-package it.unipr.ingegneria.ui.views.menu;
+package it.unipr.ingegneria.views.menu;
 
 
 import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.request.UserLogoutRequest;
-import it.unipr.ingegneria.ui.controllers.users.UserController;
-import it.unipr.ingegneria.ui.models.menu.MenuItems;
+import it.unipr.ingegneria.controllers.users.UserController;
+import it.unipr.ingegneria.models.menu.MenuItems;
 import it.unipr.ingegneria.utils.ModelRequestType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;

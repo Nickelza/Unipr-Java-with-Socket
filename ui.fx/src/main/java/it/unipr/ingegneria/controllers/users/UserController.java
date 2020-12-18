@@ -1,10 +1,10 @@
-package it.unipr.ingegneria.ui.controllers.users;
+package it.unipr.ingegneria.controllers.users;
 
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.request.create.CreateUserCriteria;
-import it.unipr.ingegneria.ui.models.utils.Size;
-import it.unipr.ingegneria.ui.views.component.stage.BuilderStage;
-import it.unipr.ingegneria.ui.views.menu.Menu;
+import it.unipr.ingegneria.models.utils.Size;
+import it.unipr.ingegneria.views.component.stage.BuilderStage;
+import it.unipr.ingegneria.views.menu.Menu;
 import it.unipr.ingegneria.utils.Type;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;

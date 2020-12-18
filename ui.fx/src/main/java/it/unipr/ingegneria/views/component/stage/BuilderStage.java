@@ -1,4 +1,4 @@
-package it.unipr.ingegneria.ui.views.component.stage;
+package it.unipr.ingegneria.views.component.stage;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

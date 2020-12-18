@@ -1,5 +1,9 @@
-package it.unipr.ingegneria.entities.user;
+package it.unipr.ingegneria.utils;
 
+import it.unipr.ingegneria.entities.user.Admin;
+import it.unipr.ingegneria.entities.user.Customer;
+import it.unipr.ingegneria.entities.user.Employee;
+import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.utils.Type;
 
 /**

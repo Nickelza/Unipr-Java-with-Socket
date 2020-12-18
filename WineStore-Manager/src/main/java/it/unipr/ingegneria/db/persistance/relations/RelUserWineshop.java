@@ -2,7 +2,7 @@ package it.unipr.ingegneria.db.persistance.relations;
 
 import it.unipr.ingegneria.db.DBContext;
 import it.unipr.ingegneria.db.persistance.WineDAO;
-import it.unipr.ingegneria.entities.WineShop;
+import it.unipr.ingegneria.impl.WineShop;
 import it.unipr.ingegneria.entities.user.User;
 import org.apache.log4j.Logger;
 

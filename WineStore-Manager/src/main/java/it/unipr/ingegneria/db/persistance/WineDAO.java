@@ -164,14 +164,14 @@ public class WineDAO implements IOperations<Wine> {
      * @return List of Wine
      */
     public List<Wine> findByYear(int year) {
-        String FIND_STATMENT = "SELECT * FROM  REL_WINE_VINEYARD_EXTENDED WHERE WINE_YEAR = ? ORDER BY WINE_ID";
+        String FIND_STATMENT = "SELECT * FROM REL_WINE_VINEYARD_EXTENDED WHERE WINE_YEAR = ? ORDER BY WINE_ID";
         List<Wine> items = new ArrayList<>();
         PreparedStatement statement = null;
         try {
             statement = conn.prepareStatement(FIND_STATMENT);
             statement.setInt(1, year);
 
-            ResultSet rs = statement.executeQuery(FIND_STATMENT);
+            ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Wine wine = Wine.valueOf(rs);
                 // Check if there is element with same WINE_ID, if present add object updating only Vineyards List

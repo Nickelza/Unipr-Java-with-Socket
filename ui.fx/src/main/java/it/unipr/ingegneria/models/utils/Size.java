@@ -1,7 +1,4 @@
-package it.unipr.ingegneria.ui.models.utils;
-
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+package it.unipr.ingegneria.models.utils;
 
 public class Size {
     private Size(){}

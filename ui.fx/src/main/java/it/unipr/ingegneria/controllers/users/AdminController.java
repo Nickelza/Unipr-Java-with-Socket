@@ -1,17 +1,17 @@
-package it.unipr.ingegneria.ui.controllers.users;
+package it.unipr.ingegneria.controllers.users;
 
 import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.user.Admin;
 import it.unipr.ingegneria.entities.user.User;
-import it.unipr.ingegneria.ui.api.IController;
-import it.unipr.ingegneria.ui.controllers.LoginController;
-import it.unipr.ingegneria.ui.views.component.panes.MainPane;
-import it.unipr.ingegneria.ui.views.forms.users.AdminForm;
-import it.unipr.ingegneria.ui.views.menu.AdminMenu;
-import it.unipr.ingegneria.ui.views.menu.Menu;
-import it.unipr.ingegneria.ui.views.response.Error;
-import it.unipr.ingegneria.ui.views.response.RegistrationAdminSuccess;
-import it.unipr.ingegneria.ui.views.views.UserProfile;
+import it.unipr.ingegneria.api.IController;
+import it.unipr.ingegneria.controllers.LoginController;
+import it.unipr.ingegneria.views.component.panes.MainPane;
+import it.unipr.ingegneria.views.forms.users.AdminForm;
+import it.unipr.ingegneria.views.menu.AdminMenu;
+import it.unipr.ingegneria.views.menu.Menu;
+import it.unipr.ingegneria.views.response.Error;
+import it.unipr.ingegneria.views.response.RegistrationAdminSuccess;
+import it.unipr.ingegneria.views.views.UserProfile;
 import it.unipr.ingegneria.utils.Type;
 import javafx.scene.layout.BorderPane;
 

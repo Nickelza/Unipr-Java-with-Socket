@@ -1,7 +1,7 @@
 package it.unipr.ingegneria.db.persistance;
 
 import it.unipr.ingegneria.db.DBContext;
-import it.unipr.ingegneria.db.DTO.OrderDTO;
+import it.unipr.ingegneria.DTO.OrderDTO;
 import it.unipr.ingegneria.db.IOperations;
 import it.unipr.ingegneria.entities.Order;
 import org.apache.log4j.Logger;

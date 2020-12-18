@@ -1,8 +1,8 @@
-package it.unipr.ingegneria.ui.views.views;
+package it.unipr.ingegneria.views.views;
 
 import it.unipr.ingegneria.entities.Vineyard;
-import it.unipr.ingegneria.ui.models.views.VineyardData;
-import it.unipr.ingegneria.ui.views.component.panes.ListPane;
+import it.unipr.ingegneria.models.views.VineyardData;
+import it.unipr.ingegneria.views.component.panes.ListPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;

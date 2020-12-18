@@ -1,7 +1,7 @@
 package it.unipr.ingegneria.entities.user;
 
 
-import it.unipr.ingegneria.entities.WineShop;
+import it.unipr.ingegneria.entities.Shop;
 import it.unipr.ingegneria.utils.Type;
 
 import java.io.Serializable;
@@ -22,10 +22,10 @@ public abstract class User implements Serializable {
     private String email;
     private transient String password;
     private String userType;
-    protected transient WineShop wineshop;
+    protected transient Shop shop;
 
-    public User setWineshop(WineShop wineshop) {
-        this.wineshop = wineshop;
+    public User setWineshop(Shop wineshop) {
+        this.shop = wineshop;
         return this;
     }
 
@@ -53,13 +53,13 @@ public abstract class User implements Serializable {
     }
 
 
-    public User(String name, String surname, String email, String password, Type type, WineShop wineShop) {
+    public User(String name, String surname, String email, String password, Type type, Shop wineShop) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.userType = type.toString();
-        this.wineshop = wineShop;
+        this.shop = wineShop;
     }
 
     public int getId() {
@@ -116,7 +116,7 @@ public abstract class User implements Serializable {
         return this;
     }
 
-    public WineShop getWineshop() {
-        return wineshop;
+    public Shop getShop() {
+        return shop;
     }
 }
