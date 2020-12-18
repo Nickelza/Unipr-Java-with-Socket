@@ -3,12 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Dec 18, 2020 at 12:34 AM
+-- Generation Time: Dec 18, 2020 at 12:38 AM
 -- Server version: 8.0.22
 -- PHP Version: 7.4.11
-
-
-CREATE DATABASE IF NOT EXISTS `unipr`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
