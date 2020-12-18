@@ -1,6 +1,8 @@
-# Unipr-Java-with-Socket
+# Wine Store
 
-# How to: 
+# *!!!IMPORTANT!!!* IMPORT NEW DB
+
+# How to Run:
 
 1. Install Docker
 2. Run command "docker-compose up -d"
@@ -12,5 +14,21 @@
 # Credential phpMyAdmin
 
 User: root 
-
 Password: helloworld
+
+
+#Install Maven 
+http://marcoparoni.altervista.org/installare-maven-su-windows-10/?doing_wp_cron=1608234007.4205861091613769531250
+
+# Build Maven Dependencies for run correctly project
+- mvn clean package install 
+
+# Run Server
+- Go into root folder project
+- mvn exec:java -pl WineStore-Manager -Dexec.mainClass=startServer
+
+# Run JavaFX (multiple times)
+
+- Go into root folder project
+- cd ui.fx/
+- mvn javafx:run
