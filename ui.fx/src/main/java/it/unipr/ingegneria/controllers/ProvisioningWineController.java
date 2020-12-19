@@ -5,13 +5,16 @@ import it.unipr.ingegneria.entities.Vineyard;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.request.create.CreateProvisioningCriteria;
 import it.unipr.ingegneria.models.utils.Size;
+import it.unipr.ingegneria.views.component.LoadingView;
 import it.unipr.ingegneria.views.component.panes.MainPane;
 import it.unipr.ingegneria.views.component.stage.BuilderStage;
 import it.unipr.ingegneria.views.forms.ProvisioningWineForm;
 import it.unipr.ingegneria.views.menu.Menu;
 import it.unipr.ingegneria.views.response.Error;
 import it.unipr.ingegneria.views.response.Success;
+import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
@@ -31,11 +34,10 @@ public class ProvisioningWineController {
 
     }
 
-    public void register(String name, int year, String producer, String notes, int quantity, Vineyard vineyard) {
+    public synchronized void register(String name, int year, String producer, String notes, int quantity, Vineyard vineyard) {
         try {
             String msgSuccess = "Provisioning wine is made whit success";
             String msgError = "Error to provisioning Wine";
-
             CreateProvisioningCriteria createProvisioningCriteriaWine =
                     new CreateProvisioningCriteria().setName(name)
                             .setProducer(producer)
@@ -46,23 +48,71 @@ public class ProvisioningWineController {
 
             String results = this.clientSocket.createProvisioning(createProvisioningCriteriaWine);
             System.out.println(results);
-            this.provisioningStage.getStage().close();
+           //this.provisioningStage.getStage().close();
             if (results != null) {
-                Success success = new Success(form.getTitle(), msgSuccess);
-                BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), success.getfilledGrid());
-                this.provisioningStage = new BuilderStage(success.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
-                this.provisioningStage.getStage().show();
+                Platform.runLater(
+                        () -> {
+                            this.provisioningStage.getStage().close();
+                            Success success = new Success(form.getTitle(), msgSuccess);
+                            BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), success.getfilledGrid());
+                            this.provisioningStage = new BuilderStage(success.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
+                            this.provisioningStage.getStage().show();
+                        });
             } else {
-                Error error = new Error(form.getTitle(), msgSuccess);
-                BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), error.getGrid());
-                this.provisioningStage = new BuilderStage(error.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
-                this.provisioningStage.getStage().show();
+                Platform.runLater(
+                        () -> {
+                            this.provisioningStage.getStage().close();
+                            Error error = new Error(form.getTitle(), msgSuccess);
+                            BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), error.getGrid());
+                            this.provisioningStage = new BuilderStage(error.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
+                            this.provisioningStage.getStage().show();
+                        });
             }
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
+    public  void waitingForRegistration(String name, int year, String producer, String notes, int quantity, Vineyard vineyard){
+        //new Thread(() -> {
+        try {
 
+            Thread loader = new Thread(() -> {
+
+                Platform.runLater(
+                        () -> {
+                            this.provisioningStage.getStage().close();
+                            LoadingView loading = new LoadingView();
+                            this.provisioningStage = new BuilderStage(loading.getTitle(), loading.getView(),  dim.WIDTH, dim.HEIGHT);
+                            this.provisioningStage.getStage().show();
+                        }
+                );
+            });
+            Thread registration = new Thread(() -> {
+
+                Platform.runLater(
+                        () -> {
+                            register(name, year, producer, notes, quantity, vineyard);
+                        }
+                );
+
+            });
+            loader.start();
+            loader.join();
+            registration.start();
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+           /* try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }).start();*/
+    }
     public void getForm() {
         BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), form.getGrid(this));
         this.provisioningStage = new BuilderStage(form.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);

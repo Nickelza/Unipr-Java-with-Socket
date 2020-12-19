@@ -18,9 +18,9 @@ public class DBContext {
     private static final Logger LOGGER = Logger.getLogger(DBContext.class);
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:6603/unipr";
+    static final String DB_URL = "jdbc:mysql://localhost:6033/unipr";
     static final String USER = "root";
-    static final String PASS = "helloworld";
+    static final String PASS = "my_secret_password";
 
     /**
      * Private constructor for Singleton instance

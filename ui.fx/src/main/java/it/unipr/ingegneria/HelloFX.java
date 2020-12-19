@@ -4,6 +4,7 @@ package it.unipr.ingegneria;
 import it.unipr.ingegneria.controllers.LoginController;
 import it.unipr.ingegneria.controllers.users.AdminController;
 import it.unipr.ingegneria.entities.user.User;
+import it.unipr.ingegneria.models.WineAvailability;
 import it.unipr.ingegneria.request.search.UserSearchCriteria;
 import it.unipr.ingegneria.utils.Type;
 import javafx.application.Application;
@@ -53,7 +54,11 @@ public class HelloFX extends Application {
                         if ((o != null) && (o instanceof Map)) {
                             // Nome Vino,  Quantità Disponibile nel magazzino
                             Map<String, Long> results = (Map<String, Long>) o;
+                            WineAvailability wineAvailale=new WineAvailability();
+                            wineAvailale.setWineAvaible(results);
+                            wineAvailale.check();
                             System.out.println(results.size());
+                            System.out.println(results.toString());
 
                         }
                     } catch (IOException | ClassNotFoundException e) {

@@ -52,7 +52,7 @@ public class ProvisioningWineForm implements IForm<GridPane, ProvisioningWineCon
 
         this.REGISTER_BTN.setOnAction(e->{
                     System.out.println(fields.NAME_INPUT.getText()+" "+fields.YEAR_INPUT.getText());
-                    controller.register(fields.NAME_INPUT.getText(),Integer.parseInt(fields.YEAR_INPUT.getText()), fields.PRODUCER_INPUT.getText(), fields.NOTES_INPUT.getText(), Integer.parseInt(fields.QTY_INPUT.getText()), fields.getVineyardListView().getSelectionModel().getSelectedItem());
+                    controller.waitingForRegistration(fields.NAME_INPUT.getText(),Integer.parseInt(fields.YEAR_INPUT.getText()), fields.PRODUCER_INPUT.getText(), fields.NOTES_INPUT.getText(), Integer.parseInt(fields.QTY_INPUT.getText()), fields.getVineyardListView().getSelectionModel().getSelectedItem());
                     controller.getMenu().setMenuStage(controller.getStage());
                 }
         );

@@ -1,6 +1,7 @@
 package it.unipr.ingegneria.models.form;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 
@@ -14,7 +15,7 @@ public  class UserInput {
         public  final  TextField NAME_INPUT= new TextField();
         public  final   TextField SURNAME_INPUT= new TextField();
         public  final   TextField EMAIL_INPUT=new TextField();
-        public  final   TextField PSW_INPUT=new TextField();
+        public  final PasswordField PSW_INPUT=new PasswordField();
 
         public Field(){};
 

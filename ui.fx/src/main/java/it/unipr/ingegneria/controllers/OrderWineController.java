@@ -5,6 +5,7 @@ import it.unipr.ingegneria.DTO.OrderDTO;
 import it.unipr.ingegneria.entities.Order;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.models.UserOrder;
+import it.unipr.ingegneria.models.WineAvailability;
 import it.unipr.ingegneria.models.utils.Size;
 import it.unipr.ingegneria.request.create.CreateOrderCriteria;
 import it.unipr.ingegneria.request.create.CreateSendOrderCriteria;
@@ -12,12 +13,14 @@ import it.unipr.ingegneria.request.search.OrderSearchCriteria;
 import it.unipr.ingegneria.views.component.panes.MainPane;
 import it.unipr.ingegneria.views.component.stage.BuilderStage;
 import it.unipr.ingegneria.views.forms.OrderWineForm;
+import it.unipr.ingegneria.views.menu.AdminMenu;
 import it.unipr.ingegneria.views.menu.Menu;
 import it.unipr.ingegneria.views.response.Error;
 import it.unipr.ingegneria.views.response.Success;
 import it.unipr.ingegneria.views.views.ListOrder;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
@@ -35,7 +38,10 @@ public class OrderWineController {
     private User user;
     private Size.Field dim = new Size.Field();
     private Menu menu;
-    private List<UserOrder> waitingForAvaibility;
+    private WineAvailability waitingWine=new WineAvailability();
+    private static final Logger LOGGER = Logger.getLogger(OrderWineController.class);
+
+
 
 
     private static final String ADDRESS = "230.0.0.1";
@@ -47,30 +53,33 @@ public class OrderWineController {
         this.clientSocket = clientSocket;
         this.user = userAuthenticate;
         this.menu = clientMenu;
-        this.waitingForAvaibility = new ArrayList<UserOrder>();
+        //this.waitingForAvaibility = new ArrayList<UserOrder>();
 
     }
 
     public void register(String name, int qty) {
         try {
+            LOGGER.info(name);
             String msgSuccess = "Order wine is made whit success";
             String msgError = "Error to Order Wine";
-
-            CreateOrderCriteria createOrderChiantiCriteria = new CreateOrderCriteria()
+            CreateOrderCriteria createOrderWineCriteria = new CreateOrderCriteria()
                     .setInQuantity(qty)
                     .setName(name)
                     .setUser(this.user);
-            Order order = clientSocket.createOrder(createOrderChiantiCriteria);
+            Order order = clientSocket.createOrder(createOrderWineCriteria);
+            LOGGER.info(order);
+            LOGGER.info("prova");
             this.orderStage.getStage().close();
-            if (order != null) {
+            if(order != null) {
                 Success success = new Success(form.getTitle(), msgSuccess);
                 BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), success.getfilledGrid());
                 this.orderStage = new BuilderStage(success.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
                 this.orderStage.getStage().show();
             } else {
-                Error error = new Error(form.getTitle(), msgSuccess);
+                Error error = new Error(form.getTitle(), msgError);
                 UserOrder waitFor = new UserOrder(name, qty);
-                this.waitingForAvaibility.add(waitFor);
+                this.waitingWine.setWaitingForAvaibility(waitFor);
+                LOGGER.info(waitingWine.getWaitingForAvaibility());
                 BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), error.getGrid());
                 this.orderStage = new BuilderStage(error.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
                 this.orderStage.getStage().show();
