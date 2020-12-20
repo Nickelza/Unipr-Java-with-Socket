@@ -62,7 +62,7 @@ public class CustomerMenu extends Menu implements IMenu<ClientItems> {
             case PROFILE:
                 super.closeStage(this.myController);
                 super.goToProfile(new ClientController(super.getClientSocket(), this), userAuthenticate);
-                this.wineAvailable.check();
+                this.wineAvailable.requestOfWine();
                 break;
             case SEARCH_WINE_BY_NAME:
                 searchWine(new WineController(super.getClientSocket(), this), TypeSearch.BY_NAME);
@@ -74,7 +74,7 @@ public class CustomerMenu extends Menu implements IMenu<ClientItems> {
                 super.closeStage(this.myController);
                 OrderWineController order=new OrderWineController(super.getClientSocket(), this, userAuthenticate);
                 order.getForm();
-                this.wineAvailable.check();
+                this.wineAvailable.requestOfWine();
                 super.setMenuStage(order.getStage());
                 break;
             case LOGOUT:
@@ -89,7 +89,7 @@ public class CustomerMenu extends Menu implements IMenu<ClientItems> {
     public void searchWine(WineController controller, TypeSearch type){
         super.closeStage(this.myController);
         controller.getSearch(type);
-        this.wineAvailable.check();
+        this.wineAvailable.requestOfWine();
         super.setMenuStage(controller.getStage());
     }
 

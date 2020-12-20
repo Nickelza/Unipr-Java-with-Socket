@@ -64,20 +64,20 @@ public class EmployeeMenu extends  Menu implements IMenu<EmployeeItems> {
             case PROFILE:
                 super.closeStage(this.myController);
                 super.goToProfile(new EmployeeController(super.getClientSocket(), this), userAuthenticate);
-                this.wineAvailable.requestOfWine();
+                this.wineAvailable.requestOfProvisioning();
                 break;
             case PROVISIONING_WINE:
                 super.closeStage(this.myController);
                 ProvisioningWineController provisioningWine=new ProvisioningWineController(super.getClientSocket(), this, userAuthenticate);
                 provisioningWine.getForm();
-                this.wineAvailable.requestOfWine();
+                this.wineAvailable.requestOfProvisioning();
                 super.setMenuStage(provisioningWine.getStage());
                 break;
             case SEND_ORDERS:
                 super.closeStage(this.myController);
                 OrderWineController order=new OrderWineController(super.getClientSocket(), this, userAuthenticate);
                 order.send();
-                this.wineAvailable.requestOfWine();
+                this.wineAvailable.requestOfProvisioning();
                 super.setMenuStage(order.getStage());
                 break;
             case LOGOUT:

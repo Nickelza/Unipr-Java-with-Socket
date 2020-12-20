@@ -3,6 +3,7 @@ package it.unipr.ingegneria.controllers;
 import it.unipr.ingegneria.controllers.users.ClientController;
 import it.unipr.ingegneria.controllers.users.EmployeeController;
 import it.unipr.ingegneria.models.UserOrder;
+import it.unipr.ingegneria.models.utils.TypeNotify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.Map;
 public class NotifyWineController {
     private static List<UserOrder> waitingForAvaibility=new ArrayList<UserOrder>();
     private static Map<String, Long> wineAvaible;
+    private  String message;
+    private boolean notify;
 
     public NotifyWineController() { }
 
@@ -28,38 +31,44 @@ public class NotifyWineController {
         NotifyWineController.wineAvaible = order;
         return this;
     }
-    public void check()
+    public  void setUp()
+    {
+        this.message="";
+        this.notify=false;
+    }
+    public void requestOfWine()
     {
         try {
-            String message="";
+            this.setUp();
             for (Map.Entry<String, Long> entry : wineAvaible.entrySet()) {
                 System.out.println(entry.getKey() + "/" + entry.getValue());
                 for (UserOrder order : waitingForAvaibility) {
                     System.out.println(order.getWineName() + "-" + order.getOrderQty());
                     if (entry.getKey().equals(order.getWineName())) {
                         if (entry.getValue() >= order.getOrderQty()) {
-                            message=message+ "The wine " + order.getWineName() + " is already aviable whit " + entry.getValue() + " bottles \n";
-                            new ClientController().manageNotify(message);
+                            this.message=this.message+ "The wine " + order.getWineName() + " is already aviable whit " + entry.getValue() + " bottles \n";
+                            this.notify=true;
                             waitingForAvaibility.remove(order);
                         }
                     }
                 }
             }
+            this.showNotify(TypeNotify.REQUEST_WINE);
         }
         catch (Exception e)
         {
             //null
         }
     }
-    public void requestOfWine()
+    public void requestOfProvisioning()
     {
-        String message="";
+        this.setUp();
         try {
-            if(wineAvaible.isEmpty())
+            if(wineAvaible==null)
             {
                 for (UserOrder order : waitingForAvaibility) {
-                        message = "A client request " + order.getOrderQty() + " bottle of wine " + order.getWineName() + "\n";
-                        new EmployeeController().manageNotify(message);
+                        this.message += "A client request " + order.getOrderQty() + " bottle of wine " + order.getWineName() + "\n";
+                        this.notify=true;
                     }
 
             }
@@ -67,16 +76,29 @@ public class NotifyWineController {
                 for (Map.Entry<String, Long> entry : wineAvaible.entrySet()) {
                     for (UserOrder order : waitingForAvaibility) {
                         if ((!entry.getKey().equals(order.getWineName()))||(entry.getValue() < order.getOrderQty())) {
-                            message = "A client request " + order.getOrderQty() + " bottle of wine " + order.getWineName() + "\n";
-                            new EmployeeController().manageNotify(message);
+                            this.message += "A client request " + order.getOrderQty() + " bottle of wine " + order.getWineName() + "\n";
+                            this.notify=true;
                         }
                     }
                 }
             }
+            this.showNotify(TypeNotify.REQUEST_PROVISIONING);
         }
         catch (Exception e)
         {
             //null
         }
+
+    }
+    public void showNotify(TypeNotify type)
+    {
+        if (notify) {
+            if (type == TypeNotify.REQUEST_PROVISIONING) {
+                new EmployeeController().manageNotify(this.message);
+            } else {
+                new ClientController().manageNotify(this.message);
+            }
+        }
     }
 }
+

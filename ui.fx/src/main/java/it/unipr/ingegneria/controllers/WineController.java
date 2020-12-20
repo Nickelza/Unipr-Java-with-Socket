@@ -64,6 +64,7 @@ public class WineController {
     public void getAll(TypeSearch type, String input) {
         try {
             List<Wine> wines=null;
+
             if (type == TypeSearch.BY_NAME) {
                 WineSearchCriteria searchAllWinesCriteriaByName = new WineSearchCriteria().setName(input);
                 wines = clientSocket.searchWines(searchAllWinesCriteriaByName);
@@ -80,11 +81,12 @@ public class WineController {
             {
                 WineSearchCriteria searchAllWinesCriteria = new WineSearchCriteria().setSelectAll(true);
                 wines = clientSocket.searchWines(searchAllWinesCriteria);
-               // System.out.println(wines);
+
             }
-            ListWine allwines=new ListWine(wines);
-            BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), allwines.getTable());
-            this.wineStage = new BuilderStage(allwines.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
+            this.wineStage.getStage().close();
+            ListWine allWines=new ListWine(wines);
+            BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), allWines.getTable());
+            this.wineStage = new BuilderStage(allWines.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
             this.wineStage.getStage().show();
         }
         catch (Exception e)

@@ -31,8 +31,10 @@ public class SearchWineWineByName extends Search implements IForm<GridPane, Wine
         GridPane.setConstraints(SearchWineInput.FieldByName.NAME_LABEL, 0, 0);
         GridPane.setConstraints(SearchWineInput.FieldByName.NAME_INPUT, 1, 0);
         super.getButton().setOnAction(e -> {
+
                     controller.getAll(TypeSearch.BY_NAME, SearchWineInput.FieldByName.NAME_INPUT.getText());
-                }
+
+        }
         );
         GridPane.setConstraints(super.getButton(), 1, 2); //second coloumn, third row
 

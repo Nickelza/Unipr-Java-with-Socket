@@ -55,7 +55,7 @@ public class OrderWineController {
         try {
             LOGGER.info(name);
             String msgSuccess = "Order wine is made whit success";
-            String msgError = "Error to Order Wine";
+            String msgError = "This wine is not available at the moment,\n but the request is send whit success";
             CreateOrderCriteria createOrderWineCriteria = new CreateOrderCriteria()
                     .setInQuantity(qty)
                     .setName(name)

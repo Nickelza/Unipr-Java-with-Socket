@@ -4,7 +4,6 @@ import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.user.Customer;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.request.search.UserSearchCriteria;
-import it.unipr.ingegneria.api.IController;
 import it.unipr.ingegneria.views.component.panes.MainPane;
 import it.unipr.ingegneria.views.component.stage.BuilderStage;
 import it.unipr.ingegneria.views.forms.users.ClientForm;
@@ -20,7 +19,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.util.List;
 
-public class ClientController extends UserController implements IController<ClientController> {
+public class ClientController extends UserController {
     private ClientForm form;
     private UserProfile clientProfile;
     private BuilderStage adminStage;
@@ -91,10 +90,6 @@ public class ClientController extends UserController implements IController<Clie
         super.getStage().show();
     }
 
-    @Override
-    public ClientController getController() {
-        return this;
-    }
 
     public Menu getMenu() {
         return menu;

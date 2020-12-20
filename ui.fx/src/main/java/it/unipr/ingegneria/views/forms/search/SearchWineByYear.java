@@ -30,9 +30,10 @@ public class SearchWineByYear extends Search implements IForm<GridPane, WineCont
         GridPane.setConstraints(SearchWineInput.FieldByYear.YEAR_LABEL, 0, 0);
         GridPane.setConstraints(SearchWineInput.FieldByYear.YEAR_INPUT, 1, 0);
         super.getButton().setOnAction(e -> {
+
                     controller.getAll(TypeSearch.BY_YEAR, SearchWineInput.FieldByYear.YEAR_INPUT.getText());
 
-                }
+        }
         );
         GridPane.setConstraints(super.getButton(), 1, 2); //second coloumn, third row
 

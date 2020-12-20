@@ -48,7 +48,6 @@ public class ProvisioningWineController {
 
             String results = this.clientSocket.createProvisioning(createProvisioningCriteriaWine);
             System.out.println(results);
-           //this.provisioningStage.getStage().close();
             if (results != null) {
                 Platform.runLater(
                         () -> {
@@ -57,6 +56,7 @@ public class ProvisioningWineController {
                             BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), success.getfilledGrid());
                             this.provisioningStage = new BuilderStage(success.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
                             this.provisioningStage.getStage().show();
+                            this.menu.setMenuStage(this.provisioningStage.getStage());
                         });
             } else {
                 Platform.runLater(
@@ -66,6 +66,7 @@ public class ProvisioningWineController {
                             BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), error.getGrid());
                             this.provisioningStage = new BuilderStage(error.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
                             this.provisioningStage.getStage().show();
+                            this.menu.setMenuStage(this.provisioningStage.getStage());
                         });
             }
         } catch (Exception e) {

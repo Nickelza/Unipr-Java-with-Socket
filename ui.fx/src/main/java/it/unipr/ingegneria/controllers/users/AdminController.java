@@ -3,7 +3,6 @@ package it.unipr.ingegneria.controllers.users;
 import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.user.Admin;
 import it.unipr.ingegneria.entities.user.User;
-import it.unipr.ingegneria.api.IController;
 import it.unipr.ingegneria.controllers.LoginController;
 import it.unipr.ingegneria.views.component.panes.MainPane;
 import it.unipr.ingegneria.views.forms.users.AdminForm;
@@ -15,7 +14,7 @@ import it.unipr.ingegneria.views.views.UserProfile;
 import it.unipr.ingegneria.utils.Type;
 import javafx.scene.layout.BorderPane;
 
-public class AdminController extends UserController implements IController<AdminController> {
+public class AdminController extends UserController {
     private AdminForm form;
     private UserProfile adminProfile;
     private ClientSocket clientSocket;
@@ -74,8 +73,4 @@ public class AdminController extends UserController implements IController<Admin
     }
 
 
-    @Override
-    public AdminController getController() {
-        return this;
-    }
 }
