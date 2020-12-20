@@ -1,11 +1,7 @@
 package it.unipr.ingegneria.views.views;
 
-import it.unipr.ingegneria.controllers.VineyardController;
-import it.unipr.ingegneria.controllers.users.ClientController;
 import it.unipr.ingegneria.controllers.users.UserController;
-import it.unipr.ingegneria.models.form.VineyardInput;
 import it.unipr.ingegneria.views.component.panes.FormPane;
-import it.unipr.ingegneria.views.forms.IForm;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;

@@ -1,6 +1,6 @@
 package it.unipr.ingegneria.views.forms.users;
 
-import it.unipr.ingegneria.controllers.users.ClientController;
+import it.unipr.ingegneria.controllers.users.CustomerController;
 import it.unipr.ingegneria.views.forms.IForm;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -12,7 +12,7 @@ import javafx.scene.layout.GridPane;
  * @see IForm
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
-public class ClientForm extends UserForm implements IForm<GridPane, ClientController> {
+public class ClientForm extends UserForm implements IForm<GridPane, CustomerController> {
     private GridPane clientGrid;
     private  final Button REGISTER_BTN =new Button("Register Client");
     public ClientForm(){super();}
@@ -23,7 +23,7 @@ public class ClientForm extends UserForm implements IForm<GridPane, ClientContro
     }
 
     @Override
-    public GridPane getGrid(ClientController controller) {
+    public GridPane getGrid(CustomerController controller) {
         super.setTitle("Client registration");
         this.clientGrid=super.getGrid();
         this.REGISTER_BTN.setOnAction(e->{ //

@@ -6,7 +6,7 @@ import it.unipr.ingegneria.controllers.OrderWineController;
 import it.unipr.ingegneria.controllers.VineyardController;
 import it.unipr.ingegneria.controllers.WineController;
 import it.unipr.ingegneria.controllers.users.AdminController;
-import it.unipr.ingegneria.controllers.users.ClientController;
+import it.unipr.ingegneria.controllers.users.CustomerController;
 import it.unipr.ingegneria.controllers.users.EmployeeController;
 import it.unipr.ingegneria.controllers.users.UserController;
 import it.unipr.ingegneria.models.menu.AdminItems;
@@ -65,13 +65,13 @@ public class AdminMenu extends Menu implements IMenu<AdminItems> {
                 super.goToProfile(new AdminController(super.getClientSocket(), this), userAuthenticate);
                 break;
             case INSERT_CLIENT:
-                insertUser(new ClientController(super.getClientSocket(), this));
+                insertUser(new CustomerController(super.getClientSocket(), this));
                 break;
             case INSERT_EMPLOYEE:
                 insertUser(new EmployeeController(super.getClientSocket(), this));
                 break;
             case VIEW_CLIENT:
-                viewListUser(new ClientController(super.getClientSocket(), this));
+                viewListUser(new CustomerController(super.getClientSocket(), this));
                 break;
             case VIEW_EMPLOYEE:
                 viewListUser(new EmployeeController(super.getClientSocket(), this));

@@ -4,7 +4,7 @@ import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.controllers.OrderWineController;
 import it.unipr.ingegneria.controllers.WineController;
-import it.unipr.ingegneria.controllers.users.ClientController;
+import it.unipr.ingegneria.controllers.users.CustomerController;
 import it.unipr.ingegneria.controllers.users.UserController;
 import it.unipr.ingegneria.controllers.NotifyWineController;
 import it.unipr.ingegneria.models.menu.ClientItems;
@@ -29,9 +29,9 @@ public class CustomerMenu extends Menu implements IMenu<ClientItems> {
     private final NotifyWineController wineAvailable=new NotifyWineController();
 
 
-    public CustomerMenu(ClientSocket clientSocket, ClientController clientController, User user){
+    public CustomerMenu(ClientSocket clientSocket, CustomerController customerController, User user){
         super(clientSocket);
-        this.myController=clientController;
+        this.myController= customerController;
         this.userAuthenticate=user;
     }
 
@@ -61,7 +61,7 @@ public class CustomerMenu extends Menu implements IMenu<ClientItems> {
         switch(items) {
             case PROFILE:
                 super.closeStage(this.myController);
-                super.goToProfile(new ClientController(super.getClientSocket(), this), userAuthenticate);
+                super.goToProfile(new CustomerController(super.getClientSocket(), this), userAuthenticate);
                 this.wineAvailable.requestOfWine();
                 break;
             case SEARCH_WINE_BY_NAME:

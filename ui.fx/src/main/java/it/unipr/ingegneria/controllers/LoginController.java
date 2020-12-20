@@ -5,7 +5,7 @@ import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.request.UserLoginRequest;
 import it.unipr.ingegneria.controllers.users.AdminController;
-import it.unipr.ingegneria.controllers.users.ClientController;
+import it.unipr.ingegneria.controllers.users.CustomerController;
 import it.unipr.ingegneria.controllers.users.EmployeeController;
 import it.unipr.ingegneria.models.utils.Size;
 import it.unipr.ingegneria.views.component.stage.BuilderStage;
@@ -49,7 +49,7 @@ public class LoginController {
                     new AdminController(clientSocket).getProfile(userAuthenticate);
                     break;
                 case "CLIENT":
-                    new ClientController(clientSocket).getProfile(userAuthenticate);
+                    new CustomerController(clientSocket).getProfile(userAuthenticate);
                     break;
                 case "EMPLOYEE":
                     new EmployeeController(clientSocket).getProfile(userAuthenticate);

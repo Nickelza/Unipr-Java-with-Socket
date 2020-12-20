@@ -1,6 +1,6 @@
 package it.unipr.ingegneria.controllers;
 
-import it.unipr.ingegneria.controllers.users.ClientController;
+import it.unipr.ingegneria.controllers.users.CustomerController;
 import it.unipr.ingegneria.controllers.users.EmployeeController;
 import it.unipr.ingegneria.models.UserOrder;
 import it.unipr.ingegneria.models.utils.TypeNotify;
@@ -96,7 +96,7 @@ public class NotifyWineController {
             if (type == TypeNotify.REQUEST_PROVISIONING) {
                 new EmployeeController().manageNotify(this.message);
             } else {
-                new ClientController().manageNotify(this.message);
+                new CustomerController().manageNotify(this.message);
             }
         }
     }

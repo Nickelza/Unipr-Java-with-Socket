@@ -9,12 +9,25 @@ skinparam actorStyle awesome
 "System" as System
 User<--Employee
 User<--Customer
-
+User<--Admin
+Admin-->(Registration)
+(Registration)-->Employee
+(Registration)-->Customer
 
 rectangle OnlineShop {
 
   Customer"1..*"-[#green]-"1..*"(Request wine)
   Customer"1..*"-[#green]-"1..*"(Order wine)
+  Admin"1..*"-[#blue]-"1..*"(Order wine)
+  Admin"1..*"-[#blue]-"1..*"(See Wine)
+  Admin"1..*"-[#blue]-"1..*"(See Customer)
+  Admin"1..*"-[#blue]-"1..*"(See Employee)
+  Admin"1..*"-[#blue]-"1..*"(See Vineyard)
+  Admin"1..*"-[#blue]-"1..*"(Insert Vineyard)
+
+
+
+
 
 
   Customer "0..*"-[#green]-"0..*" (Search wine)
@@ -27,8 +40,9 @@ rectangle OnlineShop {
 rectangle UserOperation{
  usecase "Registration"
  usecase "Authentication"
- (Order wine).[#red]>(Authentication):include
-   (Request wine).[#red]>(Authentication):include
+ Employee.[#red]>(Authentication):include
+   Customer.[#red]>(Authentication):include
+   Admin.[#red]>(Authentication):include
  (Authentication).>(Registration):extends
 }
  System ->(Notify)
