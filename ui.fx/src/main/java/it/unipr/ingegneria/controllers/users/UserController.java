@@ -13,12 +13,16 @@ import javafx.stage.Stage;
 
 public class UserController {
     private BuilderStage stage;
-    private Size.Field dim = new Size.Field();
+    public Size.Field dim = new Size.Field();
     private Menu menu;
 
 
     public Stage getStage() {
         return stage.getStage();
+    }
+
+    public void setStage(BuilderStage stage) {
+        this.stage = stage;
     }
 
     public void setGridStage(String title, GridPane pane) {

@@ -5,7 +5,6 @@ import it.unipr.ingegneria.DTO.OrderDTO;
 import it.unipr.ingegneria.entities.Order;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.models.UserOrder;
-import it.unipr.ingegneria.models.WineAvailability;
 import it.unipr.ingegneria.models.utils.Size;
 import it.unipr.ingegneria.request.create.CreateOrderCriteria;
 import it.unipr.ingegneria.request.create.CreateSendOrderCriteria;
@@ -13,7 +12,6 @@ import it.unipr.ingegneria.request.search.OrderSearchCriteria;
 import it.unipr.ingegneria.views.component.panes.MainPane;
 import it.unipr.ingegneria.views.component.stage.BuilderStage;
 import it.unipr.ingegneria.views.forms.OrderWineForm;
-import it.unipr.ingegneria.views.menu.AdminMenu;
 import it.unipr.ingegneria.views.menu.Menu;
 import it.unipr.ingegneria.views.response.Error;
 import it.unipr.ingegneria.views.response.Success;
@@ -22,10 +20,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
-import java.io.ByteArrayInputStream;
-import java.io.ObjectInputStream;
-import java.net.*;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,7 +32,7 @@ public class OrderWineController {
     private User user;
     private Size.Field dim = new Size.Field();
     private Menu menu;
-    private WineAvailability waitingWine=new WineAvailability();
+    private NotifyWineController waitingWine=new NotifyWineController();
     private static final Logger LOGGER = Logger.getLogger(OrderWineController.class);
 
 

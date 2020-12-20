@@ -28,6 +28,7 @@ public class AdminMenu extends Menu implements IMenu<AdminItems> {
     private User userAuthenticate;
     private static final Logger LOGGER = Logger.getLogger(AdminMenu.class);
 
+
     public AdminMenu(ClientSocket clientSocket, AdminController adminController, User user){
         super(clientSocket);
         this.myController=adminController;

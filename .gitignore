@@ -86,3 +86,7 @@ buildNumber.properties
 
 *.log
 *.log.*
+
+common.code/common.code.iml
+
+*.iml

@@ -13,6 +13,7 @@ import it.unipr.ingegneria.views.menu.Menu;
 import it.unipr.ingegneria.views.response.Error;
 import it.unipr.ingegneria.views.response.Success;
 import it.unipr.ingegneria.views.views.ListEmployee;
+import it.unipr.ingegneria.views.views.NotifyView;
 import it.unipr.ingegneria.views.views.UserProfile;
 import it.unipr.ingegneria.utils.Type;
 import javafx.scene.layout.BorderPane;
@@ -28,8 +29,8 @@ public class EmployeeController extends UserController implements IController<Em
 
     public EmployeeController(ClientSocket clientSocket) {
         this.clientSocket = clientSocket;
-
-
+    }
+    public EmployeeController() {
     }
 
     public EmployeeController(ClientSocket clientSocket, Menu adminMenu) {
@@ -94,5 +95,13 @@ public class EmployeeController extends UserController implements IController<Em
 
     public Menu getMenu() {
         return menu;
+    }
+
+    public void manageNotify(String msg){
+        NotifyView myNotify=new NotifyView();
+        myNotify.setMessage(msg);
+        super.setStage(new BuilderStage(myNotify.getTitle(), myNotify.getView(this), super.dim.WIDTH, super.dim.HEIGHT));
+        super.getStage().show();
+
     }
 }

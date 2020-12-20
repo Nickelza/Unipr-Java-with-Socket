@@ -4,9 +4,9 @@ import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.user.User;
 import it.unipr.ingegneria.controllers.OrderWineController;
 import it.unipr.ingegneria.controllers.WineController;
-import it.unipr.ingegneria.controllers.users.AdminController;
 import it.unipr.ingegneria.controllers.users.ClientController;
 import it.unipr.ingegneria.controllers.users.UserController;
+import it.unipr.ingegneria.controllers.NotifyWineController;
 import it.unipr.ingegneria.models.menu.ClientItems;
 import it.unipr.ingegneria.models.menu.SetupMenu;
 import it.unipr.ingegneria.models.utils.TypeSearch;
@@ -26,6 +26,8 @@ public class CustomerMenu extends Menu implements IMenu<ClientItems> {
     private UserController myController;
     private User userAuthenticate;
     private static final Logger LOGGER = Logger.getLogger(CustomerMenu.class);
+    private final NotifyWineController wineAvailable=new NotifyWineController();
+
 
     public CustomerMenu(ClientSocket clientSocket, ClientController clientController, User user){
         super(clientSocket);
@@ -59,7 +61,8 @@ public class CustomerMenu extends Menu implements IMenu<ClientItems> {
         switch(items) {
             case PROFILE:
                 super.closeStage(this.myController);
-                super.goToProfile(new AdminController(super.getClientSocket(), this), userAuthenticate);
+                super.goToProfile(new ClientController(super.getClientSocket(), this), userAuthenticate);
+                this.wineAvailable.check();
                 break;
             case SEARCH_WINE_BY_NAME:
                 searchWine(new WineController(super.getClientSocket(), this), TypeSearch.BY_NAME);
@@ -71,6 +74,7 @@ public class CustomerMenu extends Menu implements IMenu<ClientItems> {
                 super.closeStage(this.myController);
                 OrderWineController order=new OrderWineController(super.getClientSocket(), this, userAuthenticate);
                 order.getForm();
+                this.wineAvailable.check();
                 super.setMenuStage(order.getStage());
                 break;
             case LOGOUT:
@@ -85,6 +89,7 @@ public class CustomerMenu extends Menu implements IMenu<ClientItems> {
     public void searchWine(WineController controller, TypeSearch type){
         super.closeStage(this.myController);
         controller.getSearch(type);
+        this.wineAvailable.check();
         super.setMenuStage(controller.getStage());
     }
 

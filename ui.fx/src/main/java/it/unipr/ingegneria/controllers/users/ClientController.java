@@ -13,6 +13,7 @@ import it.unipr.ingegneria.views.menu.Menu;
 import it.unipr.ingegneria.views.response.Error;
 import it.unipr.ingegneria.views.response.Success;
 import it.unipr.ingegneria.views.views.ListCustomer;
+import it.unipr.ingegneria.views.views.NotifyView;
 import it.unipr.ingegneria.views.views.UserProfile;
 import it.unipr.ingegneria.utils.Type;
 import javafx.scene.layout.BorderPane;
@@ -30,11 +31,15 @@ public class ClientController extends UserController implements IController<Clie
 
         this.clientSocket = clientSocket;
 
+
+    }
+    public ClientController() {
+
     }
 
-    public ClientController(ClientSocket clientSocket, Menu adminMenu) {
+    public ClientController(ClientSocket clientSocket, Menu menu) {
         this.clientSocket = clientSocket;
-        this.menu = adminMenu;
+        this.menu = menu;
 
     }
 
@@ -93,5 +98,13 @@ public class ClientController extends UserController implements IController<Clie
 
     public Menu getMenu() {
         return menu;
+    }
+
+    public void manageNotify(String msg){
+        NotifyView myNotify=new NotifyView();
+        myNotify.setMessage(msg);
+        super.setStage(new BuilderStage(myNotify.getTitle(), myNotify.getView(this), super.dim.WIDTH, super.dim.HEIGHT));
+        super.getStage().show();
+
     }
 }
