@@ -4,7 +4,7 @@
 
 1. Install Docker
 2. Run command "docker-compose up -d"
-3. Go to http://localhost:8080/index.php
+3. Go to http://localhost:8081/index.php
 4. Credential are contained in docker-compose.yml file 
 5. Create DB  using : 
 ``` CREATE DATABASE IF NOT EXISTS `unipr`;```
