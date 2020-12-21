@@ -2,8 +2,19 @@ package it.unipr.ingegneria.models.utils;
 
 import javafx.scene.text.Text;
 
+/**
+ * The {@code Response} is a simple class that rappresent the model of a response
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class Response {
     private Response(){}
+
+    /**
+     * The {@code Field} is a static class that contains the field of response view
+     *
+     * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+     */
     public static class Field {
         private String title;
         private  Text message;
@@ -29,6 +40,5 @@ public class Response {
         public Field(){
             this.message =new Text();
         };
-
     }
 }

@@ -1,5 +1,10 @@
 package it.unipr.ingegneria.models.menu;
 
+/**
+ * The {@code AdminItems} is a Enum that contains the items of the {@code AdminMenu}
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public enum AdminItems {
     PROFILE {
         @Override

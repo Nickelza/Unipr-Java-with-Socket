@@ -1,0 +1,404 @@
+@startuml
+interface IObservable  <T> <<Interface>>
+{
+     addObserver(T): void
+     removeObserver(T):void
+}
+interface IWarehouseManager<T> <<Interface>>{
+
+     findByName(String):List<T>
+     findByYear(int):List<T>
+}
+interface IStoreManager<T> <<Interface>> extends IWarehouseManager
+{
+    sellWine(Map<Params, Object>):List<T>
+    provisionWine(Map<Params, Object>):void
+    sendOrders():void
+}
+interface IObserver <<Interface>> {
+     update(Object): void
+}
+interface IUserManager <<Interface>>{
+
+    addUser(User):void
+    deleteUser(User):void
+    hasUser(User):Boolean
+}
+class Order implements Serialiazable {
+    - ID:long
+    - date: Date
+    - delivered: boolean
+}
+
+class Vineyard implements Serializable {
+     - name:String
+}
+class CustomerNotification {
+    - customer: Customer
+    - wineName: String
+    - quantity: int
+}
+abstract class User implements Serializable{
+    -  id:long
+    -  name:String
+    -  surname:String
+    -  email:String
+    -  password:String
+    -  userType:Type
+    -  wineshop:Shop
+    }
+class WineDAO implements IOperations {
+     -  conn:Connection
+     - {static}  INSTANCE:WineDAO
+     - {static}  LOGGER:Logger
+     + {static}  getInstance():WineDAO
+     + findAll():List<Wine>
+     + findByName(String name):List<Wine>
+     + findByYear(int year):List<Wine>
+ }
+class Customer extends User implements Serializable{
+
+    - {static}  logger : Logger
+    -  isAuthenticated:Boolean
+
+    +  order(String, int): void
+    +  findByName(String): List<Wine>
+    +  findByYear(int): List<Wine>
+}
+class Employee extends User implements IObserver {
+
+    - wineShop:IStoreManager
+    - isWorking: Boolean
+    - {static}   logger:Logger
+    + void provisionWine(String, int)
+    + void sendOrders()
+}
+class Wine implements Serializable{
+
+    -  _id:long
+    -  name:String
+    -  year:Date
+    -  producer:String
+    -  techNotes:String
+    - {static} logger: Logger
+    }
+class Admin extends User{
+        }
+enum Type {
+    CLIENT
+    EMPLOYEE
+}
+abstract class Shop implements  Serializable {
+
+     - id:int
+     - name:string
+
+    }
+abstract class AbstractWarehouse implements Serializable {
+
+    -id:int
+    -name:string
+    +{abstract} checkAvailability():void
+
+}
+class ProvisioningManager implements IObservable, Serializable {
+
+    - ordersQueue:Queue<Map>
+    - {static} logger:Logger
+    + handleProvisioning(Map<Params, Object>):void
+}
+class OrderDTO implements Serializable {
+    - userId:int
+    - orderId:int
+    - wineName:string
+    - orderDelivered:Boolean
+    - orderQty: int
+}
+class Warehouse extends AbstractWarehouse implements IWarehouseManager, IObservable{
+public void add(Map<Params, Object> elements) throws RequiredValueException {
+
+    +  remove(Map<Params, Object> elements):List<Wine>
+    +  findAllAvailables():List<Wine>
+    +  findByName(String name):List<Wine>
+    +  findByYear(int year):List<Wine>
+    +  checkAvailability() :void
+    +  isValidValues(Map<Params, Object> elements):void
+    -  save(Wine wine):Wine
+}
+class CreateOrderCriteria implements Serializable {
+    - name:String
+    - inQuantity:Integer
+    }
+ class CreateProvisioningCriteria implements Serializable {
+    -  name:String
+    -  year:int
+    -  producer:String
+    -  techNotes:String
+    -  inQuantity:int
+}
+ class CreateUserCriteria implements Serializable {
+    -  name:String
+    -  surname:String
+    -  email: String
+    -  password:String
+    -  userType:String
+}
+class CreateVineyardCriteria implements Serializable {
+          - name:String
+}
+class OrderSearchCriteria implements Serializable {
+    - selectAll:boolean
+}
+class SearchVineyardCriteria implements Serializable {
+    -  selectAll:boolean
+    -  name:String
+}
+class UserSearchCriteria implements Serializable {
+    - selectAll:boolean
+    - makeCount:boolean
+    - userType:String
+}
+ class WineSearchCriteria implements Serializable {
+    -  selectAll:boolean
+    -  name:String
+    -  year:Integer
+}
+abstract class ModelRequest<T> implements Serializable {
+    * type:String
+    +{abstract}  asType(ModelRequestType type):T
+}
+class SearchRequest<MODEL> extends ModelRequest {
+    - model:MODEL
+}
+class CreateRequest<MODEL> extends ModelRequest {
+    -  model:MODEL
+}
+ class UserLoginRequest extends ModelRequest {
+    -  email:String
+    -  password:String
+ }
+ class UserLogoutRequest extends ModelRequest{}
+ class ModelListResponse implements Serializable {
+     -  models:List
+ }
+class ModelResponse<T> implements Serializable {
+     -model:T
+}
+ enum ModelRequestType {
+    LOGIN,
+    LOGOUT,
+    CREATE,
+    SEARCH,
+}
+ enum Params {
+    ID,
+    NAME,
+    YEAR,
+    PRODUCER,
+    TECH_NOTES,
+    VINEYARDS,
+    VINEYARD_ID,
+    VINEYARD_NAME,
+    QTY,
+    USER,
+    DATE,
+    NOTES,
+
+}
+ class UserFactory {
+    + {static}  getUser(Type type):User
+    }
+ class CreateRequestManager {
+    - {static}   logger:Logger
+    + {static}  fillWithResponse(WineShop shop, Object o):ModelResponse
+    - {static}  createUserCriteria(CreateRequest o, WineShop shop):User
+    - {static}  createVineyardCriteria(CreateRequest o):Vineyard
+    - {static}  createProvisioningCriteria(CreateRequest o, WineShop shop):String
+    -{static} createOrderCriteria(CreateRequest o, WineShop shop):Order
+    -{static}  createSendOrderCriteria(CreateRequest o, WineShop shop):String
+    }
+class SearchRequestManager {
+    + {static}  fillWithResponse(Shop shop, Object o):ModelListResponse
+    - {static}  createWineSearchCriteria(SearchRequest o, Shop shop):List<Wine>
+    - {static}  createSearchVineyardCriteria(SearchRequest o):List<Vineyard>
+    - {static} createUserSearchCriteria(SearchRequest o, Shop shop):List<User>
+    - {static}  createOrderSearchCriteria(SearchRequest o, Shop shop):List<OrderDTO>
+}
+ class WineShop extends Shop implements IUserManager, IStoreManager, IObserver {
+
+    -  inetA:InetAddress
+    -  multicastSocket:MulticastSocket
+    -  logger:Logger
+    +  getUsers():List<User>
+    + findByType(String type):List<User>
+    + getOrders():List<OrderDTO>
+    - toByteArray(final Object o):byte[]
+}
+class ClientSocket {
+    - client:Socket
+    - os:ObjectOutputStream
+    - is:ObjectInputStream
+    - logger: Logger
+    +  createUser(CreateUserCriteria createUserCriteria):User
+    +  loginUser(UserLoginRequest userLoginRequest):User
+    +  logoutUser(UserLogoutRequest userLogoutRequest):void
+    +  createProvisioning(CreateProvisioningCriteria createProvisioningCriteria):String
+    +  createVineyard(CreateVineyardCriteria createProvisioningCriteria):Vineyard
+    +  createOrder(CreateOrderCriteria createOrderCriteria):Order
+    +  searchWines(WineSearchCriteria searchWinesCriteria):List<Wine>
+    +  searchVineyards(SearchVineyardCriteria searchVineyardCriteria):List<Vineyard>
+    +  searchUsers(UserSearchCriteria userSearchCriteria):List<User>
+    +  searchOrders(OrderSearchCriteria orderSearchCriteria):List<OrderDTO>
+    +  sendOrders(CreateSendOrderCriteria createSendOrderCriteria):String
+    +  closeSocket():void
+}
+ class MainServer {
+    -  multicastSocket:MulticastSocket
+    -  socket:ServerSocket
+    -  pool:ThreadPoolExecutor
+    +  run():void
+    +  getPool():ThreadPoolExecutor
+    +  close():void
+    - {static}  clearAllTables():void
+ }
+ class ServerThread implements Runnable {
+     - final Socket socket;
+ }
+ interface IOperations<T> <<interface>>{
+      add(T t):void
+ }
+ class WineShopDAO implements IOperations {
+     -  conn:Connection
+     - {static}  INSTANCE:WineShopDAO
+     - {static}  LOGGER:Logger
+     + {static}  getInstance():WineShopDAO
+ }
+  class VineyardDAO implements IOperations {
+     -  conn:Connection
+     - {static}  INSTANCE:VineyardDAO
+     - {static}  LOGGER:Logger
+     + {static}  getInstance():VineyardDAO
+     + findAll():List<Vineyard>
+ }
+ class OrderDAO implements IOperations {
+      -  conn:Connection
+      - {static}  INSTANCE:OrderDAO
+      - {static}  LOGGER:Logger
+      + {static}  getInstance():OrderDAO
+      + findAll():List<OrderDTO>
+      +  updateOrders():void
+      +  buildOrderDTO(String sql):List<OrderDTO>
+
+  }
+ class UserDAO implements IOperations {
+     -  conn:Connection
+     - {static}  INSTANCE:UserDAO
+     - {static}  LOGGER:Logger
+     + {static}  getInstance():UserDAO
+     + findAll(WineShop wineShop):List<User>
+     + findByType(WineShop wineShop, String type):List<User>
+     + executeLogin(String userEmail, String userPassword, WineShop wineShop):User
+ }
+ class WarehouseDAO implements IOperations {
+     -  conn:Connection
+     - {static}  INSTANCE:WarehouseDAO
+     - {static}  LOGGER:Logger
+     + {static}  getInstance():WarehouseDAO
+     + findAll():List<Wine>
+     +  findWineNotInWarehouse():List<String>
+     +  checkAvailability(String wineName, Integer requiredQuantity):Boolean
+     -  buildWines(String sql):List<Wine>
+ }
+
+ class RelWineWarehouse {
+      -  conn:Connection
+      - {static}  INSTANCE:RelWineWarehouse
+      - {static}  LOGGER:Logger
+      + {static}  getInstance():RelWineWarehouse
+      +  addAll(List<Wine> wines, Warehouse warehouse):void
+      +  deleteAll(List<Wine> wines, Warehouse warehouse):void
+  }
+  class RelWineVineyard {
+      -  conn:Connection
+      - {static}  INSTANCE:RelWineVineyard
+      - {static}  LOGGER:Logger
+      + {static}  getInstance():RelWineVineyard
+      +  addAll(List<Wine> wines):void
+  }
+ class RelWineshopWarehouse {
+        -  conn:Connection
+        - {static}  INSTANCE:RelWineshopWarehouse
+        - {static}  LOGGER:Logger
+        + {static}  getInstance():RelWineshopWarehouse
+        + addAll(WineShop wineShop, Warehouse wareHouse):integer
+    }
+ class RelUserWineshop {
+        -  conn:Connection
+        - {static}  INSTANCE:RelUserWineshop
+        - {static}  LOGGER:Logger
+        + {static}  getInstance():RelUserWineshop
+        + addAll(User user, WineShop wineShop):void
+    }
+ class RelOrderWine {
+        -  conn:Connection
+        - {static}  INSTANCE:RelOrderWine
+        - {static}  LOGGER:Logger
+        + {static}  getInstance():RelOrderWine
+        + addAll(List<Wine> wines, Order order):void
+    }
+ class RelOrderUser {
+        -  conn:Connection
+        - {static}  INSTANCE:RelOrderUser
+        - {static}  LOGGER:Logger
+        + {static}  getInstance():RelOrderUser
+        + addAll(User user, Order order):void
+    }
+class DBContext {
+        -  conn:Connection
+        - {static}  INSTANCE:DBContext
+        - {static}  LOGGER:Logger
+        + addAll(User user, Order order):void
+        + {static}  getConnection():Connection
+        + {static}  closeConnection():void
+    }
+
+User--Type
+Order "0"-[#red]-"1..*" Wine
+Wine "0"-[#red]-"1..*" Vineyard
+Customer "0" -[#blue]-"0..1" CustomerNotification
+Customer "0"-[#blue]-"*" Order
+Employee "0"-[#purple]-"1" IStoreManager
+Shop "0"-[#green]-"1..*"User
+Shop "0"-[#green]-"1" AbstractWarehouse
+Shop "0"-[#green]-"1" ProvisioningManager
+WineShop "0"-[#yellow]-"1" WineShopDAO
+WineShop "0"-[#yellow]-"1" UserDAO
+WineShop "0"-[#yellow]-"1" RelOrderUser
+WineShop "0"-[#yellow]-"1" RelWineshopWarehouse
+WineShop "0"-[#yellow]-"1" RelUserWineshop
+WineShop "0"-[#yellow]-"1" RelOrderWine
+WineShop "0"-[#yellow]-"1" IWarehouseManager
+MainServer"0"-[#green]-"1" WineShop
+ServerThread"0"-[#green]-"1" MainServer
+ServerThread"0"-[#green]-"1" WineShop
+AbstractWarehouse "0"-[#orange]-"1" ProvisioningManager
+ProvisioningManager "0"-[#purple]-"1..*" Employee
+CreateOrderCriteria "0"-[#yellow]-"1"User
+OrderSearchCriteria "0"-[#yellow]-"1"User
+UserLogoutRequest "0"-[#yellow]-"1"User
+CreateProvisioningCriteria "0"-[#yellow]-"1..*"Vineyard
+Warehouse "0"-[#red]-"1" RelWineWarehouse
+Warehouse "0"-[#red]-"1" RelWineVineyard
+Warehouse "0"-[#red]-"1" WarehouseDAO
+Warehouse "0"-[#red]-"1" WineDAO
+Warehouse "0"-[#red]-"1..*"Shop
+
+skinparam class {
+BackgroundColor lightgrey
+BorderColor grey
+ArrowColor black
+BackgroundColor<<Interface>> white
+BorderColor<<Interface>> grey
+
+}
+@enduml

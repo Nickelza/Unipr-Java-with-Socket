@@ -1,5 +1,10 @@
 package it.unipr.ingegneria.models.menu;
 
+/**
+ * The {@code ClientItems} is a Enum that contains the items of the {@code ClientMenu}
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public enum ClientItems {
     PROFILE {
         @Override
@@ -25,5 +30,4 @@ public enum ClientItems {
             return "Wine by year";
         }
     },
-
 }

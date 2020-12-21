@@ -4,8 +4,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-
+/**
+ * The {@code UserInput} is a simple class to contains the information of User form
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public  class UserInput {
+    /**
+     * The {@code Field} is a static class that contains the field of user form
+     *
+     * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+     */
     public static class Field {
         private String title = "User registration";
         public final Label NAME_LABEL = new Label("Name");
@@ -27,9 +36,7 @@ public  class UserInput {
         public String getTitle() {
             return title;
         }
-
     }
+
         private UserInput(){};
-
-
     }

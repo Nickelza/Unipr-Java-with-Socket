@@ -1,0 +1,57 @@
+@startuml
+left to right direction
+
+skinparam actorStyle awesome
+
+"User" as User
+"Customer" as Customer
+"Employee" as Employee
+"System" as System
+User<--Employee
+User<--Customer
+User<--Admin
+Admin-->(Registration)
+(Registration)-->Employee
+(Registration)-->Customer
+
+rectangle OnlineShop {
+
+  Customer"1..*"-[#green]-"1..*"(Request wine)
+  Customer"1..*"-[#green]-"1..*"(Order wine)
+  Admin"1..*"-[#blue]-"1..*"(Order wine)
+  Admin"1..*"-[#blue]-"1..*"(See Wine)
+  Admin"1..*"-[#blue]-"1..*"(See Customer)
+  Admin"1..*"-[#blue]-"1..*"(See Employee)
+  Admin"1..*"-[#blue]-"1..*"(See Vineyard)
+  Admin"1..*"-[#blue]-"1..*"(Insert Vineyard)
+
+  Customer "0..*"-[#green]-"0..*" (Search wine)
+  Employee"1..*"-[#orange]-"1..*"(Buy wine)
+  Employee "1..*"-[#orange]-"1..*"(Supply wine)
+  Employee"1..*"-[#orange]-"1"(Send wine)
+}
+
+rectangle UserOperation{
+ usecase "Registration"
+ usecase "Authentication"
+ Employee.[#red]>(Authentication):include
+   Customer.[#red]>(Authentication):include
+   Admin.[#red]>(Authentication):include
+ (Authentication).>(Registration):extends
+}
+ System ->(Notify)
+ (Customer) ->( Receive notify)
+ (Employee)->( Receive notify)
+
+ skinparam usecase {
+ BackgroundColor DarkSeaGreen
+ BorderColor DarkSlateGray
+ ArrowColor black
+ }
+ skinparam actor {
+  BorderColor darkblue
+
+  }
+
+
+@enduml

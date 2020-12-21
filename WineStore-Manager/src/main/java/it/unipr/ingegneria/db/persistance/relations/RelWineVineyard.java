@@ -37,7 +37,7 @@ public class RelWineVineyard {
     /**
      * Method to add in massive mode the wines to Wine Table.
      *
-     * @param email User email
+     * @param wines List
      */
     public void addAll(List<Wine> wines) {
         boolean itemsFound = false;

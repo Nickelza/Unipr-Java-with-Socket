@@ -1,5 +1,10 @@
 package it.unipr.ingegneria.models.menu;
 
+/**
+ * The {@code EmployeeIntems} is a Enum that contains the items of the {@code EmployeeMenu}
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public enum EmployeeItems {
     PROFILE {
         @Override
@@ -19,6 +24,4 @@ public enum EmployeeItems {
             return "Send order";
         }
     },
-
-
 }

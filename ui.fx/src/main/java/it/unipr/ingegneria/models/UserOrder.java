@@ -1,5 +1,11 @@
 package it.unipr.ingegneria.models;
 
+
+/**
+ * The {@code UserOrder} is a simple class to rappresentation the main information of an order
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class UserOrder {
     private String wineName;
     private Integer orderQty;
