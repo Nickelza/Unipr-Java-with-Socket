@@ -1,7 +1,7 @@
 package it.unipr.ingegneria.models.menu;
 
 /**
- * The {@code MenuIntems} is a Enum that contains the items in common at the all menu
+ * The {@code MenuItems} is a Enum that contains the items of the menu
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
@@ -12,5 +12,4 @@ public enum MenuItems {
             return "Profile";
         }
     },
-
 }

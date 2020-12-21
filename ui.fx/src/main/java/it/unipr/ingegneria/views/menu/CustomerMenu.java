@@ -77,6 +77,10 @@ public class CustomerMenu extends Menu implements IMenu<ClientItems> {
                 this.wineAvailable.requestOfWine();
                 super.setMenuStage(order.getStage());
                 break;
+            case LOGOUT:
+                super.logout();
+                super.closeStage(this.myController);
+                break;
             default:
                 LOGGER.info("Menu item don't present");
                 break;

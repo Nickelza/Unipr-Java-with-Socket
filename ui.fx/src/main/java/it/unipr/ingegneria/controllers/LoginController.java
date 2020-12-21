@@ -34,7 +34,7 @@ public class LoginController {
             UserLoginRequest userLoginRequest = new UserLoginRequest().asType(ModelRequestType.LOGIN).setEmail(email).setPassword(password);
             User userAuthenticate = clientSocket.loginUser(userLoginRequest);
             this.loginStage.getStage().close();
-            this.clientSocket=new ClientSocket();
+            //this.clientSocket=new ClientSocket();
             if (userAuthenticate==null)
             {
                 Error error = new Error(form.getTitle(), "User is not present");

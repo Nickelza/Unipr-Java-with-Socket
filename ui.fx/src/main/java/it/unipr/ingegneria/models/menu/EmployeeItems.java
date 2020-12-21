@@ -24,4 +24,10 @@ public enum EmployeeItems {
             return "Send order";
         }
     },
+    LOGOUT {
+        @Override
+        public String toString() {
+            return "Log out";
+        }
+    },
 }

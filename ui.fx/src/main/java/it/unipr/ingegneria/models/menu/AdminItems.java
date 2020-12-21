@@ -60,6 +60,10 @@ public enum AdminItems {
             return "View wine";
         }
     },
-
-
+    LOGOUT {
+        @Override
+        public String toString() {
+            return "Log out";
+        }
+    },
 }

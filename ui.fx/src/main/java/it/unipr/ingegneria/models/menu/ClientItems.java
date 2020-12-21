@@ -30,4 +30,10 @@ public enum ClientItems {
             return "Wine by year";
         }
     },
+    LOGOUT {
+        @Override
+        public String toString() {
+            return "Log out";
+        }
+    },
 }

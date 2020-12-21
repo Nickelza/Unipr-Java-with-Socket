@@ -1,7 +1,5 @@
 # Wine Store
 
-# *!!!IMPORTANT!!!* IMPORT NEW DB
-# Ciao mamma ho fatto gli gnocchi
 # How to Run:
 
 1. Install Docker

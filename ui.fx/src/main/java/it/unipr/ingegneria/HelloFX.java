@@ -1,6 +1,5 @@
 package it.unipr.ingegneria;
 
-
 import it.unipr.ingegneria.controllers.LoginController;
 import it.unipr.ingegneria.controllers.users.AdminController;
 import it.unipr.ingegneria.entities.user.User;
@@ -16,14 +15,21 @@ import java.io.ObjectInputStream;
 import java.net.*;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * This is the main class of the JavaFx client
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ * @version 1.0
+ * @since 1.0
+ */
 public class HelloFX extends Application {
     private static final String ADDRESS = "230.0.0.1";
     private static final int DPORT = 4446;
     private static final int SIZE = 1024;
+    private ClientSocket clientSocket;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         try {
             Thread t = new Thread(() -> {
                 while (true) {
@@ -46,8 +52,6 @@ public class HelloFX extends Application {
                             Map<String, Long> results = (Map<String, Long>) o;
                             NotifyWineController wineAvailable=new NotifyWineController();
                             wineAvailable.setWineAvaible(results);
-                            System.out.println(results.size());
-                            System.out.println(results.toString());
 
                         }
                     } catch (IOException | ClassNotFoundException e) {
@@ -58,7 +62,7 @@ public class HelloFX extends Application {
             t.setDaemon(true);
             t.start();
 
-            ClientSocket clientSocket = new ClientSocket();
+            this.clientSocket = new ClientSocket();
             UserSearchCriteria userSearchCriteriaByType = new UserSearchCriteria().setUserType(Type.ADMIN);
             List<User> listAdmin = clientSocket.searchUsers(userSearchCriteriaByType);
             if (listAdmin.isEmpty()) {
@@ -86,6 +90,11 @@ public class HelloFX extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void stop()
+    {
+        this.clientSocket.closeSocket();
     }
 }
 

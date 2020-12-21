@@ -78,6 +78,9 @@ public class EmployeeMenu extends  Menu implements IMenu<EmployeeItems> {
                 order.send();
                 this.wineAvailable.requestOfProvisioning();
                 super.setMenuStage(order.getStage());
+            case LOGOUT:
+                super.logout();
+                super.closeStage(this.myController);
                 break;
             default:
                 LOGGER.info("Menu item don't present");

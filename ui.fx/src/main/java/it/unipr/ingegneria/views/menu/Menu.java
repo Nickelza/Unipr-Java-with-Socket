@@ -3,9 +3,9 @@ package it.unipr.ingegneria.views.menu;
 
 import it.unipr.ingegneria.ClientSocket;
 import it.unipr.ingegneria.entities.user.User;
+import it.unipr.ingegneria.models.menu.MenuItems;
 import it.unipr.ingegneria.request.UserLogoutRequest;
 import it.unipr.ingegneria.controllers.users.UserController;
-import it.unipr.ingegneria.models.menu.MenuItems;
 import it.unipr.ingegneria.utils.ModelRequestType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -44,9 +44,7 @@ public class Menu {
         return null;
     }
 
-    public void logout(User user) {
-        UserLogoutRequest userLogoutRequest = new UserLogoutRequest().setUser(user).asType(ModelRequestType.LOGOUT);
-        this.clientSocket.logoutUser(userLogoutRequest);
+    public void logout() {
         this.clientSocket.closeSocket();
     }
     public void goToProfile(UserController user, User userAuthenticate) {
