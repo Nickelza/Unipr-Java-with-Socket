@@ -24,7 +24,11 @@ import java.util.List;
 
 
 
-
+/**
+ * The {@code OrderWineController} is a class that manage the views about the order of wine
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class OrderWineController {
     private OrderWineForm form;
     private BuilderStage orderStage;
@@ -47,13 +51,10 @@ public class OrderWineController {
         this.clientSocket = clientSocket;
         this.user = userAuthenticate;
         this.menu = clientMenu;
-        //this.waitingForAvaibility = new ArrayList<UserOrder>();
-
     }
 
     public void register(String name, int qty) {
         try {
-            LOGGER.info(name);
             String msgSuccess = "Order wine is made whit success";
             String msgError = "This wine is not available at the moment,\n but the request is send whit success";
             CreateOrderCriteria createOrderWineCriteria = new CreateOrderCriteria()
@@ -61,8 +62,6 @@ public class OrderWineController {
                     .setName(name)
                     .setUser(this.user);
             Order order = clientSocket.createOrder(createOrderWineCriteria);
-            LOGGER.info(order);
-            LOGGER.info("prova");
             this.orderStage.getStage().close();
             if(order != null) {
                 Success success = new Success(form.getTitle(), msgSuccess);
@@ -94,10 +93,8 @@ public class OrderWineController {
         try {
             String msgSuccess = "All the order sent";
             String msgError = "Error to sent order";
-
             CreateSendOrderCriteria createSendOrderCriteria = new CreateSendOrderCriteria();
             String order = clientSocket.sendOrders(createSendOrderCriteria);
-
             if (order != null) {
                 System.out.println(order);
                 Success success = new Success(form.getTitle(), msgSuccess);
@@ -105,7 +102,7 @@ public class OrderWineController {
                 this.orderStage = new BuilderStage(success.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
                 this.orderStage.getStage().show();
             } else {
-                Error error = new Error(form.getTitle(), msgSuccess);
+                Error error = new Error(form.getTitle(), msgError);
                 BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), error.getGrid());
                 this.orderStage = new BuilderStage(error.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
                 this.orderStage.getStage().show();

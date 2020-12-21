@@ -19,17 +19,21 @@ import javafx.scene.layout.BorderPane;
 
 import java.util.List;
 
+/**
+ * The {@code EmployeeController} is a  class that is used to manage the employee views of the project
+ * @see UserController
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class EmployeeController extends UserController  {
     private EmployeeForm form;
     private UserProfile clientProfile;
-    private BuilderStage adminStage;
     private ClientSocket clientSocket;
     private Menu menu;
 
+    public EmployeeController() { }
+
     public EmployeeController(ClientSocket clientSocket) {
         this.clientSocket = clientSocket;
-    }
-    public EmployeeController() {
     }
 
     public EmployeeController(ClientSocket clientSocket, Menu adminMenu) {
@@ -41,8 +45,6 @@ public class EmployeeController extends UserController  {
     public void register(String name, String surname, String email, String password) {
         String msgSuccess = "Employee registration whit success";
         String msgError = "Error to registration Employee";
-
-
         Employee user = (Employee) clientSocket.createUser(super.createUser(name, surname, email, password, Type.EMPLOYEE));
         System.out.println("ID:" + user.getId() + "email:" + user.getEmail());
         super.getStage().close();
@@ -52,12 +54,11 @@ public class EmployeeController extends UserController  {
             super.setBorderStage(success.getTitle(), mainView);
             super.getStage().show();
         } else {
-            Error error = new Error(form.getTitle(), msgSuccess);
+            Error error = new Error(form.getTitle(), msgError);
             BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), error.getGrid());
             super.setBorderStage(error.getTitle(), mainView);
             super.getStage().show();
         }
-
     }
 
     public void getForm() {
@@ -65,7 +66,6 @@ public class EmployeeController extends UserController  {
         BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), form.getGrid(this));
         super.setBorderStage(form.getTitle(), mainView);
         super.getStage().show();
-
     }
 
     public void getProfile(User userSignIn) {
@@ -97,6 +97,5 @@ public class EmployeeController extends UserController  {
         myNotify.setMessage(msg);
         super.setStage(new BuilderStage(myNotify.getTitle(), myNotify.getView(this), super.dim.WIDTH, super.dim.HEIGHT));
         super.getStage().show();
-
     }
 }

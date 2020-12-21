@@ -18,6 +18,11 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * The {@code VineyardController} is a class that manage the views about the Vineyard
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class VineyardController {
     private VineyardForm form;
     private BuilderStage vineyardStage;
@@ -28,15 +33,12 @@ public class VineyardController {
     public VineyardController(ClientSocket clientSocket) {
         this.form = new VineyardForm();
         this.clientSocket = clientSocket;
-
-
     }
 
     public VineyardController(ClientSocket clientSocket, Menu adminMenu) {
         this.form = new VineyardForm();
         this.clientSocket = clientSocket;
         this.menu = adminMenu;
-
     }
 
     public Stage getStage() {
@@ -47,12 +49,8 @@ public class VineyardController {
         try {
             String msgSuccess = "Vineyard registration whit success";
             String msgError = "Error to registration Vineyard";
-
             CreateVineyardCriteria createVineyardCriteria = new CreateVineyardCriteria().setName(name);
-
-
             Vineyard vineyard = this.clientSocket.createVineyard(createVineyardCriteria);
-            System.out.println("ID:" + vineyard.getId() + "vineyard:" + vineyard.getName());
             this.vineyardStage.getStage().close();
             if (vineyard != null) {
                 Success success = new Success(form.getTitle(), msgSuccess);
@@ -60,7 +58,7 @@ public class VineyardController {
                 this.vineyardStage = new BuilderStage(success.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
                 this.vineyardStage.getStage().show();
             } else {
-                Error error = new Error(form.getTitle(), msgSuccess);
+                Error error = new Error(form.getTitle(), msgError);
                 BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), error.getGrid());
                 this.vineyardStage = new BuilderStage(error.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
                 this.vineyardStage.getStage().show();
@@ -74,7 +72,6 @@ public class VineyardController {
         BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), form.getGrid(this));
         this.vineyardStage = new BuilderStage(form.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
         this.vineyardStage.getStage().show();
-
     }
 
     public List<Vineyard> getList() {

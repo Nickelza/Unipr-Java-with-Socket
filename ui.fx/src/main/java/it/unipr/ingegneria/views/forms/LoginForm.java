@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 
 /**
  * The {@code LoginForm} is the form registration to Login
- *
+ * @see IForm
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
 public class LoginForm implements  IForm<GridPane, LoginController> {

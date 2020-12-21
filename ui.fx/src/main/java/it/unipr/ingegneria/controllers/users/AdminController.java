@@ -14,6 +14,11 @@ import it.unipr.ingegneria.views.views.UserProfile;
 import it.unipr.ingegneria.utils.Type;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * The {@code AdminController} is a  class that is used to manage the admin views of the project
+ * @see UserController
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class AdminController extends UserController {
     private AdminForm form;
     private UserProfile adminProfile;
@@ -27,11 +32,9 @@ public class AdminController extends UserController {
     public AdminController(ClientSocket clientSocket, Menu adminMenu) {
         this.clientSocket = clientSocket;
         this.menu = adminMenu;
-
     }
 
     public void getProfile(User userSignIn) {
-
         if ((menu == null) || (menu.getClass() != AdminMenu.class)) {
             this.menu = new AdminMenu(clientSocket, this, userSignIn);
         }
@@ -43,10 +46,8 @@ public class AdminController extends UserController {
 
     public void register(String name, String surname, String email, String password) {
         try {
-
             String msgSuccess = "Admin registration whit success";
             String msgError = "Error to registration Admin";
-
             Admin user = (Admin) this.clientSocket.createUser(super.createUser(name, surname, email, password, Type.ADMIN));
             System.out.println("ID:" + user.getId() + "email:" + user.getEmail());
             super.getStage().close();
@@ -66,11 +67,8 @@ public class AdminController extends UserController {
     }
 
     public void getForm() {
-
         this.form = new AdminForm();
         super.setGridStage(form.getTitle(), form.getGrid(this));
         super.getStage().show();
     }
-
-
 }

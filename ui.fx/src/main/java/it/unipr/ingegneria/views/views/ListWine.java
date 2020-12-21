@@ -20,7 +20,7 @@ import java.util.List;
  * The {@code ListWine} is a javafx class to output the wines present in the system
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
- * @see ui.views.views.IList
+ * @see  IList
  */
 public class ListWine implements IList<VBox> {
     private VBox winePane;

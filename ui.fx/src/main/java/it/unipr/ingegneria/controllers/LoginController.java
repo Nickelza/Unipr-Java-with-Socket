@@ -13,29 +13,27 @@ import it.unipr.ingegneria.views.forms.LoginForm;
 import it.unipr.ingegneria.utils.ModelRequestType;
 import it.unipr.ingegneria.views.response.Error;
 
+/**
+ * The {@code LoginController} is a class that manage the login fofm
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class LoginController {
     private LoginForm form;
     private BuilderStage loginStage;
     private ClientSocket clientSocket;
     private  Size.Field dim= new Size.Field();
 
-    public LoginController(){
-        this.form =new LoginForm();
 
-
-
-    }
     public LoginController(ClientSocket clientSocket){
         this.form =new LoginForm();
         this.clientSocket=clientSocket;
-
-
     }
     public void register(String email, String password){
         try {
             UserLoginRequest userLoginRequest = new UserLoginRequest().asType(ModelRequestType.LOGIN).setEmail(email).setPassword(password);
             User userAuthenticate = clientSocket.loginUser(userLoginRequest);
-            //this.loginStage.getStage().close();
+            this.loginStage.getStage().close();
             this.clientSocket=new ClientSocket();
             if (userAuthenticate==null)
             {
@@ -54,12 +52,9 @@ public class LoginController {
                 case "EMPLOYEE":
                     new EmployeeController(clientSocket).getProfile(userAuthenticate);
                     break;
-
                 default:
                     System.out.println("I'm the "+userAuthenticate.getUserType());
             }
-
-
         }
         }
         catch (Exception e)
@@ -70,7 +65,5 @@ public class LoginController {
     public void getForm(){
         this.loginStage=new BuilderStage(form.getTitle(), form.getGrid(this), dim.WIDTH, dim.HEIGHT);
         this.loginStage.getStage().show();
-
     }
-
 }

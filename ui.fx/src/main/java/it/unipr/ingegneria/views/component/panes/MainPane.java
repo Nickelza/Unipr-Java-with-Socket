@@ -5,7 +5,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 /**
  * The {@code MainPane} is the pane that combine the menu and the views/form
- * @see ui.views.component.panes.IPane
+ * @see IPane
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
 public class MainPane implements  IPane<BorderPane>{

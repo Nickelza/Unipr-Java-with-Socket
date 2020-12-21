@@ -10,7 +10,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-
+/**
+ * The {@code UserController} is father class that is used to manage the user views of this project
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class UserController {
     private BuilderStage stage;
     public Size.Field dim = new Size.Field();
@@ -27,12 +31,10 @@ public class UserController {
 
     public void setGridStage(String title, GridPane pane) {
         this.stage = new BuilderStage(title, pane, dim.WIDTH, dim.HEIGHT);
-
     }
 
     public void setBorderStage(String title, BorderPane pane) {
         this.stage = new BuilderStage(title, pane, dim.WIDTH, dim.HEIGHT);
-
     }
 
     public CreateUserCriteria createUser(String name, String surname, String email, String password, Type type) {
@@ -51,9 +53,13 @@ public class UserController {
             this.stage.getStage().close();
         }
     }
+
     public void getForm(){}
+
     public void getAll(){}
+
     public void getProfile(User user){}
+
     public Menu getMenu(){
         return menu;
     }

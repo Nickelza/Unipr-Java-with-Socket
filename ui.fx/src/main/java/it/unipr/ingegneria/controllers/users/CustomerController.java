@@ -19,27 +19,26 @@ import javafx.scene.layout.BorderPane;
 
 import java.util.List;
 
+/**
+ * The {@code CustomerController} is a  class that is used to manage the customer views of the project
+ * @see UserController
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class CustomerController extends UserController {
     private ClientForm form;
     private UserProfile clientProfile;
-    private BuilderStage adminStage;
     private ClientSocket clientSocket;
     private Menu menu;
 
+    public CustomerController() { }
+
     public CustomerController(ClientSocket clientSocket) {
-
         this.clientSocket = clientSocket;
-
-
-    }
-    public CustomerController() {
-
     }
 
     public CustomerController(ClientSocket clientSocket, Menu menu) {
         this.clientSocket = clientSocket;
         this.menu = menu;
-
     }
 
     public void getProfile(User userSignIn) {
@@ -55,8 +54,6 @@ public class CustomerController extends UserController {
     public void register(String name, String surname, String email, String password) {
         String msgSuccess = "Client registration whit success";
         String msgError = "Error to registration client";
-
-
         Customer user = (Customer) clientSocket.createUser(super.createUser(name, surname, email, password, Type.CLIENT));
         System.out.println("ID:" + user.getId() + "email:" + user.getEmail());
         super.getStage().close();
@@ -66,7 +63,7 @@ public class CustomerController extends UserController {
             super.setBorderStage(success.getTitle(), mainView);
             super.getStage().show();
         } else {
-            Error error = new Error(form.getTitle(), msgSuccess);
+            Error error = new Error(form.getTitle(), msgError);
             BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), error.getGrid());
             super.setBorderStage(error.getTitle(), mainView);
             super.getStage().show();
@@ -78,7 +75,6 @@ public class CustomerController extends UserController {
         BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), form.getGrid(this));
         super.setBorderStage(form.getTitle(), mainView);
         super.getStage().show();
-
     }
 
     public void getAll() {
@@ -90,7 +86,6 @@ public class CustomerController extends UserController {
         super.getStage().show();
     }
 
-
     public Menu getMenu() {
         return menu;
     }
@@ -100,6 +95,5 @@ public class CustomerController extends UserController {
         myNotify.setMessage(msg);
         super.setStage(new BuilderStage(myNotify.getTitle(), myNotify.getView(this), super.dim.WIDTH, super.dim.HEIGHT));
         super.getStage().show();
-
     }
 }

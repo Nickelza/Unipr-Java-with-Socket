@@ -15,7 +15,7 @@ import java.util.List;
  * The {@code ListCustomer} is a javaFX class to output the clients present in the system
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
- * @see ui.views.views.IList
+ * @see IList
  */
 public class ListCustomer implements IList<VBox> {
     private VBox clientPane;

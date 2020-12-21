@@ -17,21 +17,22 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-
-public class ProvisioningWineController {
+/**
+ * The {@code ProvisioningWineController} is a class that manage the views about the provisioning of wine
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */public class ProvisioningWineController {
     private ProvisioningWineForm form;
     private BuilderStage provisioningStage;
     private ClientSocket clientSocket;
     private Size.Field dim = new Size.Field();
     private Menu menu;
 
-    public ProvisioningWineController(ClientSocket clientSocket, Menu clientMenu, User userAuthenticate) {
+    public ProvisioningWineController(ClientSocket clientSocket, Menu clientMenu) {
         VineyardController vineyardController = new VineyardController(clientSocket);
         this.form = new ProvisioningWineForm(vineyardController);
         this.clientSocket = clientSocket;
-        //this.user=userAuthenticate;
         this.menu = clientMenu;
-
     }
 
     public synchronized void register(String name, int year, String producer, String notes, int quantity, Vineyard vineyard) {
@@ -45,9 +46,7 @@ public class ProvisioningWineController {
                             .setYear(year)
                             .setInQuantity(quantity)
                             .setVineyard(vineyard);
-
             String results = this.clientSocket.createProvisioning(createProvisioningCriteriaWine);
-            System.out.println(results);
             if (results != null) {
                 Platform.runLater(
                         () -> {
@@ -62,7 +61,7 @@ public class ProvisioningWineController {
                 Platform.runLater(
                         () -> {
                             this.provisioningStage.getStage().close();
-                            Error error = new Error(form.getTitle(), msgSuccess);
+                            Error error = new Error(form.getTitle(), msgError);
                             BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), error.getGrid());
                             this.provisioningStage = new BuilderStage(error.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
                             this.provisioningStage.getStage().show();
@@ -74,11 +73,8 @@ public class ProvisioningWineController {
         }
     }
     public  void waitingForRegistration(String name, int year, String producer, String notes, int quantity, Vineyard vineyard){
-        //new Thread(() -> {
         try {
-
             Thread loader = new Thread(() -> {
-
                 Platform.runLater(
                         () -> {
                             this.provisioningStage.getStage().close();
@@ -89,7 +85,6 @@ public class ProvisioningWineController {
                 );
             });
             Thread registration = new Thread(() -> {
-
                 Platform.runLater(
                         () -> {
                             register(name, year, producer, notes, quantity, vineyard);
@@ -106,19 +101,11 @@ public class ProvisioningWineController {
         {
             System.out.println(e);
         }
-           /* try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        }).start();*/
     }
     public void getForm() {
         BorderPane mainView = new MainPane().setMainView(this.menu.getMenu(), form.getGrid(this));
         this.provisioningStage = new BuilderStage(form.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
         this.provisioningStage.getStage().show();
-
     }
 
     public Stage getStage() {

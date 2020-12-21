@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import java.util.List;
 /**
  * The {@code ListVineyard} is a javafx class to output the vineyards present in the system
- * @see ui.views.views.IList
+ * @see  IList
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
 public class ListVineyard implements  IList<VBox>{

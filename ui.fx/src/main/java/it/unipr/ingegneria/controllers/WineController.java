@@ -19,23 +19,21 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * The {@code WineController} is a class that manage the views about the Wine
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class WineController {
-    //private SearchWineByName searchByName;
     private BuilderStage wineStage;
     private ClientSocket clientSocket;
     private Size.Field dim = new Size.Field();
     private Menu menu;
 
-    public WineController(ClientSocket clientSocket) {
-        this.clientSocket = clientSocket;
-
-
-    }
 
     public WineController(ClientSocket clientSocket, Menu clientMenu) {
         this.clientSocket = clientSocket;
         this.menu = clientMenu;
-
     }
 
     public Stage getStage() {
@@ -55,8 +53,7 @@ public class WineController {
             this.wineStage = new BuilderStage(searchForm.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
             this.wineStage.getStage().show();
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.println(e.toString());
         }
 
@@ -69,16 +66,12 @@ public class WineController {
                 WineSearchCriteria searchAllWinesCriteriaByName = new WineSearchCriteria().setName(input);
                 wines = clientSocket.searchWines(searchAllWinesCriteriaByName);
             }
-            else if(type == TypeSearch.BY_YEAR)
-                {
-                System.out.println(Integer.parseInt(input));
+            else if(type == TypeSearch.BY_YEAR) {
                 int value = Integer.parseInt(input.trim());
                 WineSearchCriteria searchAllWinesCriteriaByYear = new WineSearchCriteria().setYear(value);
-                 wines = clientSocket.searchWines(searchAllWinesCriteriaByYear);
-                System.out.println(wines);
+                wines = clientSocket.searchWines(searchAllWinesCriteriaByYear);
             }
-            else
-            {
+            else {
                 WineSearchCriteria searchAllWinesCriteria = new WineSearchCriteria().setSelectAll(true);
                 wines = clientSocket.searchWines(searchAllWinesCriteria);
 
@@ -89,8 +82,7 @@ public class WineController {
             this.wineStage = new BuilderStage(allWines.getTitle(), mainView, dim.WIDTH, dim.HEIGHT);
             this.wineStage.getStage().show();
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.println(e.toString());
         }
     }

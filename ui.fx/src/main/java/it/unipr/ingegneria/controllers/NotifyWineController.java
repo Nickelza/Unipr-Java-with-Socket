@@ -4,11 +4,15 @@ import it.unipr.ingegneria.controllers.users.CustomerController;
 import it.unipr.ingegneria.controllers.users.EmployeeController;
 import it.unipr.ingegneria.models.UserOrder;
 import it.unipr.ingegneria.models.utils.TypeNotify;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The {@code NotifyWineController} is a class that manage the popup about the notify of wine
+ *
+ * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
+ */
 public class NotifyWineController {
     private static List<UserOrder> waitingForAvaibility=new ArrayList<UserOrder>();
     private static Map<String, Long> wineAvaible;
@@ -16,7 +20,6 @@ public class NotifyWineController {
     private boolean notify;
 
     public NotifyWineController() { }
-
 
     public NotifyWineController setWaitingForAvaibility(UserOrder order) {
         this.waitingForAvaibility.add(order);
@@ -31,7 +34,7 @@ public class NotifyWineController {
         NotifyWineController.wineAvaible = order;
         return this;
     }
-    public  void setUp()
+    private void setUp()
     {
         this.message="";
         this.notify=false;
@@ -41,7 +44,6 @@ public class NotifyWineController {
         try {
             this.setUp();
             for (Map.Entry<String, Long> entry : wineAvaible.entrySet()) {
-                System.out.println(entry.getKey() + "/" + entry.getValue());
                 for (UserOrder order : waitingForAvaibility) {
                     System.out.println(order.getWineName() + "-" + order.getOrderQty());
                     if (entry.getKey().equals(order.getWineName())) {
@@ -70,7 +72,6 @@ public class NotifyWineController {
                         this.message += "A client request " + order.getOrderQty() + " bottle of wine " + order.getWineName() + "\n";
                         this.notify=true;
                     }
-
             }
             else {
                 for (Map.Entry<String, Long> entry : wineAvaible.entrySet()) {
@@ -90,7 +91,7 @@ public class NotifyWineController {
         }
 
     }
-    public void showNotify(TypeNotify type)
+    private void showNotify(TypeNotify type)
     {
         if (notify) {
             if (type == TypeNotify.REQUEST_PROVISIONING) {

@@ -94,10 +94,6 @@ public class AdminMenu extends Menu implements IMenu<AdminItems> {
                 wine.getAll(TypeSearch.ALL,"");
                 super.setMenuStage(wine.getStage());
                 break;
-            case LOGOUT:
-                super.logout(userAuthenticate);
-                super.closeStage(this.myController);
-                break;
             default:
                 LOGGER.info("Menu item don't present");
                 break;

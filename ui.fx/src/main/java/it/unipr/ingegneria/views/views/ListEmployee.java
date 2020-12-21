@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * The {@code ListEmployee } is a javaFX class to output the employees present in the system
- * @see ui.views.views.IList
+ * @see IList
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
 public class ListEmployee implements  IList<VBox>{

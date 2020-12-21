@@ -22,16 +22,6 @@ public class HelloFX extends Application {
     private static final int DPORT = 4446;
     private static final int SIZE = 1024;
 
-
-    //The idea is to have a background thread that listens to a broadcast message sent by the store when the wine returns to the warehouse
-    // the remaining concept is to integrate with a part of JavaFX that takes into memory orders not successful for various reasons
-    // (mainly Generic Exception or Out of Stock Exception )
-
-    // Another note, when you make a massive insertion of wine (> = 20)
-    // not being an asynchronous operation the client (and consequently fx) remains "blocked" because insert each row one by one
-    // so it would be advisable to insert a loader until it has returned any response
-
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {

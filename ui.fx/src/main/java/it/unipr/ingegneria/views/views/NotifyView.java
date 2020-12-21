@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 
 
 /**
- * The {@code VineyardForm} is the form registration to vineyard
+ * The {@code NotifyView} is a popup that is show when a new notify arrive
 *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */

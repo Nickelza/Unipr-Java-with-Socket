@@ -15,7 +15,7 @@ import java.util.List;
  * The {@code ListOrder} is a javafx class to output the order present in the system
  *
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
- * @see ui.views.views.IList
+ * @see  IList
  */
 public class ListOrder implements IList<VBox> {
 

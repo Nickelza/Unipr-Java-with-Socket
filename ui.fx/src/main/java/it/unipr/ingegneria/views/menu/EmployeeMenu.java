@@ -38,7 +38,6 @@ public class EmployeeMenu extends  Menu implements IMenu<EmployeeItems> {
     @Override
     public VBox getMenu(){
         VBox vbox=new VBox();
-        //vbox.setPrefWidth(100);
         for (EmployeeItems i: EmployeeItems.values()) {
             vbox.getChildren().add(item(i));
         }
@@ -68,7 +67,7 @@ public class EmployeeMenu extends  Menu implements IMenu<EmployeeItems> {
                 break;
             case PROVISIONING_WINE:
                 super.closeStage(this.myController);
-                ProvisioningWineController provisioningWine=new ProvisioningWineController(super.getClientSocket(), this, userAuthenticate);
+                ProvisioningWineController provisioningWine=new ProvisioningWineController(super.getClientSocket(), this);
                 provisioningWine.getForm();
                 this.wineAvailable.requestOfProvisioning();
                 super.setMenuStage(provisioningWine.getStage());
@@ -79,10 +78,6 @@ public class EmployeeMenu extends  Menu implements IMenu<EmployeeItems> {
                 order.send();
                 this.wineAvailable.requestOfProvisioning();
                 super.setMenuStage(order.getStage());
-                break;
-            case LOGOUT:
-                super.logout(userAuthenticate);
-                super.closeStage(this.myController);
                 break;
             default:
                 LOGGER.info("Menu item don't present");

@@ -5,7 +5,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * The {@code ListPane} is the pane for the list/menu views
- * @see ui.views.component.panes.IPane
+ * @see IPane
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
 public class ListPane  implements IPane<VBox>{

@@ -4,7 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 /**
  * The {@code FormPane} is the pane for the form views and profile views
- * @see ui.views.component.panes.IPane
+ * @see IPane
  * @author Ruslan Vasyunin, Francesca Rossi, Everton Ejike
  */
 public class FormPane implements IPane<GridPane>{
