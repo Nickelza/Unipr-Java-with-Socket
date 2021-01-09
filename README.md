@@ -13,8 +13,9 @@
 
 # Credential phpMyAdmin
 
+Server:db
 User: root 
-Password: helloworld
+Password: my_secret_password
 
 
 #Install Maven 
