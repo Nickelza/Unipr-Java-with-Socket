@@ -22,7 +22,7 @@ public class WarehouseDAO implements IOperations<Warehouse> {
     private static WarehouseDAO INSTANCE = null;
     private static final Logger LOGGER = Logger.getLogger(WineDAO.class);
 
-    public WarehouseDAO() {
+    private WarehouseDAO() {
         conn = DBContext.getConnection();
     }
 

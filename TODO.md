@@ -1,4 +1,4 @@
-#TODO TEST
+#TODO TEST -> Completato
 0. Fare tutte le classi DAO
 1. WarehouseDAO-->checkAvailability [completato]
 2. SearchRequestManager-->fillWithResponse[completato]
